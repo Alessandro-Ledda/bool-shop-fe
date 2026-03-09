@@ -16,7 +16,7 @@ function ListProducts() {
     // creazione funzione per rachiudere chiamata
     function fetchProduct() {
 
-        axios.get(endpoint)
+        axios.get(`${endpoint}/api/products`)
             .then(res => { setProducts(res.data); })
             .catch(err => {
                 console.log(err);
