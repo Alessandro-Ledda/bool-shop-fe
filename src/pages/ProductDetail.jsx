@@ -10,7 +10,7 @@ const endPoint = "http://localhost:3000/api/products"
 export default function ProductDetail() {
 
     //recupero id di ref attraverso params
-    const { slug } = useParams();
+    const { id } = useParams();
 
     //setto var di stato per gestione prodotto
     const [product, setProduct] = useState({});
@@ -18,7 +18,7 @@ export default function ProductDetail() {
     //setto funzione per gestione chiamata alla show del db
     function fetchProduct() {
         //chiamata
-        axios.get(`${endPoint}/${slug}`)
+        axios.get(`${endPoint}/${id}`)
             .then(res => { setProduct(res.data); })
             .catch(err => {
                 console.log(err);
@@ -27,7 +27,7 @@ export default function ProductDetail() {
     }
 
     //richiamo effect per il controllo su effetti collaterali
-    useEffect(fetchProduct, []);
+    useEffect(fetchProduct, [id]);
 
     return (
         <header id="card-product">

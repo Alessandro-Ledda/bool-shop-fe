@@ -4,7 +4,7 @@ import ProductDetail from "../pages/ProductDetail";
 export default function ProductCard({ productProp }) {
     return (
         <div className="card border border-3 col-4 border-primary-subtle bg-secondary-subtle">
-            <Link to={`/products/${productProp.slug}`}>
+            <Link to={`/products/${productProp.id}`}>
                 <figure className="my-figure">
                     <img src={productProp.image_url} alt={productProp.name} />
                 </figure>
