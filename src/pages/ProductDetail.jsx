@@ -10,7 +10,7 @@ const endPoint = "http://localhost:3000/api/products"
 export default function ProductDetail() {
 
     //recupero id di ref attraverso params
-    const { id } = useParams();
+    const { slug } = useParams();
 
     //setto var di stato per gestione prodotto
     const [product, setProduct] = useState({});
@@ -18,7 +18,7 @@ export default function ProductDetail() {
     //setto funzione per gestione chiamata alla show del db
     function fetchProduct() {
         //chiamata
-        axios.get(`${endPoint}/${id}`)
+        axios.get(`${endPoint}/${slug}`)
             .then(res => { setProduct(res.data); })
             .catch(err => {
                 console.log(err);
