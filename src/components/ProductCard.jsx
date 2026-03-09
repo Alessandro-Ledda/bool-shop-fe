@@ -1,14 +1,20 @@
+import { Link } from "react-router-dom";
+import ProductDetail from "../pages/ProductDetail";
 
 export default function ProductCard({ productProp }) {
     return (
         <div className="card border border-3 col-4 border-primary-subtle bg-secondary-subtle">
-            <figure className="my-figure">
-                <img src={productProp.image_url} alt={productProp.name} />
-            </figure>
-            <figcaption>
-                <div>{productProp.price}</div>
-                <button className="btn">Aggiungi al carrello</button>
-            </figcaption>
-        </div>
+            <Link to={`/products/${productProp.id}`}>
+                <figure className="my-figure">
+                    <img src={productProp.image_url} alt={productProp.name} />
+                </figure>
+                <figcaption>
+                    <div className="product-title">{productProp.name}</div>
+                </figcaption>
+            </Link>
+            <div className="product-price">{productProp.price}</div>
+            <button className="btn">Aggiungi al carrello</button>
+
+        </div >
     )
 }
