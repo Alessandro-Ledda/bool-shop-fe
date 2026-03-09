@@ -30,14 +30,7 @@ export default function ProductDetail() {
     useEffect(fetchProduct, [id]);
 
     return (
-        <header id="card-product">
-            <div className="page-container">
-                <img src={product.image} alt={product.name} />
-            </div>
-            <h1>{product.name}</h1>
-            <p>{product.description}</p>
-            <Link className="btn" to="/">Ritorna alla Home</Link>
-        </header>
+        <CardDetail product={product} />
     )
 
 }
