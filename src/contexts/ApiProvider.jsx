@@ -32,6 +32,6 @@ export function ApiProvider({ children }) {
 }
 
 export function useApi() {
-    const context = ApiContext;
+    const context = useContext(ApiContext);
     return context;
 }
