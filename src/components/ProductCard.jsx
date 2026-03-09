@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ProductDetail from "../pages/ProductDetail";
+
 
 export default function ProductCard({ productProp }) {
     return (

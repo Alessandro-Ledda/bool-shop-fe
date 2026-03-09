@@ -1,11 +1,7 @@
-// import axios per chiamata al db
-import axios from "axios";
-// import state e effect
-import { useState, useEffect } from "react";
 // import card del singolo prodotto
 import ProductCard from "./ProductCard";
-// salviamo in una costante l'endpoint
-const endpoint = import.meta.env.VITE_APP_URL;
+
+
 
 import { useApi } from "../contexts/ApiProvider";
 
