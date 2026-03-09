@@ -1,5 +1,5 @@
 // import axios per chiamata al db
-import { axios } from "axios";
+import axios from "axios";
 // import state e effect
 import { useState, useEffect } from "react";
 // import card del singolo prodotto
