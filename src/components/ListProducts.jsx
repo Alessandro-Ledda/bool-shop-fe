@@ -7,22 +7,12 @@ import ProductCard from "./ProductCard";
 // salviamo in una costante l'endpoint
 const endpoint = import.meta.env.VITE_APP_URL;
 
+import { useApi } from "../contexts/ApiProvider";
 
 function ListProducts() {
 
-    // settagio var di stato per gestione prodotti
-    const [products, setProducts] = useState([]);
+    const { products } = useApi();
 
-    // creazione funzione per rachiudere chiamata
-    function fetchProduct() {
-
-        axios.get(`${endpoint}api/products`)
-            .then(res => { setProducts(res.data) })
-            .catch(err => {
-                console.log(err);
-            })
-            .finally()
-    }
 
     // funzione per renderizzare i prodotti
     function renderProducts() {
@@ -34,8 +24,8 @@ function ListProducts() {
             )
         })
     }
-    // richiamo effect per eventuali effetti collaterali
-    useEffect(fetchProduct, [])
+
+    if (!products.length) return <div>Nessun prodotto</div>;
 
     return (
         <>
