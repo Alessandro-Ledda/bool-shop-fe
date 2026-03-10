@@ -82,9 +82,9 @@ header {
 
 .hero-carousel {
   width: 100%;
-  height: calc(100vh - 80px);
+  height: 100vh;
   overflow: hidden;
-  padding-top: 50px;
+  padding-top: 150px;
 }
 
 .hero-carousel .carousel-item {
