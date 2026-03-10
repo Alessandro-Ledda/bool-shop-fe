@@ -15,9 +15,9 @@ ul {
   list-style: none;
 }
 
-img {
+/* img {
   max-width: 400px;
-}
+} */
 
 /* header section */
 
@@ -33,7 +33,7 @@ header {
 }
 
 /* hero sectin */
-.hero {
+/* .hero {
   height: 90vh;
   background-image: url("./../public/hero-boolshop.jpg");
   background-size: cover;
@@ -48,7 +48,7 @@ header {
 .hero-content {
   color: white;
   text-align: center;
-}
+} */
 
 /* HEADER */
 .banner {
