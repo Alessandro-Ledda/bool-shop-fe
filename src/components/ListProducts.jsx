@@ -63,16 +63,6 @@ function ListProducts() {
       </div>
     );
   }
-
-  if (!products.length) return <div>Nessun prodotto</div>;
-
-  return (
-    <>
-      <h2 className="subtitle">Product List</h2>
-
-      <div className="container">{renderProducts()}</div>
-    </>
-  );
 }
 
 export default ListProducts;
