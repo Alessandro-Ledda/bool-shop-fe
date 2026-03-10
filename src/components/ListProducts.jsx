@@ -28,9 +28,7 @@ function ListProducts() {
             <h2>Product List</h2>
 
             <div className="container">
-                <div className="content">
-                    {renderProducts()}
-                </div>
+                {renderProducts()}
             </div>
         </>
     )

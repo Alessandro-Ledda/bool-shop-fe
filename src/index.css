@@ -35,7 +35,7 @@ header {
 /* hero sectin */
 .hero {
   height: 90vh;
-  background-image: url("./../public/hero-boolshop.jpg");
+  background-image: url("./assets/hero-boolshop.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
