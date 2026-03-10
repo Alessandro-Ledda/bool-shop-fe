@@ -2,7 +2,7 @@ import { Carousel } from "react-bootstrap";
 
 function HeroCarousel() {
   return (
-    <Carousel>
+    <Carousel className="padding">
       <Carousel.Item>
         <img
           className="d-block w-100"

@@ -15,10 +15,6 @@ ul {
   list-style: none;
 }
 
-/* img {
-  max-width: 400px;
-} */
-
 /* header section */
 
 header {
@@ -31,24 +27,6 @@ header {
   gap: 30px;
   width: 100%;
 }
-
-/* hero sectin */
-/* .hero {
-  height: 90vh;
-  background-image: url("./assets/hero-boolshop.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-content {
-  color: white;
-  text-align: center;
-} */
 
 /* HEADER */
 .banner {
@@ -67,4 +45,14 @@ header {
   margin-top: 40px;
   z-index: 9998;
   box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+img {
+  max-height: 700px;
+  object-fit: cover;
+}
+
+.padding {
+  padding-top: 30px;
+  min-height: auto;
 }
