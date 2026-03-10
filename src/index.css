@@ -55,12 +55,16 @@ header {
   background-color: #f09226;
   font-family:
     "Poppins", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
 }
 
 .main-header {
   background-color: #111111fb;
   position: fixed;
   width: 100%;
-  z-index: 9999;
+  margin-top: 40px;
+  z-index: 9998;
   box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
 }
