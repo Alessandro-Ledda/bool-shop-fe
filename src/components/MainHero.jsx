@@ -10,8 +10,11 @@ function HeroCarousel() {
           alt="Prima slide"
         />
         <Carousel.Caption>
-          <h3>Promo Estate</h3>
-          <p>Scopri la nostra collezione di attrezzi fitness</p>
+          <h3>Lat Machine Professionale</h3>
+          <p>
+            Massima efficacia per dorsali e spalle, occupando pochissimo spazio
+            a casa.
+          </p>
         </Carousel.Caption>
       </Carousel.Item>
 
@@ -22,8 +25,11 @@ function HeroCarousel() {
           alt="Seconda slide"
         />
         <Carousel.Caption>
-          <h3>Offerta Speciale</h3>
-          <p>Spedizione gratuita su ordini sopra i 50&euro;</p>
+          <h3>Home Gym Compatta</h3>
+          <p>
+            Tutti gli esercizi in un unico macchinario, massimi risultati con
+            minima ingombro.
+          </p>
         </Carousel.Caption>
       </Carousel.Item>
 
@@ -34,8 +40,11 @@ function HeroCarousel() {
           alt="Terza slide"
         />
         <Carousel.Caption>
-          <h3>Nuovi Arrivi</h3>
-          <p>Attrezzi di qualità per la tua palestra in casa</p>
+          <h3>Set di Manubri Regolabili</h3>
+          <p>
+            Allenamento completo in poco spazio, qualità professionale per ogni
+            esercizio.
+          </p>
         </Carousel.Caption>
       </Carousel.Item>
 
@@ -46,8 +55,11 @@ function HeroCarousel() {
           alt="Prima slide"
         />
         <Carousel.Caption>
-          <h3>Promo Estate</h3>
-          <p>Scopri la nostra collezione di attrezzi fitness</p>
+          <h3>Bilanciere Professionale per Squat</h3>
+          <p>
+            : Resistente e compatto, ideale per massimizzare i risultati senza
+            sacrificare spazio.
+          </p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
