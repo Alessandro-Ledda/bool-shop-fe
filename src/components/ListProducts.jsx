@@ -48,9 +48,10 @@ function ListProducts() {
   return (
     <>
       <div className="container mt-5">
-        <h2 className="mb-5">Discount products</h2>
+        <h2 className="pt-5">Discount products</h2>
 
         <Swiper
+          className="p-5"
           modules={[Navigation]}
           navigation
           spaceBetween={20}
@@ -66,9 +67,10 @@ function ListProducts() {
       </div>
 
       <div className="container mt-5">
-        <h2 className="mb-5">Latest arrivals</h2>
+        <h2 className="pt-5">Latest arrivals</h2>
 
         <Swiper
+          className="p-5"
           modules={[Navigation]}
           navigation
           spaceBetween={20}
