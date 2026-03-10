@@ -23,23 +23,43 @@ function ListProducts() {
   if (!products.length) return <div>Nessun prodotto</div>;
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-5">Product List</h2>
+    <>
+      <div className="container mt-5">
+        <h2 className="mb-5">Discount products</h2>
 
-      <Swiper
-        modules={[Navigation]}
-        navigation
-        spaceBetween={20}
-        slidesPerView={4} // quante card si vedono contemporaneamente
-        breakpoints={{
-          320: { slidesPerView: 1 }, // mobile
-          768: { slidesPerView: 2 }, // tablet
-          1024: { slidesPerView: 4 }, // desktop
-        }}
-      >
-        {renderProducts()}
-      </Swiper>
-    </div>
+        <Swiper
+          modules={[Navigation]}
+          navigation
+          spaceBetween={20}
+          slidesPerView={4} // quante card si vedono contemporaneamente
+          breakpoints={{
+            320: { slidesPerView: 1 }, // mobile
+            768: { slidesPerView: 2 }, // tablet
+            1024: { slidesPerView: 4 }, // desktop
+          }}
+        >
+          {renderProducts()}
+        </Swiper>
+      </div>
+
+      <div className="container mt-5">
+        <h2 className="mb-5">Latest arrivals</h2>
+
+        <Swiper
+          modules={[Navigation]}
+          navigation
+          spaceBetween={20}
+          slidesPerView={4} // quante card si vedono contemporaneamente
+          breakpoints={{
+            320: { slidesPerView: 1 }, // mobile
+            768: { slidesPerView: 2 }, // tablet
+            1024: { slidesPerView: 4 }, // desktop
+          }}
+        >
+          {renderProducts()}
+        </Swiper>
+      </div>
+    </>
   );
 }
 
