@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 
 function MainHeader() {
     return (
-        <header>
-            <Link to={"/"}><img src="src\assets\boolshop-logo.svg" alt="" /></Link>
+        <header className="main-header">
+            <Link to={"/"}><img src="src\assets\boolshop-logo-2nd.svg" alt="" /></Link>
             <nav className="navbar">
                 <ul>
                     <li><Link>WhishList</Link></li>

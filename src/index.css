@@ -49,3 +49,11 @@ header {
   color: white;
   text-align: center;
 }
+
+.main-header {
+  background-color: #111111fb;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
