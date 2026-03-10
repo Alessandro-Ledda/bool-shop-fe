@@ -2,11 +2,11 @@ import { Carousel } from "react-bootstrap";
 
 function HeroCarousel() {
   return (
-    <Carousel className="padding">
+    <Carousel className="hero-carousel">
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="../../public/hero1.jpg"
+          src="hero1.jpg"
           alt="Prima slide"
         />
         <Carousel.Caption>
@@ -21,7 +21,7 @@ function HeroCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="../../public/hero2.webp"
+          src="hero2.webp"
           alt="Seconda slide"
         />
         <Carousel.Caption>
@@ -36,7 +36,7 @@ function HeroCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="../../public/hero3.jpg"
+          src="hero3.jpg"
           alt="Terza slide"
         />
         <Carousel.Caption>
@@ -51,13 +51,13 @@ function HeroCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="../../public/hero4.webp"
+          src="hero4.webp"
           alt="Prima slide"
         />
         <Carousel.Caption>
           <h3>Bilanciere Professionale per Squat</h3>
           <p>
-            : Resistente e compatto, ideale per massimizzare i risultati senza
+            Resistente e compatto, ideale per massimizzare i risultati senza
             sacrificare spazio.
           </p>
         </Carousel.Caption>
