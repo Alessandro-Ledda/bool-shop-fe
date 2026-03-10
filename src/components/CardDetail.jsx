@@ -4,17 +4,19 @@ export default function CardDetail({ product }) {
     return (
         <div id="card-product">
             <div className="page-container">
-                <img src={product.image_url} alt={product.name} />
+                <img className="img-detail" src={product.image_url} alt={product.name} />
             </div>
-            <h1>{product.name}</h1>
-            <p>{product.description}</p>
-            <p>{product.details}</p>
-            <div>{product.price}</div>
-            <p>{product.model}</p>
-            <p>{product.dimension}</p>
-            <p>{product.warranty}</p>
-            <p>{product.weight}</p>
-            <Link className="btn" to="/">Ritorna alla Home</Link>
+            <div className="product-detail">
+                <h1>{product.name}</h1>
+                <p>{product.description}</p>
+                <p>DESCRIZIONE: {product.details}</p>
+                <p>PREZZO: {product.price}</p>
+                <p>MODELLO: {product.model}</p>
+                <p>DIMENSIONI: {product.dimensions}</p>
+                <p>GARANZIA: {product.warranty}</p>
+                <p>PESO: {product.weight}</p>
+                <Link className="btn btn-primary " to="/">Ritorna alla Home</Link>
+            </div>
         </div>
     )
 }

@@ -82,11 +82,13 @@ header {
   margin: 0 auto;
 }
 
+/* carousel hero */
+
 .hero-carousel {
   width: 100%;
-  height: calc(100vh - 80px);
+  height: 100vh;
   overflow: hidden;
-  padding-top: 50px;
+  padding-top: 100px;
 }
 
 .hero-carousel .carousel-item {
@@ -97,6 +99,22 @@ header {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* product-detail section */
+
+#card-product {
+  padding-top: 200px;
+  padding-bottom: 150px;
+  display: flex;
+  width: 1300px;
+  margin: 0 auto;
+}
+
+.img-detail {
+  width: auto;
+  height: 500px;
+  margin-right: 50px;
 }
 
 /* general */
@@ -163,4 +181,34 @@ main {
 .card-link:hover .card-button {
   color: #fff;
   background: #5372f0;
+}
+
+.my-search-bar {
+  width: 400px !important;
+  margin-right: 300px;
+  color: white !important;
+  border: 1px solid rgba(128, 128, 128, 0.2) !important;
+  border-radius: 10px;
+  padding: 5px !important;
+}
+
+.gym-footer {
+  background-color: #131313f8;
+  margin-top: -100px;
+}
+
+.footer-title {
+  color: #f09226;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.footer-text {
+  color: white;
+}
+
+.info-section {
+  background-color: #11111185;
 }
