@@ -68,3 +68,34 @@ header {
   z-index: 9998;
   box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
 }
+
+/* card list section */
+
+.subtitle {
+  margin: 50px 20px;
+}
+
+.card-list {
+  width: 400px;
+  height: 500px;
+}
+
+.img-card-list {
+  width: 250px;
+  height: 250px;
+}
+
+.list-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-around;
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+/* footer section */
+.container-footer {
+  width: 1200px;
+  margin: 0 auto;
+}

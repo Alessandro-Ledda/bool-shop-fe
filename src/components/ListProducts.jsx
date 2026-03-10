@@ -12,20 +12,22 @@ function ListProducts() {
 
     // funzione per renderizzare i prodotti
     function renderProducts() {
-        return products.map(product => {
-            return (
-                <div className="wrap" key={product.id}>
-                    <ProductCard productProp={product} />
-                </div>
-            )
-        })
+        return (
+            <div className="container list-card">
+                {products.map(product => (
+                    <div className="wrap" key={product.id}>
+                        <ProductCard productProp={product} />
+                    </div>
+                ))}
+            </div>
+        );
     }
 
     if (!products.length) return <div>Nessun prodotto</div>;
 
     return (
         <>
-            <h2>Product List</h2>
+            <h2 className="subtitle">Product List</h2>
 
             <div className="container">
                 {renderProducts()}

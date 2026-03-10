@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 
 export default function ProductCard({ productProp }) {
     return (
-        <div className="card card border border-3 col-4 border-primary-subtle bg-secondary-subtle">
+        <div className="card-list card ">
             <Link to={`/products/${productProp.slug}`}>
                 <figure className="my-figure">
-                    <img src={productProp.image_url} alt={productProp.name} />
+                    <img className="img-card-list" src={productProp.image_url} alt={productProp.name} />
                 </figure>
                 <figcaption>
                     <div className="product-title">{productProp.name}</div>
                 </figcaption>
             </Link>
             <div className="product-price">{productProp.price}</div>
-            <button className="btn">Aggiungi al carrello</button>
+            <button className="btn btn-primary">Aggiungi al carrello</button>
 
         </div >
     )
