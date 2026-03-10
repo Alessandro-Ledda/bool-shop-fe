@@ -18,3 +18,34 @@ ul {
 img {
   max-width: 400px;
 }
+
+/* header section */
+
+header {
+  display: flex;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  width: 100%;
+}
+
+/* hero sectin */
+.hero {
+  height: 90vh;
+  background-image: url("./../public/hero-boolshop.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  color: white;
+  text-align: center;
+}

@@ -10,6 +10,10 @@ export default function CardDetail({ product }) {
             <p>{product.description}</p>
             <p>{product.details}</p>
             <div>{product.price}</div>
+            <p>{product.model}</p>
+            <p>{product.dimension}</p>
+            <p>{product.warranty}</p>
+            <p>{product.weight}</p>
             <Link className="btn" to="/">Ritorna alla Home</Link>
         </div>
     )

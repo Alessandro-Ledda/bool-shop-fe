@@ -6,14 +6,11 @@ function MainHeader() {
         <header>
             <Link className="logo">BoolShop</Link>
             <nav className="navbar">
-                <div className="container">
-                    <div className="navigation">
-                        <ul>
-                            <li><Link>homePage</Link></li>
-                            <li><Link>All product</Link></li>
-                        </ul>
-                    </div>
-                </div>
+                <ul>
+                    <li><Link to={"/"}>homePage</Link></li>
+                    <li><Link>WhishList</Link></li>
+                    <li><Link>Cart</Link></li>
+                </ul>
             </nav>
         </header>
     )
