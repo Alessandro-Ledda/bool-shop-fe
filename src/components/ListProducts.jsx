@@ -11,8 +11,8 @@ import "swiper/css/navigation";
 function ListProducts() {
   const { products } = useApi();
 
-  // funzione per renderizzare i prodotti come slide
-  function renderProducts() {
+  // funzione per renderizzare i prodotti con discount come slide
+  function renderDiscountProducts() {
     return products
       .filter((product) => product.discount_percentage !== null)
       .map((product) => (
@@ -20,6 +20,27 @@ function ListProducts() {
           <ProductCard productProp={product} />
         </SwiperSlide>
       ));
+  }
+
+  // funzione per renderizzare i prodotti ultimi arrivi
+  function renderLatestArrivals() {
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1); // data di un mese fa
+
+    const latest = products
+      .filter((product) => {
+        // controlla che created_at esista e sia nell'ultimo mese
+        return (
+          product.created_date && new Date(product.created_date) >= oneMonthAgo
+        );
+      })
+      .map((product) => (
+        <SwiperSlide key={product.id}>
+          <ProductCard productProp={product} />
+        </SwiperSlide>
+      ));
+
+    return latest;
   }
 
   if (!products.length) return <div>Nessun prodotto</div>;
@@ -40,7 +61,7 @@ function ListProducts() {
             1024: { slidesPerView: 4 }, // desktop
           }}
         >
-          {renderProducts()}
+          {renderDiscountProducts()}
         </Swiper>
       </div>
 
@@ -58,7 +79,7 @@ function ListProducts() {
             1024: { slidesPerView: 4 }, // desktop
           }}
         >
-          {renderProducts()}
+          {renderLatestArrivals()}
         </Swiper>
       </div>
     </>
