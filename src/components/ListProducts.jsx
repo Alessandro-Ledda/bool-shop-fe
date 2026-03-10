@@ -13,11 +13,13 @@ function ListProducts() {
 
   // funzione per renderizzare i prodotti come slide
   function renderProducts() {
-    return products.map((product) => (
-      <SwiperSlide key={product.id}>
-        <ProductCard productProp={product} />
-      </SwiperSlide>
-    ));
+    return products
+      .filter((product) => product.discount_percentage !== null)
+      .map((product) => (
+        <SwiperSlide key={product.id}>
+          <ProductCard productProp={product} />
+        </SwiperSlide>
+      ));
   }
 
   if (!products.length) return <div>Nessun prodotto</div>;
