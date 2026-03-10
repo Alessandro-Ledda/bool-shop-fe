@@ -125,3 +125,24 @@ main {
   border-radius: 10px;
   padding: 5px !important;
 }
+
+.gym-footer {
+  background-color: #131313f8;
+  margin-top: -100px;
+}
+
+.footer-title {
+  color: #f09226;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.footer-text {
+  color: white;
+}
+
+.info-section {
+  background-color: #11111185;
+}
