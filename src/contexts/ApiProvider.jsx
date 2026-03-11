@@ -7,6 +7,7 @@ const ApiContext = createContext();
 export function ApiProvider({ children }) {
 
     const [products, setProducts] = useState([]);
+    // variabile di stato per la ricerca
     const [search, setSearch] = useState("");
 
     function fetchProduct() {
@@ -26,6 +27,7 @@ export function ApiProvider({ children }) {
 
 
     return (
+        // passo products con array dei prodotti e search per ricerca
         <ApiContext.Provider value={{ products, setProducts, search, setSearch }}>
             {children}
         </ApiContext.Provider>

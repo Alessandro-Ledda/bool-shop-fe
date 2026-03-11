@@ -29,7 +29,7 @@ function MainHeader() {
             </div>
             <header className="main-header justify-content-between align-items-center">
                 <Link to={"/"}><img src={logo} alt="" /></Link>
-                <form onSubmit={handleSearch}>
+                <form onChange={handleSearch}>
                     <input type="text"
                         className="my-search-bar form-control-plaintext "
                         placeholder="Cerca il tuo prodotto"

@@ -36,7 +36,7 @@ export default function SearchPage() {
                     <img className="img-detail w-100" src={product.image_url} alt={product.name} />
                     <h1>{product.name}</h1>
                     <p>{product.description}</p>
-                    <p>DESCRIZIONE: {product.details}</p>
+                    <p>{product.price}</p>
 
                 </div>
 
