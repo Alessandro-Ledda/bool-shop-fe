@@ -3,6 +3,8 @@ import DefaultLayout from "./layout/DefaultLayout"
 import Homepage from "./pages/Homepage"
 import ProductDetail from "./pages/ProductDetail"
 import { ApiProvider } from "./contexts/ApiProvider"
+import CartPage from "./pages/CartPage"
+import WishList from "./pages/WishList"
 
 
 function App() {
@@ -14,6 +16,8 @@ function App() {
           <Route element={<DefaultLayout />}>
             <Route index element={<Homepage />} />
             <Route path="products/:slug" element={<ProductDetail />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/wishlist" element={<WishList />} />
           </Route>
         </Routes>
       </ApiProvider>
