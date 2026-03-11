@@ -262,3 +262,14 @@ a {
 #search-card-list {
   padding-top: 300px;
 }
+
+.search-card {
+  border: 2px solid #f09226;
+  border-radius: 10px;
+  background-color: white;
+
+}
+
+.search-price {
+  color: #f09226;
+}

@@ -15,7 +15,11 @@ function MainHeader() {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        navigate("/search");
+        const searchTrim = search.trim();
+
+        if (searchTrim) {
+            navigate("/search");
+        }
     }
 
 

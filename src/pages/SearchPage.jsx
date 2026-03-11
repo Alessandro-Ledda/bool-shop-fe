@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useApi } from "../contexts/ApiProvider";
+import { Link } from "react-router-dom";
 const endpoint = import.meta.env.VITE_APP_URL;
 
 
@@ -28,15 +29,16 @@ export default function SearchPage() {
 
     return (
 
-        <div id="search-card-list" className="row">
+        <div id="search-card-list" className="row container justify-content-center m-auto gy-5 pb-5">
             {filteredProducts.map(product => (
-                <div key={product.id} className="card col-4" >
+                <div key={product.id} className="search-card col-3 me-2 " >
 
-
-                    <img className="img-detail w-100" src={product.image_url} alt={product.name} />
-                    <h1>{product.name}</h1>
+                    <Link to={`/products/${product.slug}`}>
+                        <img className="img-detail w-100" src={product.image_url} alt={product.name} />
+                        <h1 className="text-dark">{product.name}</h1>
+                    </Link>
                     <p>{product.description}</p>
-                    <p>{product.price}</p>
+                    <p className="fw-bold search-price">{`${product.price} €`}</p>
 
                 </div>
 
