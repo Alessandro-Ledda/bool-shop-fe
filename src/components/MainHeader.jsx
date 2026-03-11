@@ -1,11 +1,25 @@
 // import link
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import logo from '../assets/boolshop-logo-2nd.svg';
+// import context
+import { useApi } from "../contexts/ApiProvider";
+
 
 function MainHeader() {
+
+    const { search, setSearch } = useApi();
+    const navigate = useNavigate();
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        navigate("/search");
+    }
+
+
+
     return (
         <>
             {/* Banner  */}
@@ -15,7 +29,14 @@ function MainHeader() {
             </div>
             <header className="main-header justify-content-between align-items-center">
                 <Link to={"/"}><img src={logo} alt="" /></Link>
-                <input type="text" className="my-search-bar form-control-plaintext " placeholder="Cerca il tuo prodotto" />
+                <form onSubmit={handleSearch}>
+                    <input type="text"
+                        className="my-search-bar form-control-plaintext "
+                        placeholder="Cerca il tuo prodotto"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </form>
                 <nav className="navbar">
                     <ul>
                         <Link to={"/wishlist"}><FontAwesomeIcon icon={faHeart} color="grey" /></Link>

@@ -7,6 +7,7 @@ const ApiContext = createContext();
 export function ApiProvider({ children }) {
 
     const [products, setProducts] = useState([]);
+    const [search, setSearch] = useState("");
 
     function fetchProduct() {
 
@@ -25,7 +26,7 @@ export function ApiProvider({ children }) {
 
 
     return (
-        <ApiContext.Provider value={{ products, setProducts }}>
+        <ApiContext.Provider value={{ products, setProducts, search, setSearch }}>
             {children}
         </ApiContext.Provider>
     )
