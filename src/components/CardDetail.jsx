@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom"
+// import context per consumare il contesto
+import { useCart } from "../contexts/CartContext"
 
 export default function CardDetail({ product }) {
+    const { addToCart } = useCart();
     return (
         <div id="card-product">
             <div className="page-container">
@@ -16,6 +19,9 @@ export default function CardDetail({ product }) {
                 <p>GARANZIA: {product.warranty}</p>
                 <p>PESO: {product.weight}</p>
                 <Link className="btn btn-primary " to="/">Ritorna alla Home</Link>
+                <button onClick={() => addToCart(product)}>
+                    Aggiungi al carrello
+                </button>
             </div>
         </div>
     )
