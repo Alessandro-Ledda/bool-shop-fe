@@ -5,6 +5,7 @@ import ProductDetail from "./pages/ProductDetail"
 import { ApiProvider } from "./contexts/ApiProvider"
 import CartPage from "./pages/CartPage"
 import WishList from "./pages/WishList"
+import ErrorPage from "./pages/ErrorPage"
 
 
 function App() {
@@ -18,8 +19,11 @@ function App() {
             <Route path="products/:slug" element={<ProductDetail />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/wishlist" element={<WishList />} />
+            <Route path='/notfound' element={<ErrorPage />} />
+            <Route path='*' element={<ErrorPage />} />
           </Route>
         </Routes>
+
       </ApiProvider>
     </BrowserRouter>
   )
