@@ -437,8 +437,9 @@ a {
 .btn-buy-now:hover {
   background-color: #111;
   transform: translateY(-2px);
+}
 
-  /* prove */
-  .title {
-    padding-top: 300px;
-  }
+/* prove */
+.title {
+  padding-top: 300px;
+}
