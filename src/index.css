@@ -216,9 +216,9 @@ a {
 /* CART PAGE SECTION */
 .title-page {
   padding: 200px 50px 50px 50px;
-  /* style per 404 */
 }
 
+/* STYLE PER 404 */
 .title-404 {
   font-family: "Sora", sans-serif;
   color: rgba(0, 255, 183, 0.95);
@@ -232,7 +232,6 @@ a {
 
 .card-404 {
   position: relative;
-  background-image: url("404-image.jpg");
 }
 
 .desc-404 {
