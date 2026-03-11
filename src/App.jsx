@@ -6,6 +6,7 @@ import { ApiProvider } from "./contexts/ApiProvider"
 import CartPage from "./pages/CartPage"
 import WishList from "./pages/WishList"
 import ErrorPage from "./pages/ErrorPage"
+import { CartProvider } from "./contexts/CartContext"
 
 
 function App() {
@@ -13,17 +14,18 @@ function App() {
   return (
     <BrowserRouter>
       <ApiProvider>
-        <Routes>
-          <Route element={<DefaultLayout />}>
-            <Route index element={<Homepage />} />
-            <Route path="products/:slug" element={<ProductDetail />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/wishlist" element={<WishList />} />
-            <Route path='/notfound' element={<ErrorPage />} />
-            <Route path='*' element={<ErrorPage />} />
-          </Route>
-        </Routes>
-
+        <CartProvider>
+          <Routes>
+            <Route element={<DefaultLayout />}>
+              <Route index element={<Homepage />} />
+              <Route path="products/:slug" element={<ProductDetail />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/wishlist" element={<WishList />} />
+              <Route path='/notfound' element={<ErrorPage />} />
+              <Route path='*' element={<ErrorPage />} />
+            </Route>
+          </Routes>
+        </CartProvider>
       </ApiProvider>
     </BrowserRouter>
   )
