@@ -212,3 +212,8 @@ a {
 .info-section {
   background-color: #11111185;
 }
+
+/* CART PAGE SECTION */
+.title-page {
+  padding: 200px 50px 50px 50px;
+}
