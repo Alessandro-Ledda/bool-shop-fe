@@ -28,22 +28,19 @@ export default function SearchPage() {
 
     return (
 
-        filteredProducts.map(product => (
-            <div key={product.id} >
-                <div id="card-product">
-                    <div className="page-container">
+        <div id="search-card-list" className="row">
+            {filteredProducts.map(product => (
+                <div key={product.id} className="card col-4" >
 
-                    </div>
-                    <div className="card w-50">
-                        <img className="img-detail" src={product.image_url} alt={product.name} />
-                        <h1>{product.name}</h1>
-                        <p>{product.description}</p>
-                        <p>DESCRIZIONE: {product.details}</p>
 
-                    </div>
+                    <img className="img-detail w-100" src={product.image_url} alt={product.name} />
+                    <h1>{product.name}</h1>
+                    <p>{product.description}</p>
+                    <p>DESCRIZIONE: {product.details}</p>
+
                 </div>
-            </div>
-        ))
 
+            ))}
+        </div>
     )
 }

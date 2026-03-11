@@ -256,3 +256,9 @@ a {
   margin-right: 50px;
   border: 1px solid rgba(255, 255, 255, 0.349);
 }
+
+/* SEARCH PAGE STYLE */
+
+#search-card-list {
+  padding-top: 300px;
+}
