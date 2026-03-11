@@ -3,6 +3,7 @@ import DefaultLayout from "./layout/DefaultLayout"
 import Homepage from "./pages/Homepage"
 import ProductDetail from "./pages/ProductDetail"
 import { ApiProvider } from "./contexts/ApiProvider"
+import ErrorPage from "./pages/ErrorPage"
 
 
 function App() {
@@ -14,7 +15,10 @@ function App() {
           <Route element={<DefaultLayout />}>
             <Route index element={<Homepage />} />
             <Route path="products/:slug" element={<ProductDetail />} />
+
           </Route>
+          <Route path='/notfound' element={<ErrorPage />} />
+          <Route path='*' element={<ErrorPage />} />
         </Routes>
       </ApiProvider>
     </BrowserRouter>
