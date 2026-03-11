@@ -263,7 +263,7 @@ a {
   padding-top: 300px;
 }
 
-.search-card {
+.search-grid-card {
   border: 2px solid #f09226;
   border-radius: 10px;
   background-color: white;
@@ -272,4 +272,8 @@ a {
 
 .search-price {
   color: #f09226;
+}
+
+.search-list-title {
+  font-size: 30px;
 }
