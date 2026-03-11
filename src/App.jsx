@@ -15,11 +15,11 @@ function App() {
           <Route element={<DefaultLayout />}>
             <Route index element={<Homepage />} />
             <Route path="products/:slug" element={<ProductDetail />} />
-
+            <Route path='/notfound' element={<ErrorPage />} />
+            <Route path='*' element={<ErrorPage />} />
           </Route>
-          <Route path='/notfound' element={<ErrorPage />} />
-          <Route path='*' element={<ErrorPage />} />
         </Routes>
+
       </ApiProvider>
     </BrowserRouter>
   )

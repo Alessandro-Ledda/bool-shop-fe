@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 //importo componente di ref per dettaglio
@@ -15,13 +15,16 @@ export default function ProductDetail() {
     //setto var di stato per gestione prodotto
     const [product, setProduct] = useState({});
 
+    const navigate = useNavigate();
+
     //setto funzione per gestione chiamata alla show del db
     function fetchProduct() {
         //chiamata
         axios.get(`${endpoint}api/products/${slug}`)
             .then(res => { setProduct(res.data); })
             .catch(err => {
-                console.log(err);
+                console.log("Prodotto non trovato", err);
+                navigate("/notfound")
             })
             .finally()
     }
