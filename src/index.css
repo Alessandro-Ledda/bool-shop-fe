@@ -450,23 +450,25 @@ a {
   background: transparent;
   outline: none;
   cursor: pointer;
-  /* SEARCH PAGE STYLE */
+}
 
-  #search-card-list {
-    padding-top: 300px;
-  }
+/* SEARCH PAGE STYLE */
 
-  .search-grid-card {
-    border: 2px solid #f09226;
-    border-radius: 10px;
-    background-color: white;
+#search-card-list {
+  padding-top: 300px;
+}
 
-  }
+.search-grid-card {
+  border: 2px solid #f09226;
+  border-radius: 10px;
+  background-color: white;
 
-  .search-price {
-    color: #f09226;
-  }
+}
 
-  .search-list-title {
-    font-size: 30px;
-  }
+.search-price {
+  color: #f09226;
+}
+
+.search-list-title {
+  font-size: 30px;
+}
