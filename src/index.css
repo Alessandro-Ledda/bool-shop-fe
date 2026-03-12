@@ -476,3 +476,8 @@ a {
 .search-list-card {
   border: 2px solid #f09226 !important;
 }
+
+/* style riepilogo carrello */
+.cart-item {
+  display: flex;
+}
