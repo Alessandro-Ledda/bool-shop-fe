@@ -63,7 +63,7 @@ export default function SearchPage() {
                         <p className="fw-bold search-price">{`${product.price} €`}</p>
 
                         <div className="add-cart">
-                            <button onClick={() => addToCart(product)} className="btn btn-primary">Aggiungi al carrello</button>
+                            <button onClick={() => addToCart(product)} className="search-button">Aggiungi al carrello</button>
                         </div>
                     </div>
 
@@ -84,7 +84,7 @@ export default function SearchPage() {
                             </div>
 
                             <div className="add-cart me-5  align-self-center">
-                                <button onClick={() => addToCart(product)} className="btn btn-primary">Aggiungi al carrello</button>
+                                <button onClick={() => addToCart(product)} className="search-button">Aggiungi al carrello</button>
                             </div>
 
                         </div>
