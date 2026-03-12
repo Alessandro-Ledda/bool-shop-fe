@@ -6,6 +6,7 @@ import { ApiProvider } from "./contexts/ApiProvider"
 import CartPage from "./pages/CartPage"
 import WishList from "./pages/WishList"
 import ErrorPage from "./pages/ErrorPage"
+import { CartProvider } from "./contexts/CartContext"
 import SearchPage from "./pages/SearchPage"
 
 
