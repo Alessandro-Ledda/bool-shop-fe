@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+//importo context
+import { useApi } from "../contexts/ApiProvider";
 //richiamo il contesto del carrello
 import { useCart } from "../contexts/CartContext";
 
 function FormCheckout() {
+  // attivo l'utilizzo del loader dal context principale
+  const { setIsLoading } = useApi();
+
   //prendo cart dal contesto del carrello
   const { cart } = useCart();
 
@@ -43,6 +48,10 @@ function FormCheckout() {
   const endpoint = "http://localhost:3000/api/orders/";
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    //attivo loader
+    setIsLoading(true);
+
     axios
       .post(endpoint, objPost, {
         headers: { "Content-Type": "application/json" },
@@ -56,7 +65,8 @@ function FormCheckout() {
       .catch((err) => {
         console.log(err);
         if ((err.status = 500)) redirect("/500_error_internal_server");
-      });
+      })
+      .finally(setIsLoading(false));
   };
 
   return (
