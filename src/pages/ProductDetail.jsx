@@ -40,7 +40,6 @@ export default function ProductDetail() {
   return (
     <>
       <CardDetail product={product} />
-      <FormCheckout />
     </>
   );
 }
