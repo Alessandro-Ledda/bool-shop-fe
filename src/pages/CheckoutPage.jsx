@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 //importo form
 import FormCheckout from "../components/FormCheckout";
-import CartPage from "./CartPage";
+import CartPreview from "../components/CartPreview";
 
 function CheckoutPage() {
   return (
     <>
-      <CartPage />
+      <div className="top-nav-bar">
+        <Link className="back-link" to="/">
+          ← Ritorna alla Home
+        </Link>
+      </div>
+      <CartPreview />
       <FormCheckout />
-      <Link className="btn btn-primary" to="/">
-        Ritorna alla Home
-      </Link>
     </>
   );
 }
