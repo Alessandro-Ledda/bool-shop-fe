@@ -65,6 +65,7 @@ header {
   align-items: center;
   justify-content: center;
 }
+
 .spinner-loader {
   font-size: 6rem;
   animation: spin 1.2s linear infinite;
@@ -74,6 +75,7 @@ header {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -270,8 +272,10 @@ a {
   color: rgba(26, 26, 26, 0.95);
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.3),
-    /* Ombra soft naturale */ 0 2px 4px rgba(0, 0, 0, 0.2),
-    /* Profondità delicata */ 0 0 8px rgba(139, 69, 19, 0.3);
+    /* Ombra soft naturale */
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    /* Profondità delicata */
+    0 0 8px rgba(139, 69, 19, 0.3);
   position: absolute;
   bottom: 150px;
   z-index: 99;
@@ -555,7 +559,16 @@ a {
   backdrop-filter: blur(10px);
 }
 
-/* style riepilogo carrello */
-.cart-item {
+/* style totale */
+
+.wrap-total {
   display: flex;
+  width: 1200px;
+  margin: 0 auto;
+  justify-content: flex-end;
+}
+
+.totale {
+  font-size: 20px;
+  color: orange;
 }

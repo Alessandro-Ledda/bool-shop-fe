@@ -8,7 +8,7 @@ function CartPage() {
   const { cart, removeFromCart, addToCart, decreseFromCart } = useCart();
   const { products } = useApi();
 
-  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
 
   return (
     <div>
@@ -83,8 +83,9 @@ function CartPage() {
           </div>
         );
       })}
-
-      <p>Totale : {total}</p>
+      <div className="wrap-total">
+        <p className="totale"><strong>Totale :</strong> {total}€</p>
+      </div>
 
       <Link to={"/checkout"}>
         <button>Vai al checkout</button>
