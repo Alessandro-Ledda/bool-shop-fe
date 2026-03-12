@@ -65,6 +65,7 @@ header {
   align-items: center;
   justify-content: center;
 }
+
 .spinner-loader {
   font-size: 6rem;
   animation: spin 1.2s linear infinite;
@@ -74,6 +75,7 @@ header {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -270,8 +272,10 @@ a {
   color: rgba(26, 26, 26, 0.95);
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.3),
-    /* Ombra soft naturale */ 0 2px 4px rgba(0, 0, 0, 0.2),
-    /* Profondità delicata */ 0 0 8px rgba(139, 69, 19, 0.3);
+    /* Ombra soft naturale */
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    /* Profondità delicata */
+    0 0 8px rgba(139, 69, 19, 0.3);
   position: absolute;
   bottom: 150px;
   z-index: 99;
@@ -285,120 +289,118 @@ a {
   border: 1px solid rgba(255, 255, 255, 0.349);
 }
 
-/* style per pagina dettaglio */
 
-/* style per pagina dettaglio */
+/* style layout carddetail */
+
+/* --- NUOVO LAYOUT DARK LACERTOSUS --- */
 
 .product-page-wrapper {
-  background-color: #ffffff;
+  background-color: #f5f5f5;
   min-height: 100vh;
-  padding-bottom: 100px;
 }
 
+/* Navigazione superiore */
 .top-nav-bar {
   padding-top: 240px;
+  /* Aumentato per spingerlo sotto l'header fixed */
   padding-bottom: 20px;
   max-width: 1300px;
   margin: 0 auto;
   padding-left: 40px;
+  /* Allineato al contenuto della sezione nera */
 }
 
 .back-link {
   color: #888;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: 1px;
   transition: 0.3s;
-  text-decoration: none;
+  display: inline-block;
 }
 
 .back-link:hover {
   color: #f09226;
+  /* Diventa arancione quando passi sopra */
+  transform: translateX(-5px);
+  /* Piccolo effetto movimento verso sinistra */
 }
 
-#card-product {
-  background-color: #111111;
+/* LA SEZIONE NERA */
+.detail-black-section {
+  background-color: #1a1a1a;
+  /* Nero molto scuro */
   color: white;
   padding: 80px 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  width: 100%;
+  margin-top: 20px;
+}
+
+.container-inner {
+  max-width: 1300px;
   margin: 0 auto;
+  display: flex;
   align-items: center;
+  gap: 80px;
+  padding: 0 40px;
 }
 
-.detail-image-container {
-  display: flex;
-  justify-content: center;
-  padding-left: 40px;
+.image-column {
+  flex: 1;
 }
 
-.img-detail {
-  max-width: 100%;
-  height: 500px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 30px rgba(240, 146, 38, 0.15));
+.img-detail-main {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
 }
 
-.product-info-content {
-  display: flex;
-  flex-direction: column;
-  padding-right: 40px;
+.text-column {
+  flex: 1;
 }
 
 .brand-tag {
   color: #f09226;
   text-transform: uppercase;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 2px;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
 }
 
-.detail-title {
-  font-size: 3.5rem;
+.section-title {
+  font-size: 3rem;
   font-weight: 900;
+  margin: 10px 0 30px;
   text-transform: uppercase;
-  line-height: 1;
-  color: white;
-  margin-bottom: 25px;
 }
 
-.detail-description {
+.description-text {
   font-size: 1.1rem;
   line-height: 1.6;
-  color: #cccccc;
-  margin-bottom: 30px;
+  color: #ccc;
 }
 
-.specs-container {
+.technical-list {
+  margin-top: 30px;
   border-top: 1px solid #333;
   padding-top: 20px;
 }
 
-.specs-container ul li {
-  padding: 10px 0;
-  border-bottom: 1px solid #222;
-  font-size: 0.95rem;
-  color: #eee;
+.technical-list li {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
 }
 
-.specs-container ul li strong {
-  color: #f09226;
-  text-transform: uppercase;
-  margin-right: 10px;
-}
-
+/* STICKY BAR IN FONDO */
 .sticky-purchase-bar {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #ffffff;
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
   padding: 15px 0;
-  z-index: 10000;
+  z-index: 1000;
 }
 
 .sticky-container {
@@ -413,47 +415,72 @@ a {
 .sticky-info {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 .mini-thumb {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
-  background: #f9f9f9;
-  border-radius: 4px;
 }
 
 .sticky-name {
-  font-weight: 900;
+  font-weight: 800;
   text-transform: uppercase;
   color: #111;
-  font-size: 1.1rem;
 }
 
 .sticky-price {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 900;
+  margin-right: 20px;
   color: #111;
-  margin-right: 30px;
 }
 
 .btn-buy-now {
   background-color: #f09226;
   color: white;
   border: none;
-  padding: 15px 50px;
+  padding: 12px 40px;
   font-weight: 800;
   text-transform: uppercase;
   cursor: pointer;
   transition: 0.3s;
-  font-size: 1rem;
 }
 
 .btn-buy-now:hover {
   background-color: #111;
-  transform: translateY(-2px);
 }
+
+.technical-details {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #2a2a2a;
+  border-radius: 5px;
+}
+
+.technical-details h3 {
+  font-size: 1.5rem;
+  color: #f09226;
+  margin-bottom: 15px;
+}
+
+.quantity-selector {
+  width: 60px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-right: 15px;
+}
+
+.quantity-selector:focus {
+  outline: none;
+  border-color: #f09226;
+  transition: border-color 0.3s ease;
+}
+
+
 
 /* prove */
 .title {
