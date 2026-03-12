@@ -1,0 +1,89 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useApi } from "../contexts/ApiProvider";
+import { Link } from "react-router-dom";
+const endpoint = import.meta.env.VITE_APP_URL;
+// import location
+import { useLocation } from "react-router-dom";
+
+
+export default function SearchPage() {
+
+    const { search } = useApi();
+
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [layout, setLayout] = useState("grid");
+    const location = useLocation();
+    const onSearchPage = location.pathname === "/search"
+
+    function fetchProduct() {
+
+        if (search.length < 2 && !onSearchPage) {
+            setFilteredProducts([]);
+            return;
+        }
+
+        axios.get(`${endpoint}api/products?searched=${search}`)
+            .then(res => {
+                setFilteredProducts(res.data)
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+            .finally()
+    }
+
+
+    useEffect(fetchProduct, [search])
+
+    return (
+
+        <div id="search-card-list" className="row container justify-content-center m-auto gy-5 pb-5">
+            <div className="layout-buttons">
+                <button onClick={() => setLayout("grid")} className={layout === "grid" ? "btn btn-primary" : "btn btn-outline-primary"}>Griglia</button>
+                <button onClick={() => setLayout("list")} className={layout === "list" ? "btn btn-primary" : "btn btn-outline-primary"}>Lista</button>
+            </div>
+            {layout === "grid" ? (
+                filteredProducts.map(product => (
+                    <div key={product.id} className="search-grid-card col-3 me-2 " >
+
+                        <Link to={`/products/${product.slug}`}>
+                            <img className="img-detail w-100" src={product.image_url} alt={product.name} />
+                            <h1 className="text-dark">{product.name}</h1>
+                        </Link>
+                        <p>{product.description}</p>
+                        <p className="fw-bold search-price">{`${product.price} €`}</p>
+
+                    </div>
+
+                ))
+            ) : (filteredProducts.map(product => (
+                <div key={product.id}>
+                    <Link to={`/products/${product.slug}`}>
+                        <div className="card w-100 d-flex flex-row justify-content-between">
+
+                            <img src={product.image_url} alt={product.name} className="w-25" />
+
+                            <div className="search-list-description ms-3 mt-2">
+
+                                <h3 className="search-list-title fw-bold w-100">{product.name}</h3>
+
+                                <p className="fs-5">{product.description}</p>
+                                <p className="fw-bold fs-4 search-price">{`${product.price} €`}</p>
+                            </div>
+
+                            <div className="add-cart align-self-center">
+                                <button className="btn btn-primary">Aggiungi al carrello</button>
+                            </div>
+
+                        </div>
+                    </Link>
+                </div>
+            )))
+
+
+            }
+        </div>
+    )
+}
