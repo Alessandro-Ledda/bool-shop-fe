@@ -6,15 +6,15 @@ import CartPage from "./CartPage";
 
 function CheckoutPage() {
   return (
-    <>
+    <div className="container">
       <div className="top-nav-bar">
         <Link className="back-link" to="/">
           ← Ritorna alla Home
         </Link>
       </div>
-      <CartPage />
+      <CartPreview />
       <FormCheckout />
-    </>
+    </div>
   );
 }
 
