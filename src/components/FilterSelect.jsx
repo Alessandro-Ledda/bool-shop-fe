@@ -1,21 +1,19 @@
 import axios from "axios";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 
 const endpoint = import.meta.env.VITE_APP_URL;
 
 
 export default function FilterSelect({ search, onFilterChange }) {
 
-    const [lessPriced, setLessPriced] = useState([]);
-    const [morePriced, setMorePriced] = useState([]);
-    const [latestArrived, setLatestArrived] = useState([]);
-    const [firstArrived, setFirstArrived] = useState([]);
-    const [nameOrdered, setNameOrdered] = useState([]);
+    const [order, setOrder] = useState("");
+
 
     function lessPrice() {
         axios.get(`${endpoint}api/products?order=less_price&searched=${search}`)
             .then(res => {
                 onFilterChange(res.data)
+                setOrder("less_price")
             })
             .catch(err => {
                 console.log(err);
@@ -28,6 +26,7 @@ export default function FilterSelect({ search, onFilterChange }) {
         axios.get(`${endpoint}api/products?order=more_price&searched=${search}`)
             .then(res => {
                 onFilterChange(res.data)
+
             })
             .catch(err => {
                 console.log(err);
