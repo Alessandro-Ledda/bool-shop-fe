@@ -595,3 +595,7 @@ a {
   font-size: 20px;
   color: orange;
 }
+
+.wrap-total strong {
+  color: black;
+}
