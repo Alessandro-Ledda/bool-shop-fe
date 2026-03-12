@@ -261,3 +261,11 @@ a {
 .title {
   padding-top: 300px;
 }
+
+/* style btn font awesomeicon  */
+.btn-font-aw {
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
