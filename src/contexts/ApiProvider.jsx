@@ -5,36 +5,48 @@ const endpoint = import.meta.env.VITE_APP_URL;
 const ApiContext = createContext();
 
 export function ApiProvider({ children }) {
+  //setter loader
+  const [isLoading, setIsLoading] = useState(false);
 
-    const [products, setProducts] = useState([]);
-    // variabile di stato per la ricerca
-    const [search, setSearch] = useState("");
+  const [products, setProducts] = useState([]);
 
-    function fetchProduct() {
+  // variabile di stato per la ricerca
+  const [search, setSearch] = useState("");
 
-        axios.get(`${endpoint}api/products`)
-            .then(res => {
-                setProducts(res.data)
-            })
-            .catch(err => {
-                console.log(err);
-            })
-            .finally()
-    }
+  function fetchProduct() {
+    //attivo loader
+    setIsLoading(true);
+    axios
+      .get(`${endpoint}api/products`)
+      .then((res) => {
+        setProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(setIsLoading(false));
+  }
 
+  useEffect(fetchProduct, []);
 
-    useEffect(fetchProduct, [])
-
-
-    return (
-        // passo products con array dei prodotti e search per ricerca
-        <ApiContext.Provider value={{ products, setProducts, search, setSearch }}>
-            {children}
-        </ApiContext.Provider>
-    )
+  return (
+    // passo products con array dei prodotti e search per ricerca
+    <ApiContext.Provider
+      value={{
+        products,
+        setProducts,
+        search,
+        setSearch,
+        isLoading,
+        setIsLoading,
+      }}
+    >
+      {children}
+    </ApiContext.Provider>
+  );
 }
 
 export function useApi() {
-    const context = useContext(ApiContext);
-    return context;
+  const context = useContext(ApiContext);
+  return context;
 }

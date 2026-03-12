@@ -1,19 +1,24 @@
 // import outlet
 import { Outlet } from "react-router-dom";
+//importo
+import { useApi } from "../contexts/ApiProvider";
 // import MainHeader
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
 
 function DefaultLayout() {
-    return (
-        <>
-            <MainHeader />
-            <main>
-                <Outlet />
-            </main>
-            <MainFooter />
-        </>
-    )
+  //definisco isloading
+  const { isLoading } = useApi();
+  return (
+    <>
+      <MainHeader />
+      <main>
+        <Outlet />
+        {isLoading && <Loader />}
+      </main>
+      <MainFooter />
+    </>
+  );
 }
 
-export default DefaultLayout
+export default DefaultLayout;
