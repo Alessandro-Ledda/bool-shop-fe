@@ -472,3 +472,8 @@ a {
 .search-list-title {
   font-size: 30px;
 }
+
+/* style riepilogo carrello */
+.cart-item {
+  display: flex;
+}
