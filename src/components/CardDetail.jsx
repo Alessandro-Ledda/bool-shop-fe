@@ -1,18 +1,25 @@
 
 
 import { Link } from "react-router-dom"
-import { useState } from "react"
+import { useState } from "react";
+import { useCart } from "../contexts/CartContext"
+
 
 export default function CardDetail({ product }) {
+    const [quantity, setQuantity] = useState(1);
 
-    const [quantity, setQuantity] = useState(1)
+    const handleQuantityChange = () => {
+        setQuantity(count => count + 1);
+    };
 
+    const { addToCart, decreseFromCart } = useCart();
     return (
         <div className="product-page-wrapper">
             <div className="top-nav-bar">
                 <Link className="back-link" to="/">← Torna alla Home</Link>
             </div>
 
+            {/* SEZIONE NERA */}
             <section className="detail-black-section">
                 <div className="container-inner">
                     <div className="image-column">
@@ -26,16 +33,22 @@ export default function CardDetail({ product }) {
                             <p>{product.description}</p>
                             <br />
                             <p><strong>DETTAGLI:</strong> {product.details}</p>
-                            <ul className="technical-list">
-                                <li><strong>Modello:</strong> {product.model}</li>
-                                <li><strong>Peso:</strong> {product.weight}</li>
-                                <li><strong>Dimensioni:</strong> {product.dimensions}</li>
-                            </ul>
                         </div>
                     </div>
                 </div>
+
+                {/* Scheda tecnica */}
+                <div className="technical-details">
+                    <h3>Dettagli Tecnici</h3>
+                    <ul className="technical-list">
+                        <li><strong>Modello:</strong> {product.model}</li>
+                        <li><strong>Peso:</strong> {product.weight}</li>
+                        <li><strong>Dimensioni:</strong> {product.dimensions}</li>
+                    </ul>
+                </div>
             </section>
 
+            {/* BARRA STICKY IN FONDO */}
             <div className="sticky-purchase-bar">
                 <div className="sticky-container">
                     <div className="sticky-info">
@@ -43,58 +56,29 @@ export default function CardDetail({ product }) {
                         <span className="sticky-name">{product.name}</span>
                     </div>
                     <div className="sticky-actions">
-
-                        <div className="quantity-selector">
-                            <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
+                        <div className="col-6 col-md-2 d-flex align-items-center mt-2 mt-md-0">
+                            <button
+                                className="btn btn-outline-secondary btn-sm me-2"
+                            /* onClick={() => decreseFromCart(item)}*/
+                            >
+                                -
+                            </button>
                             <span>{quantity}</span>
-                            <button onClick={() => setQuantity(quantity + 1)}>+</button>
+                            <button
+                                className="btn btn-outline-secondary btn-sm ms-2"
+                                onClick={() => handleQuantityChange}
+                            >
+                                +
+                            </button>
                         </div>
-
-                        <span className="sticky-price">{product.price}€</span>
-
-                        <button className="btn-buy-now">
-                            Aggiungi al carrello
-                        </button>
-
+                        <span className="sticky-price">{(product.price * quantity).toFixed(2)}€</span>
+                        <button className="btn-buy-now" onClick={() => addToCart({ ...product, quantity: quantity })}>Aggiungi al carrello</button>
                     </div>
                 </div>
             </div>
         </div>
     )
 }
-
-<section className="technical-section">
-    <div className="technical-container">
-
-        <h3>Scheda Tecnica</h3>
-
-        <table className="technical-table">
-            <tbody>
-                <tr>
-                    <td>Modello</td>
-                    <td>{product.model}</td>
-                </tr>
-
-                <tr>
-                    <td>Peso</td>
-                    <td>{product.weight}</td>
-                </tr>
-
-                <tr>
-                    <td>Dimensioni</td>
-                    <td>{product.dimensions}</td>
-                </tr>
-
-                <tr>
-                    <td>Brand</td>
-                    <td>Lacertosus Design</td>
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
-</section>
-
 
 
 
