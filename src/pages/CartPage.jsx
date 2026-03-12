@@ -21,7 +21,7 @@ function CartPage() {
           <div className="col-12 col-md-10 mx-auto mb-3" key={item.id}>
             <div className="card shadow-sm rounded-3">
               <div className="row g-0 align-items-center p-3">
-                {/* Colonna immagine */}
+                {/* imgs */}
                 <div className="col-4 col-md-2 text-center">
                   {product?.image_url && (
                     <img
@@ -33,7 +33,7 @@ function CartPage() {
                   )}
                 </div>
 
-                {/* Colonna info prodotto */}
+                {/* info product */}
                 <div className="col-8 col-md-4">
                   <h5 className="mb-1">{item.name}</h5>
                   {product?.description && (
@@ -43,7 +43,7 @@ function CartPage() {
                   )}
                 </div>
 
-                {/* Colonna quantità con pulsanti */}
+                {/* quantity */}
                 <div className="col-6 col-md-2 d-flex align-items-center mt-2 mt-md-0">
                   <button
                     className="btn btn-outline-secondary btn-sm me-2"
@@ -60,7 +60,7 @@ function CartPage() {
                   </button>
                 </div>
 
-                {/* Colonna prezzo */}
+                {/* price */}
                 <div className="col-6 col-md-2 text-md-end mt-2 mt-md-0">
                   <span className="d-block fw-bold">
                     {(item.price * item.quantity).toFixed(2)}€
@@ -68,7 +68,7 @@ function CartPage() {
                   <small className="text-muted">({item.price}€/pz)</small>
                 </div>
 
-                {/* Colonna pulsante rimuovi */}
+                {/* trash */}
                 <div className="col-12 col-md-2 text-end mt-2 mt-md-0">
                   <button
                     className="btn btn-danger btn-sm"
@@ -82,7 +82,6 @@ function CartPage() {
           </div>
         );
       })}
-      {/* <h2>Totale: {total}€</h2> */}
     </div>
   );
 }
