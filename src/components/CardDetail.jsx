@@ -8,15 +8,13 @@ import { useCart } from "../contexts/CartContext"
 export default function CardDetail({ product }) {
     const [quantity, setQuantity] = useState(1);
 
-    const handleQuantityChange = (event) => {
-        setQuantity(event.target.value);
+    const handleQuantityChange = () => {
+        setQuantity(count => count + 1);
     };
 
-    const { addToCart } = useCart();
-
+    const { addToCart, decreseFromCart } = useCart();
     return (
         <div className="product-page-wrapper">
-            {/* Navigazione discreta in alto */}
             <div className="top-nav-bar">
                 <Link className="back-link" to="/">← Torna alla Home</Link>
             </div>
@@ -50,7 +48,7 @@ export default function CardDetail({ product }) {
                 </div>
             </section>
 
-            {/* BARRA STICKY IN FONDO (Conversione) */}
+            {/* BARRA STICKY IN FONDO */}
             <div className="sticky-purchase-bar">
                 <div className="sticky-container">
                     <div className="sticky-info">
@@ -58,15 +56,23 @@ export default function CardDetail({ product }) {
                         <span className="sticky-name">{product.name}</span>
                     </div>
                     <div className="sticky-actions">
-                        <input
-                            type="number"
-                            className="quantity-selector"
-                            value={quantity}
-                            min="1"
-                            onChange={handleQuantityChange}
-                        />
+                        <div className="col-6 col-md-2 d-flex align-items-center mt-2 mt-md-0">
+                            <button
+                                className="btn btn-outline-secondary btn-sm me-2"
+                            /* onClick={() => decreseFromCart(item)}*/
+                            >
+                                -
+                            </button>
+                            <span>{quantity}</span>
+                            <button
+                                className="btn btn-outline-secondary btn-sm ms-2"
+                                onClick={() => handleQuantityChange}
+                            >
+                                +
+                            </button>
+                        </div>
                         <span className="sticky-price">{(product.price * quantity).toFixed(2)}€</span>
-                        <button className="btn-buy-now" onClick={() => addToCart(product)}>Aggiungi al carrello</button>
+                        <button className="btn-buy-now" onClick={() => addToCart({ ...product, quantity: quantity })}>Aggiungi al carrello</button>
                     </div>
                 </div>
             </div>
