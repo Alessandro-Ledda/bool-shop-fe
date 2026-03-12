@@ -37,17 +37,14 @@ export const CartProvider = ({ children }) => {
 
   const decreseFromCart = (product) => {
     setCart((prevCart) => {
-      const exist = prevCart.find((item) => item.id === product.id);
-
-      if (exist) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity - 1 }
-            : item,
-        );
-      }
-
-      return [...prevCart, { ...product, quantity: 1 }];
+      return prevCart.map((item) => {
+        if (item.id === product.id && item.quantity > 1) {
+          //decremento se  la quantità di 1
+          return { ...item, quantity: item.quantity - 1 };
+        } else {
+          return item;
+        }
+      });
     });
   };
 
