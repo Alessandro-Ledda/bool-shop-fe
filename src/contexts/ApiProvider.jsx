@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext, createContext } from "react";
 import axios from "axios";
 
+import Loader from "../components/Loader";
+
 const endpoint = import.meta.env.VITE_APP_URL;
 const ApiContext = createContext();
 

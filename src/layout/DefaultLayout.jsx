@@ -6,6 +6,9 @@ import { useApi } from "../contexts/ApiProvider";
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
 
+//importo componente loader
+import Loader from "../components/Loader";
+
 function DefaultLayout() {
   //definisco isloading
   const { isLoading } = useApi();
