@@ -8,6 +8,10 @@ import { useLocation } from "react-router-dom";
 // import context carrello
 import { useCart } from "../contexts/CartContext"
 import FilterSelect from "../components/FilterSelect";
+//import FA
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGripLines } from '@fortawesome/free-solid-svg-icons'
+import { faList } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function SearchPage() {
@@ -45,8 +49,8 @@ export default function SearchPage() {
 
         <div id="search-card-list" className="row container justify-content-center m-auto gy-5 pb-5">
             <div className="layout-buttons">
-                <button onClick={() => setLayout("grid")} className={layout === "grid" ? "btn btn-primary" : "btn btn-outline-primary"}>Griglia</button>
-                <button onClick={() => setLayout("list")} className={layout === "list" ? "btn btn-primary" : "btn btn-outline-primary"}>Lista</button>
+                <button onClick={() => setLayout("grid")} className={layout === "grid" ? "btn-active me-3" : "btn-not-active me-3"}><FontAwesomeIcon icon={faGripLines} /></button>
+                <button onClick={() => setLayout("list")} className={layout === "list" ? "btn-active" : "btn-not-active"}><FontAwesomeIcon icon={faList} /></button>
             </div>
             <div>
                 <FilterSelect search={search} onFilterChange={setFilteredProducts} />
@@ -63,7 +67,7 @@ export default function SearchPage() {
                         <p className="fw-bold search-price">{`${product.price} €`}</p>
 
                         <div className="add-cart">
-                            <button onClick={() => addToCart(product)} className="search-button">Aggiungi al carrello</button>
+                            <button onClick={() => addToCart(product)} className="search-button mb-3">Aggiungi al carrello</button>
                         </div>
                     </div>
 

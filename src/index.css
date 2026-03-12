@@ -464,7 +464,7 @@ a {
   border-radius: 20px;
   background: linear-gradient(145deg, #ffffff, #f8f9ff);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
-  transition: all 0.3s;
+  transition: transform 0.3s;
 }
 
 .search-grid-card:hover {
@@ -478,7 +478,7 @@ a {
   border-radius: 20px;
   background: linear-gradient(145deg, #ffffff, #f8f9ff);
   box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-  transition: all 0.3s;
+  transition: transform 0.3s;
 }
 
 .search-list-card:hover {
@@ -494,9 +494,6 @@ a {
   font-size: 30px;
 }
 
-.search-list-card {
-  border: 2px solid #f09226 !important;
-}
 
 .search-button {
   width: 100%;
@@ -514,6 +511,30 @@ a {
 .search-button:hover {
   transform: translateY(-12px);
   outline: 4px solid #f09226;
+}
+
+.btn-active {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f09226, #ff6b35);
+  border: 2px solid #f09226;
+  box-shadow:
+    0 8px 25px rgba(240, 146, 38, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.btn-not-active {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid rgba(240, 146, 38, 0.5);
+  background: rgba(240, 146, 38, 0.08);
+  transition: all 0.3s;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
 }
 
 /* style riepilogo carrello */
