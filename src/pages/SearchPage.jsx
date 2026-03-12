@@ -59,9 +59,13 @@ export default function SearchPage() {
                     <div key={product.id} className="search-grid-card col-3 me-2 " >
 
                         <Link to={`/products/${product.slug}`}>
-                            <div className="d-flex">
-                                <div className="sale-badge">SALE</div>
-                            </div>
+                            {product.discount_percentage ? (
+                                <div className="d-flex justify-content-center">
+                                    <div className="sale-badge">SALE</div>
+                                </div>
+                            ) : null
+
+                            }
                             <img className="img-detail w-100" src={product.image_url} alt={product.name} />
                             <h1 className="text-dark">{product.name}</h1>
                         </Link>
