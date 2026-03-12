@@ -32,15 +32,15 @@ export default function SearchPage() {
     //attivo loader
     setIsLoading(true);
 
-    // axios
-    //   .get(`${endpoint}api/products?searched=${search}`)
-    //   .then((res) => {
-    //     setFilteredProducts(res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
-    //   .finally(setIsLoading(false));
+    axios
+      .get(`${endpoint}api/products?searched=${search}`)
+      .then((res) => {
+        setFilteredProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(setIsLoading(false));
   }
 
   useEffect(fetchProduct, [search]);
