@@ -1,9 +1,26 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function OrderSuccess() {
+  const navigate = useNavigate();
   const location = useLocation();
   const res_order = location.state;
-  !res_order && useNavigate("/404");
+  if (!res_order) {
+    return (
+      <div className="container d-flex justify-content-center align-items-center container-order-success ">
+        <div
+          className="bg-white border rounded-3 shadow-sm p-4 p-md-5"
+          style={{ maxWidth: "600px", width: "100%" }}
+        >
+          <h1 className="h3 mb-3 text-success text-uppercase fw-semibold">
+            NON AUTORIZZATO
+          </h1>
+          <Link to="/" className="search-button mb-3 text-black fw-semibold">
+            Torna alla Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const {
     new_id,
