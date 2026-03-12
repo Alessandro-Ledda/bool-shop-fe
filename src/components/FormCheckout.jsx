@@ -71,19 +71,22 @@ function FormCheckout() {
 
   return (
     <form
-      className="container p-4 bg-light rounded shadow-sm"
+      className="container p-4 bg-white border rounded-3 shadow-sm"
       onSubmit={handleSubmit}
     >
-      <h3 className="mb-4">Dati Cliente</h3>
+      <h3 className="mb-4 text-uppercase fw-semibold">Dati Cliente</h3>
 
-      <div className="row g-3">
+      <div className="row g-4">
         <div className="col-md-6">
-          <label htmlFor="customer_first_name" className="form-label">
+          <label
+            htmlFor="customer_first_name"
+            className="form-label text-uppercase small fw-semibold"
+          >
             Nome
           </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control form-control-lg"
             id="customer_first_name"
             value={formDataCustomer.customer_first_name}
             onChange={handleChange}
@@ -92,12 +95,15 @@ function FormCheckout() {
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="customer_last_name" className="form-label">
+          <label
+            htmlFor="customer_last_name"
+            className="form-label text-uppercase small fw-semibold"
+          >
             Cognome
           </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control form-control-lg"
             id="customer_last_name"
             value={formDataCustomer.customer_last_name}
             onChange={handleChange}
@@ -106,12 +112,15 @@ function FormCheckout() {
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="customer_email" className="form-label">
+          <label
+            htmlFor="customer_email"
+            className="form-label text-uppercase small fw-semibold"
+          >
             Email
           </label>
           <input
             type="email"
-            className="form-control"
+            className="form-control form-control-lg"
             id="customer_email"
             value={formDataCustomer.customer_email}
             onChange={handleChange}
@@ -120,26 +129,33 @@ function FormCheckout() {
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="customer_phone" className="form-label">
+          <label
+            htmlFor="customer_phone"
+            className="form-label text-uppercase small fw-semibold"
+          >
             Telefono
           </label>
           <input
             type="tel"
-            className="form-control"
+            className="form-control form-control-lg"
             id="customer_phone"
             value={formDataCustomer.customer_phone}
             onChange={handleChange}
+            maxLength={25}
             required
           />
         </div>
 
         <div className="col-12">
-          <label htmlFor="customer_address" className="form-label">
+          <label
+            htmlFor="customer_address"
+            className="form-label text-uppercase small fw-semibold"
+          >
             Indirizzo di fatturazione
           </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control form-control-lg"
             id="customer_address"
             value={formDataCustomer.customer_address}
             onChange={handleChange}
@@ -148,12 +164,15 @@ function FormCheckout() {
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="customer_city" className="form-label">
+          <label
+            htmlFor="customer_city"
+            className="form-label text-uppercase small fw-semibold"
+          >
             Città
           </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control form-control-lg"
             id="customer_city"
             value={formDataCustomer.customer_city}
             onChange={handleChange}
@@ -162,26 +181,33 @@ function FormCheckout() {
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="customer_cap" className="form-label">
+          <label
+            htmlFor="customer_cap"
+            className="form-label text-uppercase small fw-semibold"
+          >
             CAP
           </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control form-control-lg"
             id="customer_cap"
             value={formDataCustomer.customer_cap}
             onChange={handleChange}
+            maxLength={5}
             required
           />
         </div>
 
         <div className="col-12 mt-3">
-          <label htmlFor="coupon_code" className="form-label">
-            COUPON
+          <label
+            htmlFor="coupon_code"
+            className="form-label text-uppercase small fw-semibold"
+          >
+            Coupon
           </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control form-control-lg"
             id="coupon_code"
             value={formDataCustomer.coupon_code}
             onChange={handleChange}
@@ -192,7 +218,7 @@ function FormCheckout() {
         </div>
       </div>
 
-      <button type="submit" className="btn btn-primary mt-4 w-100">
+      <button type="submit" className="search-button mb-3">
         Conferma Dati
       </button>
     </form>
