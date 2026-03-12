@@ -71,7 +71,7 @@ function FormCheckout() {
 
   return (
     <form
-      className="container p-4 bg-white border rounded-3 shadow-sm"
+      className="container p-4 bg-white border rounded-3 shadow-sm my-5"
       onSubmit={handleSubmit}
     >
       <h3 className="mb-4 text-uppercase fw-semibold">Dati Cliente</h3>

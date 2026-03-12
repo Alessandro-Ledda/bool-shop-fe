@@ -8,10 +8,12 @@ function CartPage() {
   const { cart, removeFromCart, addToCart, decreseFromCart } = useCart();
   const { products } = useApi();
 
-  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
+  const total = cart
+    .reduce((acc, item) => acc + item.price * item.quantity, 0)
+    .toFixed(2);
 
   return (
-    <div>
+    <div className="container">
       <h1 className="title">Riepilogo Carrello</h1>
       {cart.length === 0 && <p>Il carrello è vuoto</p>}
       {cart.map((item) => {
@@ -84,11 +86,13 @@ function CartPage() {
         );
       })}
       <div className="wrap-total">
-        <p className="totale"><strong>Totale :</strong> {total}€</p>
+        <p className="totale">
+          <strong>Totale :</strong> {total}€
+        </p>
       </div>
 
       <Link to={"/checkout"}>
-        <button>Vai al checkout</button>
+        <button className="search-button mb-4">Vai al checkout</button>
       </Link>
     </div>
   );
