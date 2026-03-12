@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 //richiamo il contesto del carrello
 import { useCart } from "../contexts/CartContext";
 
@@ -6,7 +7,13 @@ function FormCheckout() {
   //prendo cart dal contesto del carrello
   const { cart } = useCart();
 
-  const [formDataCustomer, setFormDataCustomer] = useState({
+  //creo array di oggetti dei prodotti che devo mandare al DB
+  const products = cart.map((product) => ({
+    product_id: product.id,
+    unit_quantity: product.quantity,
+  }));
+
+  const initialFormDataCustomer = {
     customer_first_name: "",
     customer_last_name: "",
     customer_email: "",
@@ -15,7 +22,16 @@ function FormCheckout() {
     customer_city: "",
     customer_cap: "",
     coupon_code: "",
-  });
+  };
+  const [formDataCustomer, setFormDataCustomer] = useState(
+    initialFormDataCustomer,
+  );
+  //creo oggetto in cui salvare l'oggetto finale da mandare in post al BE
+  const [objPost, setObjPost] = useState({});
+  useEffect(
+    () => setObjPost({ ...formDataCustomer, products: products }),
+    [formDataCustomer],
+  );
 
   const handleChange = (e) => {
     setFormDataCustomer({
@@ -24,9 +40,23 @@ function FormCheckout() {
     });
   };
 
+  const endpoint = "http://localhost:3000/api/orders/";
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Dati inviati:", formDataCustomer, cart);
+    axios
+      .post(endpoint, objPost, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(() => {
+        // svuota campi form (e var di stato)
+        setFormDataCustomer(initialFormDataCustomer);
+        // ri-esegui funzione di chiamata su page padre
+        //reloadReviews();
+      })
+      .catch((err) => {
+        console.log(err);
+        if ((err.status = 500)) redirect("/500_error_internal_server");
+      });
   };
 
   return (
@@ -38,7 +68,7 @@ function FormCheckout() {
 
       <div className="row g-3">
         <div className="col-md-6">
-          <label htmlFor="nome" className="form-label">
+          <label htmlFor="customer_first_name" className="form-label">
             Nome
           </label>
           <input
@@ -52,7 +82,7 @@ function FormCheckout() {
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="cognome" className="form-label">
+          <label htmlFor="customer_last_name" className="form-label">
             Cognome
           </label>
           <input
@@ -66,7 +96,7 @@ function FormCheckout() {
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="email" className="form-label">
+          <label htmlFor="customer_email" className="form-label">
             Email
           </label>
           <input
@@ -80,7 +110,7 @@ function FormCheckout() {
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="telefono" className="form-label">
+          <label htmlFor="customer_phone" className="form-label">
             Telefono
           </label>
           <input
@@ -94,7 +124,7 @@ function FormCheckout() {
         </div>
 
         <div className="col-12">
-          <label htmlFor="indirizzo" className="form-label">
+          <label htmlFor="customer_address" className="form-label">
             Indirizzo di fatturazione
           </label>
           <input
@@ -108,7 +138,7 @@ function FormCheckout() {
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="citta" className="form-label">
+          <label htmlFor="customer_city" className="form-label">
             Città
           </label>
           <input
@@ -122,7 +152,7 @@ function FormCheckout() {
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="cap" className="form-label">
+          <label htmlFor="customer_cap" className="form-label">
             CAP
           </label>
           <input
@@ -136,7 +166,7 @@ function FormCheckout() {
         </div>
 
         <div className="col-12 mt-3">
-          <label htmlFor="coupon" className="form-label">
+          <label htmlFor="coupon_code" className="form-label">
             COUPON
           </label>
           <input
