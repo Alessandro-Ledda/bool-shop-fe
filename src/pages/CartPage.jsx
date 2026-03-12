@@ -2,6 +2,7 @@ import { useCart } from "../contexts/CartContext";
 import { useApi } from "../contexts/ApiProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function CartPage() {
   const { cart, removeFromCart, addToCart, decreseFromCart } = useCart();
@@ -82,6 +83,9 @@ function CartPage() {
           </div>
         );
       })}
+      <Link to={"/checkout"}>
+        <button>Vai al checkout</button>
+      </Link>
     </div>
   );
 }

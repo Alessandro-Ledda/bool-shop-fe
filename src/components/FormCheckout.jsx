@@ -1,6 +1,11 @@
 import { useState } from "react";
+//richiamo il contesto del carrello
+import { useCart } from "../contexts/CartContext";
 
 function FormCheckout() {
+  //prendo cart dal contesto del carrello
+  const { cart } = useCart();
+
   const [formDataCustomer, setFormDataCustomer] = useState({
     customer_first_name: "",
     customer_last_name: "",
@@ -21,7 +26,7 @@ function FormCheckout() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Dati inviati:", formDataCustomer);
+    console.log("Dati inviati:", formDataCustomer, cart);
   };
 
   return (
@@ -39,7 +44,7 @@ function FormCheckout() {
           <input
             type="text"
             className="form-control"
-            id="nome"
+            id="customer_first_name"
             value={formDataCustomer.customer_first_name}
             onChange={handleChange}
             required
@@ -53,7 +58,7 @@ function FormCheckout() {
           <input
             type="text"
             className="form-control"
-            id="cognome"
+            id="customer_last_name"
             value={formDataCustomer.customer_last_name}
             onChange={handleChange}
             required
@@ -67,7 +72,7 @@ function FormCheckout() {
           <input
             type="email"
             className="form-control"
-            id="email"
+            id="customer_email"
             value={formDataCustomer.customer_email}
             onChange={handleChange}
             required
@@ -81,7 +86,7 @@ function FormCheckout() {
           <input
             type="tel"
             className="form-control"
-            id="telefono"
+            id="customer_phone"
             value={formDataCustomer.customer_phone}
             onChange={handleChange}
             required
@@ -95,7 +100,7 @@ function FormCheckout() {
           <input
             type="text"
             className="form-control"
-            id="indirizzo"
+            id="customer_address"
             value={formDataCustomer.customer_address}
             onChange={handleChange}
             required
@@ -109,7 +114,7 @@ function FormCheckout() {
           <input
             type="text"
             className="form-control"
-            id="citta"
+            id="customer_city"
             value={formDataCustomer.customer_city}
             onChange={handleChange}
             required
@@ -123,7 +128,7 @@ function FormCheckout() {
           <input
             type="text"
             className="form-control"
-            id="cap"
+            id="customer_cap"
             value={formDataCustomer.customer_cap}
             onChange={handleChange}
             required
@@ -137,7 +142,7 @@ function FormCheckout() {
           <input
             type="text"
             className="form-control"
-            id="coupon"
+            id="coupon_code"
             value={formDataCustomer.coupon_code}
             onChange={handleChange}
             placeholder="INSERISCI COUPON"
