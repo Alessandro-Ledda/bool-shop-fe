@@ -9,6 +9,7 @@ import ErrorPage from "./pages/ErrorPage";
 import { CartProvider } from "./contexts/CartContext";
 import SearchPage from "./pages/SearchPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import OrderSuccess from "./pages/OrderSuccess";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/notfound" element={<ErrorPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/order_success" element={<OrderSuccess />} />
               <Route path="*" element={<ErrorPage />} />
             </Route>
           </Routes>

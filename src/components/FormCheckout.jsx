@@ -5,12 +5,17 @@ import { useApi } from "../contexts/ApiProvider";
 //richiamo il contesto del carrello
 import { useCart } from "../contexts/CartContext";
 
+//importo navigate per poi passare nella pagina di messaggio
+import { useNavigate } from "react-router-dom";
+
 function FormCheckout() {
   // attivo l'utilizzo del loader dal context principale
   const { setIsLoading } = useApi();
 
+  const navigate = useNavigate();
+
   //prendo cart dal contesto del carrello
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
 
   //creo array di oggetti dei prodotti che devo mandare al DB
   const products = cart.map((product) => ({
@@ -56,17 +61,18 @@ function FormCheckout() {
       .post(endpoint, objPost, {
         headers: { "Content-Type": "application/json" },
       })
-      .then(() => {
+      .then((res) => {
         // svuota campi form (e var di stato)
         setFormDataCustomer(initialFormDataCustomer);
-        // ri-esegui funzione di chiamata su page padre
-        //reloadReviews();
+        clearCart();
+        navigate("/order_success", { state: res.data });
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
-        if ((err.status = 500)) redirect("/500_error_internal_server");
+        if (err.status === 500) redirect("/500_error_internal_server");
       })
-      .finally(setIsLoading(false));
+      .finally(() => setIsLoading(false));
   };
 
   return (
