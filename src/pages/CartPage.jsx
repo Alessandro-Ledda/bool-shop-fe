@@ -83,6 +83,9 @@ function CartPage() {
           </div>
         );
       })}
+
+      <p>Totale : {total}</p>
+
       <Link to={"/checkout"}>
         <button>Vai al checkout</button>
       </Link>
