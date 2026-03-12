@@ -59,11 +59,28 @@ export default function SearchPage() {
                     <div key={product.id} className="search-grid-card col-3 me-2 " >
 
                         <Link to={`/products/${product.slug}`}>
+                            <div className="d-flex">
+                                <div className="sale-badge">SALE</div>
+                            </div>
                             <img className="img-detail w-100" src={product.image_url} alt={product.name} />
                             <h1 className="text-dark">{product.name}</h1>
                         </Link>
                         <p>{product.description}</p>
-                        <p className="fw-bold search-price">{`${product.price} €`}</p>
+                        {product.discount_percentage ?
+                            (
+                                <>
+                                    <div className="d-flex justify-content-between">
+                                        <p className="fw-bold d-inline search-price text-decoration-line-through">{product.price}</p>
+                                        <span className="discounted-badge">{`${product.discount_percentage} %`}</span>
+                                    </div>
+                                    <span className="fw-bold fs-5 search-price">{` ${(product.price - (product.price * product.discount_percentage / 100)).toFixed(2)}€`}</span>
+
+                                </>
+                            ) :
+                            (
+                                <p className="fw-bold search-price">{`${product.price}€`}</p>
+                            )
+                        }
 
                         <div className="add-cart">
                             <button onClick={() => addToCart(product)} className="search-button mb-3">Aggiungi al carrello</button>
