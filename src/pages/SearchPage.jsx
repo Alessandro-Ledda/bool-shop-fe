@@ -100,11 +100,32 @@ export default function SearchPage() {
                             <img src={product.image_url} alt={product.name} className="w-25" />
 
                             <div className="search-list-description ms-3 mt-5">
+                                {product.discount_percentage ? (
+                                    <div className="d-flex flex-start me-4 mb-2">
+                                        <div className="sale-badge">SALE</div>
+                                    </div>
+                                ) : null
+
+                                }
 
                                 <h3 className="search-list-title fw-bold w-100">{product.name}</h3>
 
                                 <p className="fs-5">{product.description}</p>
-                                <p className="fw-bold fs-4 search-price">{`${product.price} €`}</p>
+                                {product.discount_percentage ?
+                                    (
+                                        <>
+                                            <div className="d-flex justify-content-between">
+                                                <p className="fw-bold d-inline search-price text-decoration-line-through">{product.price}</p>
+                                                <span className="discounted-badge">{`${product.discount_percentage} %`}</span>
+                                            </div>
+                                            <span className="fw-bold fs-5 search-price">{` ${(product.price - (product.price * product.discount_percentage / 100)).toFixed(2)}€`}</span>
+
+                                        </>
+                                    ) :
+                                    (
+                                        <p className="fw-bold search-price">{`${product.price}€`}</p>
+                                    )
+                                }
                             </div>
 
                             <div className="add-cart me-5  align-self-center">
