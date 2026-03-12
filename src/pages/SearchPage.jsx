@@ -10,8 +10,7 @@ import { useCart } from "../contexts/CartContext"
 import FilterSelect from "../components/FilterSelect";
 //import FA
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGripLines } from '@fortawesome/free-solid-svg-icons'
-import { faList } from '@fortawesome/free-solid-svg-icons'
+import { faGripVertical, faList } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function SearchPage() {
@@ -49,7 +48,7 @@ export default function SearchPage() {
 
         <div id="search-card-list" className="row container justify-content-center m-auto gy-5 pb-5">
             <div className="layout-buttons">
-                <button onClick={() => setLayout("grid")} className={layout === "grid" ? "btn-active me-3" : "btn-not-active me-3"}><FontAwesomeIcon icon={faGripLines} /></button>
+                <button onClick={() => setLayout("grid")} className={layout === "grid" ? "btn-active me-3" : "btn-not-active me-3"}><FontAwesomeIcon icon={faGripVertical} /></button>
                 <button onClick={() => setLayout("list")} className={layout === "list" ? "btn-active" : "btn-not-active"}><FontAwesomeIcon icon={faList} /></button>
             </div>
             <div>
