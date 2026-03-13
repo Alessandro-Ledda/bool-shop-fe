@@ -13,6 +13,16 @@ function CheckoutPage() {
         </Link>
       </div>
       <CartPreview />
+      <Link>
+        <button className="search-button mb-4"
+          onClick={() => {
+            if (window.confirm("Sei sicuro di voler svuotare il tuo carrello?")) {
+              clearCart();
+            }
+          }}
+        >
+          Svuota Carrello</button>
+      </Link>
       <FormCheckout />
     </div>
   );

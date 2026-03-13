@@ -5,8 +5,9 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 function CartPage() {
-  const { cart, removeFromCart, addToCart, decreseFromCart } = useCart();
+  const { cart, removeFromCart, addToCart, decreseFromCart, clearCart } = useCart();
   const { products } = useApi();
+  const emptyCart = cart.length === 0;
 
   const total = cart
     .reduce((acc, item) => acc + item.price * item.quantity, 0)
@@ -85,17 +86,34 @@ function CartPage() {
           </div>
         );
       })}
-      <div className="wrap-total">
-        <p className="totale">
-          <strong>Totale :</strong> {total}€
-        </p>
-      </div>
+      {!emptyCart && (
+        <>
+          <div className="wrap-total">
+            <p className="totale">
+              <strong>Totale :</strong> {total}€
+            </p>
+          </div>
 
-      <Link to={"/checkout"}>
-        <button className="search-button mb-4">Vai al checkout</button>
-      </Link>
+          <Link>
+            <button className="search-button mb-4"
+              onClick={() => {
+                if (window.confirm("Sei sicuro di voler svuotare il tuo carrello?")) {
+                  clearCart();
+                }
+              }}
+            >
+              Svuota Carrello</button>
+          </Link>
+
+          <Link to={"/checkout"}>
+            <button className="search-button mb-4">Vai al checkout</button>
+          </Link>
+
+        </>
+      )}
     </div>
   );
+
 }
 
 export default CartPage;

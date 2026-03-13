@@ -15,6 +15,7 @@ export const CartProvider = ({ children }) => {
     saveCartToStorage(cart);
   }, [cart]);
 
+  // aggiungi al carrello
   const addToCart = (product) => {
     setCart((prevCart) => {
       const exist = prevCart.find((item) => item.id === product.id);
@@ -31,6 +32,7 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  // rimuovi dal carrello
   const removeFromCart = (id) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
@@ -50,6 +52,7 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  // pulizia carrello
   const clearCart = () => setCart([]);
 
   return (
