@@ -13,81 +13,83 @@ function CartPreview() {
     .toFixed(2);
 
   return (
-    <div>
+    <div className="cart-preview-container">
       {cart.length === 0 && <h1>Il carrello è vuoto</h1>}
-      {cart.map((item) => {
-        // trova il prodotto completo dal backend
-        const product = products.find((p) => p.id === item.id);
 
-        return (
-          <div className="col-12 col-md-10 mx-auto mb-3" key={item.id}>
-            <div className="card shadow-sm rounded-3">
-              <div className="row g-0 align-items-center p-3">
-                {/* imgs */}
-                <div className="col-4 col-md-2 text-center">
-                  {product?.image_url && (
-                    <img
-                      src={product.image_url}
-                      alt={item.name}
-                      className="img-fluid rounded"
-                      style={{ maxHeight: "100px", objectFit: "contain" }}
-                    />
-                  )}
-                </div>
+      <div className="cart-items-scroll">
+        {cart.map((item) => {
+          const product = products.find((p) => p.id === item.id);
 
-                {/* info product */}
-                <div className="col-8 col-md-4">
-                  <h5 className="mb-1">{item.name}</h5>
-                  {product?.description && (
-                    <p className="mb-0 text-muted small">
-                      {product.description}
-                    </p>
-                  )}
-                </div>
+          return (
+            <div className="col-12 col-md-10 mx-auto mb-3" key={item.id}>
+              <div className="card shadow-sm rounded-3">
+                <div className="row g-0 align-items-center p-3">
+                  <div className="col-4 col-md-2 text-center">
+                    {product?.image_url && (
+                      <img
+                        src={product.image_url}
+                        alt={item.name}
+                        className="img-fluid rounded"
+                        style={{ maxHeight: "100px", objectFit: "contain" }}
+                      />
+                    )}
+                  </div>
 
-                {/* quantity */}
-                <div className="col-6 col-md-2 d-flex align-items-center mt-2 mt-md-0">
-                  <button
-                    className="btn btn-outline-secondary btn-sm me-2"
-                    onClick={() => decreseFromCart(item)}
-                  >
-                    -
-                  </button>
-                  <span>{item.quantity}</span>
-                  <button
-                    className="btn btn-outline-secondary btn-sm ms-2"
-                    onClick={() => addToCart(item)}
-                  >
-                    +
-                  </button>
-                </div>
+                  <div className="col-8 col-md-4">
+                    <h5 className="mb-1">{item.name}</h5>
+                    {product?.description && (
+                      <p className="mb-0 text-muted small">
+                        {product.description}
+                      </p>
+                    )}
+                  </div>
 
-                {/* price */}
-                <div className="col-6 col-md-2 text-md-end mt-2 mt-md-0">
-                  <span className="d-block fw-bold">
-                    {(item.price * item.quantity).toFixed(2)}€
-                  </span>
-                  <small className="text-muted">({item.price}€/pz)</small>
-                </div>
+                  <div className="col-12 col-md-6 mt-3 mt-md-0">
+                    <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center w-100 gap-2">
+                      {/* quantity */}
+                      <div className="d-flex align-items-center ">
+                        <button
+                          className="btn btn-outline-secondary btn-sm me-2"
+                          onClick={() => decreseFromCart(item)}
+                        >
+                          -
+                        </button>
+                        <span>{item.quantity}</span>
+                        <button
+                          className="btn btn-outline-secondary btn-sm ms-2"
+                          onClick={() => addToCart(item)}
+                        >
+                          +
+                        </button>
+                      </div>
 
-                {/* trash */}
-                <div className="col-12 col-md-2 text-end mt-2 mt-md-0">
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => removeFromCart(item.id)}
-                  >
-                    <FontAwesomeIcon icon={faTrash} color="white" />
-                  </button>
+                      {/* price + trash */}
+                      <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center text-start text-md-end gap-2">
+                        {/* price */}
+                        <div>
+                          <span className="d-block fw-bold">
+                            {(item.price * item.quantity).toFixed(2)}€
+                          </span>
+                          <small className="text-muted">
+                            ({item.price}€/pz)
+                          </small>
+                        </div>
+
+                        {/* trash */}
+                        <button
+                          className="btn btn-danger btn-sm align-self-start align-self-md-end"
+                          onClick={() => removeFromCart(item.id)}
+                        >
+                          <FontAwesomeIcon icon={faTrash} color="white" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-      <div className="wrap-total">
-        <p className="totale">
-          <strong>Totale :</strong> {total}€
-        </p>
+          );
+        })}
       </div>
     </div>
   );

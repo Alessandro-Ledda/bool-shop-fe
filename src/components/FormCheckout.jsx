@@ -38,6 +38,10 @@ function FormCheckout() {
   );
   //creo oggetto in cui salvare l'oggetto finale da mandare in post al BE
   const [objPost, setObjPost] = useState({});
+
+  //var di stato globale per gestire indirizzo di fatturazione/spedizione
+  const [sameAddress, setSameAddress] = useState(true);
+
   useEffect(
     () => setObjPost({ ...formDataCustomer, products: products }),
     [formDataCustomer],
@@ -69,7 +73,8 @@ function FormCheckout() {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
+        if (err.status === 400) window.alert(err.response.data.error);
         if (err.status === 500) redirect("/500_error_internal_server");
       })
       .finally(() => setIsLoading(false));
@@ -88,7 +93,7 @@ function FormCheckout() {
             htmlFor="customer_first_name"
             className="form-label text-uppercase small fw-semibold"
           >
-            Nome
+            Nome *
           </label>
           <input
             type="text"
@@ -99,13 +104,12 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-md-6">
           <label
             htmlFor="customer_last_name"
             className="form-label text-uppercase small fw-semibold"
           >
-            Cognome
+            Cognome *
           </label>
           <input
             type="text"
@@ -116,13 +120,12 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-md-6">
           <label
             htmlFor="customer_email"
             className="form-label text-uppercase small fw-semibold"
           >
-            Email
+            Email *
           </label>
           <input
             type="email"
@@ -133,13 +136,12 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-md-6">
           <label
             htmlFor="customer_phone"
             className="form-label text-uppercase small fw-semibold"
           >
-            Telefono
+            Telefono *
           </label>
           <input
             type="tel"
@@ -151,13 +153,12 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-12">
           <label
             htmlFor="customer_address"
             className="form-label text-uppercase small fw-semibold"
           >
-            Indirizzo di fatturazione
+            Indirizzo di spedizione *
           </label>
           <input
             type="text"
@@ -169,12 +170,46 @@ function FormCheckout() {
           />
         </div>
 
+        {/* chekbox */}
+        <div className="form-check mt-2 ms-3">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id="sameAddress"
+            checked={sameAddress}
+            onChange={() => setSameAddress(!sameAddress)}
+          />
+          <label className="form-check-label" htmlFor="sameAddress">
+            Indirizzo di spedizione coincide con quello di fatturazione
+          </label>
+        </div>
+
+        {/* se non coincidono, input-text per indirizzo di fatturazione */}
+        {!sameAddress && (
+          <div className="col-12">
+            <label
+              htmlFor="customer_address_shipping"
+              className="form-label text-uppercase small fw-semibold"
+            >
+              Indirizzo di fatturazione *
+            </label>
+            <input
+              type="text"
+              className="form-control form-control-lg"
+              id="customer_address_shipping"
+              value={formDataCustomer.customer_address_shipping}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        )}
+
         <div className="col-md-6">
           <label
             htmlFor="customer_city"
             className="form-label text-uppercase small fw-semibold"
           >
-            Città
+            Città *
           </label>
           <input
             type="text"
@@ -185,13 +220,12 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-md-6">
           <label
             htmlFor="customer_cap"
             className="form-label text-uppercase small fw-semibold"
           >
-            CAP
+            CAP *
           </label>
           <input
             type="text"
@@ -203,7 +237,6 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-12 mt-3">
           <label
             htmlFor="coupon_code"
@@ -218,8 +251,6 @@ function FormCheckout() {
             value={formDataCustomer.coupon_code}
             onChange={handleChange}
             placeholder="INSERISCI COUPON"
-            minLength={5}
-            maxLength={5}
           />
         </div>
       </div>
