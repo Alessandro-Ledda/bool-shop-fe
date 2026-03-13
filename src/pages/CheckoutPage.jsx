@@ -6,7 +6,7 @@ import CartPreview from "../components/CartPreview";
 import CartPage from "./CartPage";
 
 function CheckoutPage() {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
   if (cart.length === 0) {
     return (
       <div className="container d-flex justify-content-center align-items-center container-order-success ">
