@@ -47,7 +47,7 @@ export default function SearchPage() {
 
     useEffect(() => {
         fetchProduct();
-    }, [search, order]);
+    }, [search, order, isFilterOn]);
 
     return (
         <div id="search-card-list" className="row container justify-content-center m-auto gy-5 pb-5">

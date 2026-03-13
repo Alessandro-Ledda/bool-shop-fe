@@ -287,8 +287,10 @@ a {
   color: rgba(26, 26, 26, 0.95);
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.3),
-    /* Ombra soft naturale */ 0 2px 4px rgba(0, 0, 0, 0.2),
-    /* Profondità delicata */ 0 0 8px rgba(139, 69, 19, 0.3);
+    /* Ombra soft naturale */
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    /* Profondità delicata */
+    0 0 8px rgba(139, 69, 19, 0.3);
   position: absolute;
   bottom: 150px;
   z-index: 99;
@@ -688,6 +690,67 @@ a {
   box-shadow: 0 2px 8px rgba(230, 57, 70, 0.4);
 }
 
+
+/* search page style per order e filter */
+
+.search-select {
+  width: 200px;
+  padding: 10px 20px;
+  margin-left: 20px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(145deg, #f09226, #ff6b35);
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  appearance: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.search-select option {
+  padding: 12px 15px;
+  background: #ffd8ab;
+  color: #333;
+  border: 1px solid #ff6b35;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.filter-container {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px 2000px;
+  margin: 20px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.filter-search-active {
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold !important;
+  background-color: #f09226;
+  border-radius: 25px;
+  font-weight: 500;
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-search-not-active {
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold !important;
+  background-color: #ffe2c1;
+  border-radius: 25px;
+  font-weight: 500;
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
 /* style riepilogo carrello */
 .cart-item {
   display: flex;
@@ -730,6 +793,7 @@ a {
   padding-left: 20px;
   color: black !important;
 }
+
 .container-order-success {
   padding-top: 250px;
   padding-bottom: 50px;
