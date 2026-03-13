@@ -38,6 +38,10 @@ function FormCheckout() {
   );
   //creo oggetto in cui salvare l'oggetto finale da mandare in post al BE
   const [objPost, setObjPost] = useState({});
+
+  //var di stato globale per gestire indirizzo di fatturazione/spedizione
+  const [sameAddress, setSameAddress] = useState(true);
+
   useEffect(
     () => setObjPost({ ...formDataCustomer, products: products }),
     [formDataCustomer],
@@ -100,7 +104,6 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-md-6">
           <label
             htmlFor="customer_last_name"
@@ -117,7 +120,6 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-md-6">
           <label
             htmlFor="customer_email"
@@ -134,7 +136,6 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-md-6">
           <label
             htmlFor="customer_phone"
@@ -152,13 +153,12 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-12">
           <label
             htmlFor="customer_address"
             className="form-label text-uppercase small fw-semibold"
           >
-            Indirizzo di fatturazione *
+            Indirizzo di spedizione *
           </label>
           <input
             type="text"
@@ -169,6 +169,40 @@ function FormCheckout() {
             required
           />
         </div>
+
+        {/* chekbox */}
+        <div className="form-check mt-2 ms-3">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id="sameAddress"
+            checked={sameAddress}
+            onChange={() => setSameAddress(!sameAddress)}
+          />
+          <label className="form-check-label" htmlFor="sameAddress">
+            Indirizzo di spedizione coincide con quello di fatturazione
+          </label>
+        </div>
+
+        {/* se non coincidono, input-text per indirizzo di fatturazione */}
+        {!sameAddress && (
+          <div className="col-12">
+            <label
+              htmlFor="customer_address_shipping"
+              className="form-label text-uppercase small fw-semibold"
+            >
+              Indirizzo di fatturazione *
+            </label>
+            <input
+              type="text"
+              className="form-control form-control-lg"
+              id="customer_address_shipping"
+              value={formDataCustomer.customer_address_shipping}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        )}
 
         <div className="col-md-6">
           <label
@@ -186,7 +220,6 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-md-6">
           <label
             htmlFor="customer_cap"
@@ -204,7 +237,6 @@ function FormCheckout() {
             required
           />
         </div>
-
         <div className="col-12 mt-3">
           <label
             htmlFor="coupon_code"
