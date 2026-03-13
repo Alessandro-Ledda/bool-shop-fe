@@ -69,7 +69,8 @@ function FormCheckout() {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
+        if (err.status === 400) window.alert(err.response.data.error);
         if (err.status === 500) redirect("/500_error_internal_server");
       })
       .finally(() => setIsLoading(false));
@@ -88,7 +89,7 @@ function FormCheckout() {
             htmlFor="customer_first_name"
             className="form-label text-uppercase small fw-semibold"
           >
-            Nome
+            Nome *
           </label>
           <input
             type="text"
@@ -105,7 +106,7 @@ function FormCheckout() {
             htmlFor="customer_last_name"
             className="form-label text-uppercase small fw-semibold"
           >
-            Cognome
+            Cognome *
           </label>
           <input
             type="text"
@@ -122,7 +123,7 @@ function FormCheckout() {
             htmlFor="customer_email"
             className="form-label text-uppercase small fw-semibold"
           >
-            Email
+            Email *
           </label>
           <input
             type="email"
@@ -139,7 +140,7 @@ function FormCheckout() {
             htmlFor="customer_phone"
             className="form-label text-uppercase small fw-semibold"
           >
-            Telefono
+            Telefono *
           </label>
           <input
             type="tel"
@@ -157,7 +158,7 @@ function FormCheckout() {
             htmlFor="customer_address"
             className="form-label text-uppercase small fw-semibold"
           >
-            Indirizzo di fatturazione
+            Indirizzo di fatturazione *
           </label>
           <input
             type="text"
@@ -174,7 +175,7 @@ function FormCheckout() {
             htmlFor="customer_city"
             className="form-label text-uppercase small fw-semibold"
           >
-            Città
+            Città *
           </label>
           <input
             type="text"
@@ -191,7 +192,7 @@ function FormCheckout() {
             htmlFor="customer_cap"
             className="form-label text-uppercase small fw-semibold"
           >
-            CAP
+            CAP *
           </label>
           <input
             type="text"
@@ -218,8 +219,6 @@ function FormCheckout() {
             value={formDataCustomer.coupon_code}
             onChange={handleChange}
             placeholder="INSERISCI COUPON"
-            minLength={5}
-            maxLength={5}
           />
         </div>
       </div>
