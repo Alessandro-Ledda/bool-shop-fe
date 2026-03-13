@@ -1,23 +1,30 @@
 // import link
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/boolshop-logo-2nd.svg";
 // import context
 import { useApi } from "../contexts/ApiProvider";
+import { useCart } from "../contexts/CartContext";
+
 
 function MainHeader() {
-  const { search, setSearch } = useApi();
+
   const navigate = useNavigate();
+  const { cart } = useCart();
+
+  const [search, setSearch] = useState("");
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setSearch(e.target.value);
-    const searchTrim = search.trim();
+    const value = e.target.value.trim();
+    setSearch(value);
+    const searchQuery = value;
 
-    if (searchTrim) {
-      navigate("/search");
+    if (searchQuery) {
+      navigate(`/search?cu=${encodeURIComponent(searchQuery)}`);
     }
   };
 
@@ -52,6 +59,11 @@ function MainHeader() {
                 color="grey"
                 className="me-5"
               />
+              {cart.length > 0 && (
+                <div className="container-badge">
+                  <p><span className="badge-cart">{cart.length}</span></p>
+                </div>
+              )}
             </Link>
           </ul>
         </nav>
