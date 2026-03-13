@@ -327,12 +327,12 @@ a {
 .detail-black-section {
   background-color: #1a1a1a;
   color: white;
-  padding: 80px 0;
+  padding-top: 80px;
   margin-top: 20px;
 }
 
 .container-inner {
-  max-width: 1300px;
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -353,13 +353,6 @@ a {
 
 .text-column {
   flex: 1;
-}
-
-.brand-tag {
-  color: #f09226;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 2px;
 }
 
 .section-title {

@@ -6,8 +6,8 @@ import CardDetail from "../components/CardDetail";
 //salvo endpoint in var
 const endpoint = import.meta.env.VITE_APP_URL;
 
-//importo form prova
-import FormCheckout from "../components/FormCheckout";
+//iporto componente per prodotti correlati
+import RelatedProducts from "../components/RelatedProducts";
 
 //set funzione per il dettaglio
 export default function ProductDetail() {
@@ -40,6 +40,11 @@ export default function ProductDetail() {
   return (
     <>
       <CardDetail product={product} />
+
+      <RelatedProducts
+        category_id={product.category_id}
+        product_id={product.id}
+      />
     </>
   );
 }
