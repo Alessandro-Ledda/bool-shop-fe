@@ -72,7 +72,7 @@ export default function CardDetail({ product }) {
                             </button>
                         </div>
                         <span className="sticky-price">{(product.price * quantity).toFixed(2)}€</span>
-                        <button className="btn-buy-now" onClick={() => addToCart({ ...product, quantity: quantity })}>Aggiungi al carrello</button>
+                        <button className="search-button mb-3" onClick={() => addToCart({ ...product, quantity: quantity })}>Aggiungi al carrello</button>
                     </div>
                 </div>
             </div>
