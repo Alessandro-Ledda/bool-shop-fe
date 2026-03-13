@@ -79,7 +79,7 @@ export default function SearchPage() {
                                         </span>
                                     </div>
                                 ) : null}
-                                <img className="img-detail w-100" src={product.image_url} alt={product.name} />
+                                <img className="img-detail-grid" src={product.image_url} alt={product.name} />
                                 <h1 className="text-dark">{product.name}</h1>
                             </Link>
                             <p>{product.description}</p>
