@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import FormCheckout from "../components/FormCheckout";
 import CartPreview from "../components/CartPreview";
 import CartPage from "./CartPage";
+import axios from "axios";
 
 //importo stile
 import "../styles/CheckoutPageStyle.css";
@@ -15,7 +16,45 @@ function CheckoutPage() {
   const navigate = useNavigate();
 
   // var di stato per gestire coupon
-  const [couponCode, setCouponCode] = useState(false);
+  const [couponCheckBox, setCouponCheckBox] = useState(false);
+  const [couponInput, setCouponInput] = useState("");
+  const [discountedTotal, setDiscountedTotal] = useState();
+
+  const [couponValid, setCouponValid] = useState(false);
+
+  const couponValidator = (e) => {
+    const endpoint = `http://localhost:3000/api/coupons/${couponInput}`;
+    // console.log(`${couponInput} - couponInput`);
+    e.preventDefault();
+    axios
+      .get(endpoint)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.valid) {
+          setCouponValid(true);
+          const discountPercentage = res.data.coupon_percentage;
+          console.log(discountPercentage + "discountP%");
+          const newTotal = ((total * (100 - discountPercentage)) / 100).toFixed(
+            2,
+          );
+          setDiscountedTotal(newTotal);
+
+          // svuota campi form (e var di stato)
+          setCouponInput("");
+          // deve sparire ora l'input e il checkbox
+        } else {
+          setDiscountedTotal(null);
+          alert(res.data.message); // coupon non valido
+        }
+        //
+      })
+      .catch((err) => {
+        //console.log(err);
+        // if (err.status === 400) window.alert(err.response.data.error);
+        // if (err.status === 500) redirect("/500_error_internal_server");
+      });
+    // .finally(() => setIsLoading(false));
+  };
 
   const total = cart
     .reduce((acc, item) => acc + item.price * item.quantity, 0)
@@ -58,8 +97,8 @@ function CheckoutPage() {
                   className="form-check-input"
                   type="checkbox"
                   id="couponCode"
-                  checked={couponCode}
-                  onChange={() => setCouponCode(!couponCode)}
+                  checked={couponCheckBox}
+                  onChange={() => setCouponCheckBox(!couponCheckBox)}
                 />
                 <label className="form-check-label" htmlFor="couponCode">
                   Inserisci un codice sconto
@@ -67,8 +106,8 @@ function CheckoutPage() {
               </div>
               {/* qui metto l'input txt dell coupon con bottone submit per verificarne esistenza e validità */}
               <div className="col-12 mb-5 ">
-                {couponCode && (
-                  <>
+                {couponCheckBox && (
+                  <form onSubmit={couponValidator}>
                     <label
                       htmlFor="coupon_code"
                       className="form-label text-uppercase small fw-semibold"
@@ -77,17 +116,29 @@ function CheckoutPage() {
                       type="text"
                       className="form-control form-control-lg"
                       id="coupon_code"
-                      // value={formDataCustomer.coupon_code}
-                      // onChange={handleChange}
+                      value={couponInput}
+                      onChange={(e) => setCouponInput(e.target.value)}
                       placeholder="INSERISCI COUPON"
                     />
-                    <button className="search-button"> Verifica </button>
-                  </>
+                    <button className="search-button" type="submit">
+                      {" "}
+                      Verifica{" "}
+                    </button>
+                  </form>
                 )}
               </div>
 
               {/* se valido deve comparirmi sotto totale il prezzo aggiornato */}
-              <h4 className="fw-semibold">Totale: € {total}</h4>
+              {couponValid ? (
+                <div className="d-flex align-item">
+                  <h4 className="fw-semibold text-decoration-line-through">
+                    Totale: € {total}
+                  </h4>
+                  <h4>New Total: &euro; {discountedTotal}</h4>
+                </div>
+              ) : (
+                <h4 className="fw-semibold">Totale: € {total}</h4>
+              )}
 
               <button
                 className="search-button mt-3"
