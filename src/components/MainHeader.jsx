@@ -1,23 +1,26 @@
 // import link
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/boolshop-logo-2nd.svg";
-// import context
-import { useApi } from "../contexts/ApiProvider";
+
 
 function MainHeader() {
-  const { search, setSearch } = useApi();
+
   const navigate = useNavigate();
+
+  const [search, setSearch] = useState("");
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setSearch(e.target.value);
-    const searchTrim = search.trim();
+    const value = e.target.value.trim();
+    setSearch(value);
+    const searchQuery = value;
 
-    if (searchTrim) {
-      navigate("/search");
+    if (searchQuery) {
+      navigate(`/search?cu=${encodeURIComponent(searchQuery)}`);
     }
   };
 

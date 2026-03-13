@@ -300,15 +300,12 @@ a {
   min-height: 100vh;
 } */
 
-/* Navigazione superiore */
 .top-nav-bar {
   padding-top: 240px;
-  /* Aumentato per spingerlo sotto l'header fixed */
   padding-bottom: 20px;
   max-width: 1300px;
   margin: 0 auto;
   padding-left: 40px;
-  /* Allineato al contenuto della sezione nera */
 }
 
 .back-link {
@@ -323,15 +320,12 @@ a {
 
 .back-link:hover {
   color: #f09226;
-  /* Diventa arancione quando passi sopra */
   transform: translateX(-5px);
-  /* Piccolo effetto movimento verso sinistra */
 }
 
-/* LA SEZIONE NERA */
+
 .detail-black-section {
   background-color: #1a1a1a;
-  /* Nero molto scuro */
   color: white;
   padding: 80px 0;
   margin-top: 20px;

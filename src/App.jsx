@@ -11,6 +11,7 @@ import SearchPage from "./pages/SearchPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderSuccess from "./pages/OrderSuccess";
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -21,7 +22,7 @@ function App() {
               <Route index element={<Homepage />} />
               <Route path="products/:slug" element={<ProductDetail />} />
               <Route path="/cart" element={<CartPage />} />
-              <Route path="/search/" element={<SearchPage />} />
+              <Route path="/search" element={<SearchPage />} />
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/notfound" element={<ErrorPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />

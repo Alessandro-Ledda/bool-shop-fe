@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGripVertical, faList } from '@fortawesome/free-solid-svg-icons'
 
 export default function SearchPage() {
-    const { search, setIsLoading } = useApi();
+    const { setIsLoading } = useApi();
     const { addToCart } = useCart();
 
     // var di stato per array di prodotti
@@ -24,12 +24,15 @@ export default function SearchPage() {
     // verifica se siamo su pagina di search per ricerca da barra header
     const location = useLocation();
     const onSearchPage = location.pathname === "/search";
-    // var per verifica se filtro è attivo
-    const myUrl = isFilterOn ? `${endpoint}api/products?order=${order}&searched=${search}&discount=${isFilterOn}` :
-        `${endpoint}api/products?order=${order}&searched=${search}`
+    // var per prendere query da url 
+    const queryParams = new URLSearchParams(location.search);
+    const searchFromUrl = queryParams.get("cu") || "";
+    // var per verifica se filtro è attivo e modifico url con valore preso da parametro cu che corrisponde al search dell'utente
+    const myUrl = isFilterOn ? `${endpoint}api/products?order=${order}&searched=${searchFromUrl}&discount=${isFilterOn}` :
+        `${endpoint}api/products?order=${order}&searched=${searchFromUrl}`
 
     function fetchProduct() {
-        if (!search || search.length < 2 && !onSearchPage) {
+        if (!searchFromUrl || searchFromUrl.length < 2 && !onSearchPage) {
             setFilteredProducts([]);
             return;
         }
@@ -47,7 +50,7 @@ export default function SearchPage() {
 
     useEffect(() => {
         fetchProduct();
-    }, [search, order, isFilterOn]);
+    }, [searchFromUrl, order, isFilterOn]);
 
     return (
         <div id="search-card-list" className="row container justify-content-center m-auto gy-5 pb-5">
