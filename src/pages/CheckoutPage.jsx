@@ -6,6 +6,9 @@ import FormCheckout from "../components/FormCheckout";
 import CartPreview from "../components/CartPreview";
 import CartPage from "./CartPage";
 
+//importo stile
+import "../styles/CheckoutPageStyle.css";
+
 function CheckoutPage() {
   const { cart, clearCart } = useCart();
   const navigate = useNavigate();
@@ -33,20 +36,40 @@ function CheckoutPage() {
           ← Ritorna alla Home
         </Link>
       </div>
-      <CartPreview />
-      <button
-        className="search-button mb-4"
-        onClick={() => {
-          if (window.confirm("Sei sicuro di voler svuotare il tuo carrello?")) {
-            clearCart();
-            navigate("/");
-          }
-        }}
-      >
-        Svuota Carrello
-      </button>
 
-      <FormCheckout />
+      <div className="row g-4">
+        <div className="col-12 col-xxl-6">
+          <div className="cart-wrapper shadow-sm p-3 rounded">
+            <CartPreview />
+
+            <div className="cart-footer">
+              <h4 className="fw-semibold">Totale: € 250</h4>
+
+              <button
+                className="search-button mt-3"
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      "Sei sicuro di voler svuotare il tuo carrello?",
+                    )
+                  ) {
+                    clearCart();
+                    navigate("/");
+                  }
+                }}
+              >
+                Svuota Carrello
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-12 col-xxl-6">
+          <div className="shadow-sm p-3 rounded bg-white">
+            <FormCheckout />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
