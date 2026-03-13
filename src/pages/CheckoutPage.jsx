@@ -135,7 +135,7 @@ function CheckoutPage() {
                   <span className="fw-semibold fs-4 ms-2 search-price text-decoration-line-through text-align-center">
                     {total}
                   </span>
-                  <span className="ms-2 fw-semibold fs-4 search-price">{discountedTotal}  &euro;</span>
+                  <span className="ms-2 fw-bold fs-4 search-price">{discountedTotal}  &euro;</span>
                 </div>
               ) : (
                 <div className="d-flex align-items-center">
