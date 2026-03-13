@@ -130,14 +130,21 @@ function CheckoutPage() {
 
               {/* se valido deve comparirmi sotto totale il prezzo aggiornato */}
               {couponValid ? (
-                <div className="d-flex align-item">
-                  <h4 className="fw-semibold text-decoration-line-through">
-                    Totale: € {total}
-                  </h4>
-                  <h4>New Total: &euro; {discountedTotal}</h4>
+                <div className="d-flex align-items-center">
+                  <span className="fs-3 fw-bold">Totale:</span>
+                  <span className="fw-semibold fs-4 ms-2 search-price text-decoration-line-through text-align-center">
+                    {total}
+                  </span>
+                  <span className="ms-2 fw-semibold fs-4 search-price">{discountedTotal}  &euro;</span>
                 </div>
               ) : (
-                <h4 className="fw-semibold">Totale: € {total}</h4>
+                <div className="d-flex align-items-center">
+                  <span className="fs-3 fw-bold">Totale:</span>
+                  <span className="fw-semibold fs-4 ms-2 search-price text-align-center">
+                    {total}
+                  </span>
+                </div>
+
               )}
 
               <button
