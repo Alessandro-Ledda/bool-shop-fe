@@ -15,18 +15,19 @@ export default function SearchPage() {
 
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [layout, setLayout] = useState("grid");
+    const [order, setOrder] = useState("");
     const location = useLocation();
     const onSearchPage = location.pathname === "/search";
 
     function fetchProduct() {
-        if (search.length < 2 && !onSearchPage) {
+        if (!search || search.length < 2 && !onSearchPage) {
             setFilteredProducts([]);
             return;
         }
 
         setIsLoading(true);
         axios
-            .get(`${endpoint}api/products?searched=${search}`)
+            .get(`${endpoint}api/products?order=${order}&searched=${search}`)
             .then((res) => {
                 setFilteredProducts(res.data);
             })
@@ -38,7 +39,7 @@ export default function SearchPage() {
 
     useEffect(() => {
         fetchProduct();
-    }, [search]);
+    }, [search, order]);
 
     return (
         <div id="search-card-list" className="row container justify-content-center m-auto gy-5 pb-5">
@@ -57,7 +58,7 @@ export default function SearchPage() {
                 </button>
             </div>
 
-            <FilterSelect search={search} onFilterChange={setFilteredProducts} />
+            <FilterSelect order={order} setOrder={setOrder} />
 
             {layout === "grid" ? (
                 filteredProducts.map((product) => (
