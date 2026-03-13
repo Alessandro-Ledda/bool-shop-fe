@@ -287,8 +287,10 @@ a {
   color: rgba(26, 26, 26, 0.95);
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.3),
-    /* Ombra soft naturale */ 0 2px 4px rgba(0, 0, 0, 0.2),
-    /* Profondità delicata */ 0 0 8px rgba(139, 69, 19, 0.3);
+    /* Ombra soft naturale */
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    /* Profondità delicata */
+    0 0 8px rgba(139, 69, 19, 0.3);
   position: absolute;
   bottom: 150px;
   z-index: 99;
@@ -730,7 +732,27 @@ a {
   padding-left: 20px;
   color: black !important;
 }
+
 .container-order-success {
   padding-top: 250px;
   padding-bottom: 50px;
+}
+
+
+/* style badge */
+.container-badge {
+  position: relative;
+  display: inline-block;
+}
+
+.badge-cart {
+  position: absolute;
+  top: -10px;
+  right: 36px;
+  background: orange;
+  color: black;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: bold;
 }

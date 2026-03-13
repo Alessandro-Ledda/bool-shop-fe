@@ -6,10 +6,12 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/boolshop-logo-2nd.svg";
 // import context
 import { useApi } from "../contexts/ApiProvider";
+import { useCart } from "../contexts/CartContext";
 
 function MainHeader() {
   const { search, setSearch } = useApi();
   const navigate = useNavigate();
+  const { cart } = useCart();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -52,6 +54,11 @@ function MainHeader() {
                 color="grey"
                 className="me-5"
               />
+              {cart.length > 0 && (
+                <div className="container-badge">
+                  <p><span className="badge-cart">{cart.length}</span></p>
+                </div>
+              )}
             </Link>
           </ul>
         </nav>
