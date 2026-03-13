@@ -587,6 +587,13 @@ a {
   background: linear-gradient(145deg, #ffffff, #f8f9ff);
   box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
   transition: transform 0.3s;
+  min-height: 90px !important;
+  padding: 10px 12px !important
+}
+
+.search-list-description {
+  margin-top: 0 !important;
+  padding: 5px !important;
 }
 
 .search-list-card:hover {
@@ -599,7 +606,21 @@ a {
 }
 
 .search-list-title {
-  font-size: 30px;
+  font-size: 16px !important;
+  margin-bottom: 4px !important;
+  line-height: 1.2 !important;
+}
+
+.calc-price {
+  margin-right: 400px;
+}
+
+.search-list-card img {
+  width: 200px !important;
+  height: 120px !important;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
 }
 
 .search-button {
