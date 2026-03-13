@@ -6,7 +6,7 @@ import { useApi } from "../contexts/ApiProvider";
 const endpoint = import.meta.env.VITE_APP_URL;
 
 
-export default function FilterSelect({ order, setOrder }) {
+export default function FilterSelect({ order, setOrder, isFilterOn, setIsFilterOn }) {
 
 
 
@@ -35,7 +35,7 @@ export default function FilterSelect({ order, setOrder }) {
                 </select>
             </div >
             <div className="filter-button">
-                <button >
+                <button onClick={() => setIsFilterOn(true)}>
                     filtra per scontati
                 </button>
             </div>

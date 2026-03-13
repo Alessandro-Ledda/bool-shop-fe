@@ -13,11 +13,20 @@ export default function SearchPage() {
     const { search, setIsLoading } = useApi();
     const { addToCart } = useCart();
 
+    // var di stato per array di prodotti
     const [filteredProducts, setFilteredProducts] = useState([]);
+    // var di stato per layout tasti griglia e lista
     const [layout, setLayout] = useState("grid");
+    // var di stato per order dinamico per select passato a componente
     const [order, setOrder] = useState("");
+    // var di stato per componente per filter discount
+    const [isFilterOn, setIsFilterOn] = useState(false);
+    // verifica se siamo su pagina di search per ricerca da barra header
     const location = useLocation();
     const onSearchPage = location.pathname === "/search";
+    // var per verifica se filtro è attivo
+    const myUrl = isFilterOn ? `${endpoint}api/products?order=${order}&searched=${search}&discount=${isFilterOn}` :
+        `${endpoint}api/products?order=${order}&searched=${search}`
 
     function fetchProduct() {
         if (!search || search.length < 2 && !onSearchPage) {
@@ -26,8 +35,7 @@ export default function SearchPage() {
         }
 
         setIsLoading(true);
-        axios
-            .get(`${endpoint}api/products?order=${order}&searched=${search}`)
+        axios.get(myUrl)
             .then((res) => {
                 setFilteredProducts(res.data);
             })
@@ -58,7 +66,7 @@ export default function SearchPage() {
                 </button>
             </div>
 
-            <FilterSelect order={order} setOrder={setOrder} />
+            <FilterSelect order={order} setOrder={setOrder} isFilterOn={isFilterOn} setIsFilterOn={setIsFilterOn} />
 
             {layout === "grid" ? (
                 filteredProducts.map((product) => (
