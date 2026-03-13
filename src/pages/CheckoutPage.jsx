@@ -12,6 +12,11 @@ import "../styles/CheckoutPageStyle.css";
 function CheckoutPage() {
   const { cart, clearCart } = useCart();
   const navigate = useNavigate();
+
+  const total = cart
+    .reduce((acc, item) => acc + item.price * item.quantity, 0)
+    .toFixed(2);
+
   if (cart.length === 0) {
     return (
       <div className="container d-flex justify-content-center align-items-center container-order-success ">
@@ -43,7 +48,7 @@ function CheckoutPage() {
             <CartPreview />
 
             <div className="cart-footer">
-              <h4 className="fw-semibold">Totale: € 250</h4>
+              <h4 className="fw-semibold">Totale: € {total}</h4>
 
               <button
                 className="search-button mt-3"

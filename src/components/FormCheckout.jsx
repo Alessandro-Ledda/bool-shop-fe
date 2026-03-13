@@ -69,7 +69,8 @@ function FormCheckout() {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
+        if (err.status === 400) window.alert(err.response.data.error);
         if (err.status === 500) redirect("/500_error_internal_server");
       })
       .finally(() => setIsLoading(false));
@@ -218,8 +219,6 @@ function FormCheckout() {
             value={formDataCustomer.coupon_code}
             onChange={handleChange}
             placeholder="INSERISCI COUPON"
-            minLength={5}
-            maxLength={5}
           />
         </div>
       </div>
