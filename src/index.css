@@ -603,6 +603,7 @@ a {
   font-size: 16px !important;
   margin-bottom: 4px !important;
   line-height: 1.2 !important;
+  padding-top: 10px;
 }
 
 .calc-price {
