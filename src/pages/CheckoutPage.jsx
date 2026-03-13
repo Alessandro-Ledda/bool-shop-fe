@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useCart } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 //importo form
@@ -12,6 +13,9 @@ import "../styles/CheckoutPageStyle.css";
 function CheckoutPage() {
   const { cart, clearCart } = useCart();
   const navigate = useNavigate();
+
+  // var di stato per gestire coupon
+  const [couponCode, setCouponCode] = useState(false);
 
   const total = cart
     .reduce((acc, item) => acc + item.price * item.quantity, 0)
@@ -48,6 +52,41 @@ function CheckoutPage() {
             <CartPreview />
 
             <div className="cart-footer">
+              {/* chekbox coupon*/}
+              <div className="form-check mt-2 ms-3">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="couponCode"
+                  checked={couponCode}
+                  onChange={() => setCouponCode(!couponCode)}
+                />
+                <label className="form-check-label" htmlFor="couponCode">
+                  Inserisci un codice sconto
+                </label>
+              </div>
+              {/* qui metto l'input txt dell coupon con bottone submit per verificarne esistenza e validità */}
+              <div className="col-12 mb-5 ">
+                {couponCode && (
+                  <>
+                    <label
+                      htmlFor="coupon_code"
+                      className="form-label text-uppercase small fw-semibold"
+                    ></label>
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      id="coupon_code"
+                      // value={formDataCustomer.coupon_code}
+                      // onChange={handleChange}
+                      placeholder="INSERISCI COUPON"
+                    />
+                    <button className="search-button"> Verifica </button>
+                  </>
+                )}
+              </div>
+
+              {/* se valido deve comparirmi sotto totale il prezzo aggiornato */}
               <h4 className="fw-semibold">Totale: € {total}</h4>
 
               <button
