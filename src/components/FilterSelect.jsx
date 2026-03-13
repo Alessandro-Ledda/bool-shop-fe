@@ -1,21 +1,6 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { useCart } from "../contexts/CartContext";
-import { useApi } from "../contexts/ApiProvider";
-
-const endpoint = import.meta.env.VITE_APP_URL;
 
 
 export default function FilterSelect({ order, setOrder, isFilterOn, setIsFilterOn }) {
-
-
-
-
-
-    // 
-
-
-
     return (
         <>
             <div className="filter-container mt-5 row justify-content-between">
