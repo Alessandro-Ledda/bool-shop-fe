@@ -10,23 +10,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGripVertical, faList } from '@fortawesome/free-solid-svg-icons'
 
 export default function SearchPage() {
-    const { search, setIsLoading } = useApi();
+    const { setIsLoading } = useApi();
     const { addToCart } = useCart();
 
+    // var di stato per array di prodotti
     const [filteredProducts, setFilteredProducts] = useState([]);
+    // var di stato per layout tasti griglia e lista
     const [layout, setLayout] = useState("grid");
+    // var di stato per order dinamico per select passato a componente
+    const [order, setOrder] = useState("");
+    // var di stato per componente per filter discount
+    const [isFilterOn, setIsFilterOn] = useState(false);
+    // verifica se siamo su pagina di search per ricerca da barra header
     const location = useLocation();
     const onSearchPage = location.pathname === "/search";
+    // var per prendere query da url 
+    const queryParams = new URLSearchParams(location.search);
+    const searchFromUrl = queryParams.get("cu") || "";
+    // var per verifica se filtro è attivo e modifico url con valore preso da parametro cu che corrisponde al search dell'utente
+    const myUrl = isFilterOn ? `${endpoint}api/products?order=${order}&searched=${searchFromUrl}&discount=${isFilterOn}` :
+        `${endpoint}api/products?order=${order}&searched=${searchFromUrl}`
 
     function fetchProduct() {
-        if (search.length < 2 && !onSearchPage) {
+        if (!searchFromUrl || searchFromUrl.length < 2 && !onSearchPage) {
             setFilteredProducts([]);
             return;
         }
 
         setIsLoading(true);
-        axios
-            .get(`${endpoint}api/products?searched=${search}`)
+        axios.get(myUrl)
             .then((res) => {
                 setFilteredProducts(res.data);
             })
@@ -38,7 +50,7 @@ export default function SearchPage() {
 
     useEffect(() => {
         fetchProduct();
-    }, [search]);
+    }, [searchFromUrl, order, isFilterOn]);
 
     return (
         <div id="search-card-list" className="row container justify-content-center m-auto gy-5 pb-5">
@@ -57,91 +69,96 @@ export default function SearchPage() {
                 </button>
             </div>
 
-            <FilterSelect search={search} onFilterChange={setFilteredProducts} />
-
-            {layout === "grid" ? (
-                filteredProducts.map((product) => (
-                    <div key={product.id} className="search-grid-card col-3 me-2">
-                        <Link to={`/products/${product.slug}`}>
+            <FilterSelect order={order} setOrder={setOrder} isFilterOn={isFilterOn} setIsFilterOn={setIsFilterOn} />
+            <div className="row justify-content-center gy-4">
+                {layout === "grid" ? (
+                    filteredProducts.map((product) => (
+                        <div key={product.id} className="search-grid-card col-3 me-2">
+                            <Link to={`/products/${product.slug}`}>
+                                {product.discount_percentage ? (
+                                    <div className="d-flex justify-content-center mb-2">
+                                        <span className="sale-badge">
+                                            SALE
+                                        </span>
+                                    </div>
+                                ) : null}
+                                <img className="img-detail-grid" src={product.image_url} alt={product.name} />
+                                <h1 className="text-dark">{product.name}</h1>
+                            </Link>
+                            <p>{product.description}</p>
                             {product.discount_percentage ? (
-                                <div className="d-flex justify-content-center mb-2">
-                                    <span className="sale-badge">
-                                        SALE
+                                <>
+                                    <div className="d-flex justify-content-between">
+                                        <p className="fw-bold d-inline search-price text-decoration-line-through">
+                                            {product.price}€
+                                        </p>
+                                        <span className="discounted-badge">
+                                            {`${product.discount_percentage} %`}
+                                        </span>
+                                    </div>
+                                    <span className="fw-bold fs-5 search-price">
+                                        {` ${(product.price - (product.price * product.discount_percentage / 100)).toFixed(2)}€`}
                                     </span>
-                                </div>
-                            ) : null}
-                            <img className="img-detail w-100" src={product.image_url} alt={product.name} />
-                            <h1 className="text-dark">{product.name}</h1>
-                        </Link>
-                        <p>{product.description}</p>
-                        {product.discount_percentage ? (
-                            <>
-                                <div className="d-flex justify-content-between">
-                                    <p className="fw-bold d-inline search-price text-decoration-line-through">
-                                        {product.price}€
-                                    </p>
-                                    <span className="discounted-badge">
-                                        {`${product.discount_percentage} %`}
-                                    </span>
-                                </div>
-                                <span className="fw-bold fs-5 search-price">
-                                    {` ${(product.price - (product.price * product.discount_percentage / 100)).toFixed(2)}€`}
-                                </span>
-                            </>
-                        ) : (
-                            <p className="fw-bold search-price">{`${product.price}€`}</p>
-                        )}
-                        <div className="add-cart">
-                            <button onClick={() => addToCart(product)} className="search-button mb-3">
-                                Aggiungi al carrello
-                            </button>
+                                </>
+                            ) : (
+                                <p className="fw-bold search-price">{`${product.price}€`}</p>
+                            )}
+                            <div className="add-cart">
+                                <button onClick={() => addToCart(product)} className="search-button mb-3">
+                                    Aggiungi al carrello
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ))
-            ) : (
-                filteredProducts.map((product) => (
-                    <div key={product.id}>
-                        <Link to={`/products/${product.slug}`}>
-                            <div className="card search-list-card col-12 w-100 d-flex flex-row justify-content-between">
-                                <img src={product.image_url} alt={product.name} className="w-25" />
-                                <div className="search-list-description ms-3 mt-5 flex-grow-1">
-                                    {product.discount_percentage ? (
-                                        <div className="d-flex flex-start me-4 mb-2">
-                                            <span className="sale-badge">
-                                                SALE
-                                            </span>
-                                        </div>
-                                    ) : null}
-                                    <h3 className="search-list-title fw-bold w-100">{product.name}</h3>
-                                    <p className="fs-5">{product.description}</p>
-                                    {product.discount_percentage ? (
-                                        <>
-                                            <div className="d-flex justify-content-between">
-                                                <p className="fw-bold d-inline search-price text-decoration-line-through">
-                                                    {product.price}€
-                                                </p>
-                                                <span className="discounted-badge me-5">
-                                                    {`${product.discount_percentage} %`}
+                    ))
+
+                ) : (
+                    filteredProducts.map((product) => (
+                        <div key={product.id} className="col-12">
+                            <Link to={`/products/${product.slug}`}>
+                                <div className="card search-list-card d-flex flex-row justify-content-between">
+                                    <img src={product.image_url} alt={product.name} className="w-25" />
+                                    <div className="search-list-description ms-3 mt-2 flex-grow-1">
+                                        {product.discount_percentage ? (
+                                            <div className="d-flex flex-start me-4 mb-2">
+                                                <span className="sale-badge">
+                                                    SALE
                                                 </span>
                                             </div>
-                                            <span className="fw-bold fs-5 search-price">
-                                                {` ${(product.price - (product.price * product.discount_percentage / 100)).toFixed(2)}€`}
-                                            </span>
-                                        </>
-                                    ) : (
-                                        <p className="fw-bold search-price">{`${product.price}€`}</p>
-                                    )}
+                                        ) : null}
+                                        <h3 className="search-list-title fw-bold w-100">{product.name}</h3>
+                                        <p className="fs-5">{product.description}</p>
+                                        {product.discount_percentage ? (
+                                            <>
+                                                <div className="d-flex justify-content-between align-items-center">
+                                                    <p className="fw-bold d-inline search-price mb-0 text-decoration-line-through">
+                                                        {product.price}€
+                                                    </p>
+                                                    <span className="calc-price fw-bold fs-5 search-price">
+                                                        {` ${(product.price - (product.price * product.discount_percentage / 100)).toFixed(2)}€`}
+                                                    </span>
+                                                    <span className="discounted-badge me-5">
+                                                        {`${product.discount_percentage} %`}
+                                                    </span>
+                                                </div>
+
+                                            </>
+                                        )
+
+                                            : (
+                                                <p className="fw-bold search-price">{`${product.price}€`}</p>
+                                            )}
+                                    </div>
+                                    <div className="add-cart me-5 align-self-center">
+                                        <button onClick={() => addToCart(product)} className="search-button">
+                                            Aggiungi al carrello
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="add-cart me-5 align-self-center">
-                                    <button onClick={() => addToCart(product)} className="search-button">
-                                        Aggiungi al carrello
-                                    </button>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                ))
-            )}
-        </div>
-    );
+                            </Link>
+                        </div>
+                    ))
+                )
+                }
+            </div >
+        </div>);
 }

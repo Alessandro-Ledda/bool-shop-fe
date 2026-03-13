@@ -11,6 +11,7 @@ import SearchPage from "./pages/SearchPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderSuccess from "./pages/OrderSuccess";
 
+
 function App() {
   return (
     <BrowserRouter>

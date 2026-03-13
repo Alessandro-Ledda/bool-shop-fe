@@ -12,9 +12,6 @@ export function ApiProvider({ children }) {
 
   const [products, setProducts] = useState([]);
 
-  // variabile di stato per la ricerca
-  const [search, setSearch] = useState("");
-
   function fetchProduct() {
     //attivo loader
     setIsLoading(true);
@@ -37,8 +34,6 @@ export function ApiProvider({ children }) {
       value={{
         products,
         setProducts,
-        search,
-        setSearch,
         isLoading,
         setIsLoading,
       }}
