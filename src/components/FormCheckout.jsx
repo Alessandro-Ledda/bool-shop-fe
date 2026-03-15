@@ -54,6 +54,13 @@ function FormCheckout() {
     });
   };
 
+  //prova oggetto mail
+  const objEmail = {
+    email_customer: "marco@azienda.it",
+    subject: "prova invio da FE",
+    text: "può funzionare così",
+  };
+
   const endpoint = "http://localhost:3000/api/orders/";
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,7 +84,22 @@ function FormCheckout() {
         if (err.status === 400) window.alert(err.response.data.error);
         if (err.status === 500) redirect("/500_error_internal_server");
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+        axios
+          .post("http://localhost:3000/api/email/", objEmail, {
+            headers: { "Content-Type": "application/json" },
+          })
+
+          .catch((err) => {
+            //console.log(err);
+            if (err.status === 500) {
+              window.alert(err.response.data.error);
+              redirect("/500_error_internal_server");
+            }
+          })
+          .finally();
+      });
   };
 
   return (
