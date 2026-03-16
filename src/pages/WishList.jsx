@@ -14,15 +14,12 @@ function WishList() {
         (wishlist || []).includes(product.id)
     );
 
-    if (!wishListProducts.length) {
-        <p>La wishlist è vuota</p>;
-    }
-
     return (
         <>
             <div className="container-wishlist">
                 <div className="content-wishlist">
                     <h1 className="title">Lista Desideri</h1>
+                    <p>La wishlist è vuota</p>
                     {wishListProducts.map(product => (
                         <div key={product.id}>
                             <h3>{product.name}</h3>
