@@ -15,7 +15,7 @@ function WishList() {
     );
 
     if (!wishListProducts.length) {
-        return <p>La wishlist è vuota</p>;
+        <p>La wishlist è vuota</p>;
     }
 
     return (
