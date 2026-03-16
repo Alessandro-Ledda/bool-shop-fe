@@ -8,7 +8,7 @@ import { useCart } from "../contexts/CartContext";
 //importo navigate per poi passare nella pagina di messaggio
 import { useNavigate } from "react-router-dom";
 
-function FormCheckout() {
+function FormCheckout({ coupon_code }) {
   // attivo l'utilizzo del loader dal context principale
   const { setIsLoading } = useApi();
 
@@ -31,7 +31,6 @@ function FormCheckout() {
     customer_address: "",
     customer_city: "",
     customer_cap: "",
-    coupon_code: "",
   };
   const [formDataCustomer, setFormDataCustomer] = useState(
     initialFormDataCustomer,
@@ -43,7 +42,12 @@ function FormCheckout() {
   const [sameAddress, setSameAddress] = useState(true);
 
   useEffect(
-    () => setObjPost({ ...formDataCustomer, products: products }),
+    () =>
+      setObjPost({
+        ...formDataCustomer,
+        coupon_code: coupon_code,
+        products: products,
+      }),
     [formDataCustomer],
   );
 
@@ -52,12 +56,6 @@ function FormCheckout() {
       ...formDataCustomer,
       [e.target.id]: e.target.value,
     });
-  };
-
-  //prova oggetto mail
-  const objEmail = {
-    email_customer: "marco@azienda.it",
-    subject: "prova invio da FE",
   };
 
   const endpoint = "http://localhost:3000/api/orders/";
@@ -257,7 +255,7 @@ function FormCheckout() {
             required
           />
         </div>
-        <div className="col-12 mt-3">
+        {/* <div className="col-12 mt-3">
           <label
             htmlFor="coupon_code"
             className="form-label text-uppercase small fw-semibold"
@@ -272,11 +270,11 @@ function FormCheckout() {
             onChange={handleChange}
             placeholder="INSERISCI COUPON"
           />
-        </div>
+        </div> */}
       </div>
 
       <button type="submit" className="search-button mb-3">
-        Conferma Dati
+        Conferma Ordine
       </button>
     </form>
   );
