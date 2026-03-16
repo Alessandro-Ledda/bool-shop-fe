@@ -76,8 +76,8 @@ function FormCheckout() {
         // svuota campi form (e var di stato)
         setFormDataCustomer(initialFormDataCustomer);
         clearCart();
-        navigate("/order_success", { state: res.data });
         new_id = res.data.new_id;
+        navigate("/order_success", { state: new_id });
       })
       .catch((err) => {
         //console.log(err);
@@ -86,17 +86,17 @@ function FormCheckout() {
       })
       .finally(() => {
         setIsLoading(false);
-        axios
-          .get(`http://localhost:3000/api/email/${new_id}`)
+        // axios
+        //   .get(`http://localhost:3000/api/email/${new_id}`)
 
-          .catch((err) => {
-            //console.log(err);
-            if (err.status === 500) {
-              window.alert(err.response.data.error);
-              navigate("/500_error_internal_server");
-            }
-          })
-          .finally(console.log(new_id));
+        //   .catch((err) => {
+        //     //console.log(err);
+        //     if (err.status === 500) {
+        //       window.alert(err.response.data.error);
+        //       navigate("/500_error_internal_server");
+        //     }
+        //   })
+        //   .finally(console.log(new_id));
       });
   };
 
