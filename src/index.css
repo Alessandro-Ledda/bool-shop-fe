@@ -282,8 +282,10 @@ a {
   color: rgba(26, 26, 26, 0.95);
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.3),
-    /* Ombra soft naturale */ 0 2px 4px rgba(0, 0, 0, 0.2),
-    /* Profondità delicata */ 0 0 8px rgba(139, 69, 19, 0.3);
+    /* Ombra soft naturale */
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    /* Profondità delicata */
+    0 0 8px rgba(139, 69, 19, 0.3);
   position: absolute;
   bottom: 150px;
   z-index: 99;
@@ -528,7 +530,7 @@ a {
 
 /* prove */
 .title {
-  padding-top: 300px;
+  padding-top: 100px;
 }
 
 /* style btn font awesomeicon  */
