@@ -87,9 +87,7 @@ function FormCheckout() {
       .finally(() => {
         setIsLoading(false);
         axios
-          .post("http://localhost:3000/api/email/", objEmail, {
-            headers: { "Content-Type": "application/json" },
-          })
+          .get(`http://localhost:3000/api/email/${new_id}`)
 
           .catch((err) => {
             //console.log(err);
