@@ -8,6 +8,8 @@ import CartPreview from "../components/CartPreview";
 import CartPage from "./CartPage";
 import axios from "axios";
 
+const shippingTotal = 4;
+
 //importo stile
 import "../styles/CheckoutPageStyle.css";
 
@@ -22,19 +24,25 @@ function CheckoutPage() {
 
   const [couponValid, setCouponValid] = useState(false);
 
+  const totalNum = cart
+    .reduce((acc, item) => acc + item.price * item.quantity, 0)
+
+  const total = totalNum.toFixed(2);
+  const finalPrice = couponValid ? parseFloat(discountedTotal || 0) : totalNum;
+  const shippingCost = finalPrice > 100 ? 0 : shippingTotal;
+
   const couponValidator = (e) => {
+
     const endpoint = `http://localhost:3000/api/coupons/${couponInput}`;
     // console.log(`${couponInput} - couponInput`);
     e.preventDefault();
     axios
       .get(endpoint)
       .then((res) => {
-        console.log(res.data);
         if (res.data.valid) {
           setCouponValid(true);
           const discountPercentage = res.data.coupon_percentage;
-          console.log(discountPercentage + "discountP%");
-          const newTotal = ((total * (100 - discountPercentage)) / 100).toFixed(
+          const newTotal = ((totalNum * (100 - discountPercentage)) / 100).toFixed(
             2,
           );
           setDiscountedTotal(newTotal);
@@ -56,9 +64,7 @@ function CheckoutPage() {
     // .finally(() => setIsLoading(false));
   };
 
-  const total = cart
-    .reduce((acc, item) => acc + item.price * item.quantity, 0)
-    .toFixed(2);
+
 
   if (cart.length === 0) {
     return (
@@ -77,6 +83,7 @@ function CheckoutPage() {
       </div>
     );
   }
+
   return (
     <div className="container">
       <div className="top-nav-bar">
@@ -127,6 +134,12 @@ function CheckoutPage() {
                   </form>
                 )}
               </div>
+              <div className="shipping-cost">
+                <p className="fw-medium">
+                  il costo di spedizione è :
+                  <span className="search-price"> {shippingCost} &euro;</span>
+                </p>
+              </div>
 
               {/* se valido deve comparirmi sotto totale il prezzo aggiornato */}
               {couponValid ? (
@@ -135,13 +148,13 @@ function CheckoutPage() {
                   <span className="fw-semibold fs-4 ms-2 search-price text-decoration-line-through text-align-center">
                     {total}
                   </span>
-                  <span className="ms-2 fw-bold fs-4 search-price">{discountedTotal}  &euro;</span>
+                  <span className="ms-2 fw-bold fs-4 search-price">{discountedTotal < 100 ? (parseFloat(discountedTotal) + shippingTotal).toFixed(2) : discountedTotal}  &euro;</span>
                 </div>
               ) : (
                 <div className="d-flex align-items-center">
                   <span className="fs-3 fw-bold">Totale:</span>
                   <span className="fw-semibold fs-4 ms-2 search-price text-align-center">
-                    {total}
+                    {total < 100 ? (parseFloat(total) + shippingTotal).toFixed(2) : total}
                   </span>
                 </div>
 
