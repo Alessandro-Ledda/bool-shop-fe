@@ -10,6 +10,7 @@ import { CartProvider } from "./contexts/CartContext";
 import SearchPage from "./pages/SearchPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderSuccess from "./pages/OrderSuccess";
+import { WishlistProvider } from "./contexts/wishlistContext";
 
 
 function App() {
@@ -17,19 +18,21 @@ function App() {
     <BrowserRouter>
       <ApiProvider>
         <CartProvider>
-          <Routes>
-            <Route element={<DefaultLayout />}>
-              <Route index element={<Homepage />} />
-              <Route path="products/:slug" element={<ProductDetail />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/search" element={<SearchPage />} />
-              <Route path="/wishlist" element={<WishList />} />
-              <Route path="/notfound" element={<ErrorPage />} />
-              <Route path="/checkout" element={<CheckoutPage />} />
-              <Route path="/order_success" element={<OrderSuccess />} />
-              <Route path="*" element={<ErrorPage />} />
-            </Route>
-          </Routes>
+          <WishlistProvider>
+            <Routes>
+              <Route element={<DefaultLayout />}>
+                <Route index element={<Homepage />} />
+                <Route path="products/:slug" element={<ProductDetail />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/wishlist" element={<WishList />} />
+                <Route path="/notfound" element={<ErrorPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/order_success" element={<OrderSuccess />} />
+                <Route path="*" element={<ErrorPage />} />
+              </Route>
+            </Routes>
+          </WishlistProvider>
         </CartProvider>
       </ApiProvider>
     </BrowserRouter>
