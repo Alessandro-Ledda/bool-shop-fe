@@ -184,6 +184,16 @@ main {
   aspect-ratio: 16/9;
   object-fit: cover;
   border-radius: 10px;
+  position: relative;
+}
+
+.wishlist-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.623);
+  z-index: 999;
 }
 
 .badge {
@@ -805,11 +815,6 @@ a {
 .swiper-button-next {
   padding-left: 20px;
   color: black !important;
-}
-
-.container-order-success {
-  padding-top: 250px;
-  padding-bottom: 50px;
 }
 
 /* style badge */
