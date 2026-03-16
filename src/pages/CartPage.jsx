@@ -57,6 +57,11 @@ function CartPage() {
                         {product.description}
                       </p>
                     )}
+                    {item.discount_percentage && (
+                      <span className="discounted-badge">
+                        {`${item.discount_percentage} %`}
+                      </span>
+                    )}
                   </Link>
                 </div>
 
