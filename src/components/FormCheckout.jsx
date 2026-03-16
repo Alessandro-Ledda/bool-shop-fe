@@ -8,6 +8,8 @@ import { useCart } from "../contexts/CartContext";
 //importo navigate per poi passare nella pagina di messaggio
 import { useNavigate } from "react-router-dom";
 
+const endpointBase = import.meta.env.VITE_APP_URL;
+
 function FormCheckout({ coupon_code }) {
   // attivo l'utilizzo del loader dal context principale
   const { setIsLoading } = useApi();
@@ -58,7 +60,7 @@ function FormCheckout({ coupon_code }) {
     });
   };
 
-  const endpoint = "http://localhost:3000/api/orders/";
+  const endpoint = `${endpointBase}/api/orders/`;
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -85,7 +87,7 @@ function FormCheckout({ coupon_code }) {
       .finally(() => {
         setIsLoading(false);
         // axios
-        //   .get(`http://localhost:3000/api/email/${new_id}`)
+        //   .get(`${endpointBase}/api/email/${new_id}`)
 
         //   .catch((err) => {
         //     //console.log(err);
