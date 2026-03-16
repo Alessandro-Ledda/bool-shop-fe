@@ -92,7 +92,27 @@ function CartPage() {
                     ).toFixed(2)}
                     €
                   </span>
-                  <small className="text-muted">({item.price}€/pz)</small>
+                  {item.discount_percentage ? (
+                    <>
+                      <div>
+                        <small className="text-muted text-decoration-line-through">
+                          ({item.price}€/pz)
+                        </small>
+                      </div>
+                      <small className="text-muted ">
+                        (
+                        {(
+                          item.price -
+                          (item.price * item.discount_percentage) / 100
+                        ).toFixed(2)}
+                        €/pz)
+                      </small>
+                    </>
+                  ) : (
+                    <div>
+                      <small className="text-muted ">({item.price}€/pz)</small>
+                    </div>
+                  )}
                 </div>
 
                 {/* trash */}
