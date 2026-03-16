@@ -23,7 +23,7 @@ export function ApiProvider({ children }) {
       .catch((err) => {
         console.log(err);
       })
-      .finally(setIsLoading(false));
+      .finally(() => setIsLoading(false));
   }
 
   useEffect(fetchProduct, []);

@@ -1,95 +1,200 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import "./../styles/OrderSuccess.css";
 
+const endpoint = import.meta.env.VITE_APP_URL;
 function OrderSuccess() {
-  const navigate = useNavigate();
+  const [orderData, setOrderData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const location = useLocation();
-  const res_order = location.state;
-  if (!res_order) {
+  const new_id = location.state;
+
+  // Se non arriva l'ID → NON AUTORIZZATO
+  if (!new_id) {
     return (
-      <div className="container d-flex justify-content-center align-items-center container-order-success ">
-        <div
-          className="bg-white border rounded-3 shadow-sm p-4 p-md-5"
-          style={{ maxWidth: "600px", width: "100%" }}
-        >
-          <h1 className="h3 mb-3 text-success text-uppercase fw-semibold">
-            NON AUTORIZZATO
-          </h1>
-          <Link to="/" className="search-button mb-3 text-black fw-semibold">
-            Torna alla Home
+      <>
+        {" "}
+        <div className="top-nav-bar">
+          <Link className="back-link" to="/">
+            ← Torna alla Home
           </Link>
         </div>
+        <div className="container d-flex justify-content-center align-items-center py-5">
+          <div
+            className="bg-white border rounded-3 shadow-sm p-4 p-md-5"
+            style={{ maxWidth: "600px", width: "100%" }}
+          >
+            <h1 className="h3 mb-3 text-success text-uppercase fw-semibold">
+              NON AUTORIZZATO
+            </h1>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  function fetchOrder() {
+    setIsLoading(true);
+
+    axios
+      .get(`${endpoint}api/orders/${new_id}`)
+      .then((res) => {
+        setOrderData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
+  }
+
+  useEffect(fetchOrder, []);
+
+  // Loader
+  if (isLoading || !orderData) {
+    return (
+      <div className="container py-5 text-center">
+        <div className="spinner-border text-success"></div>
       </div>
     );
   }
 
-  const {
-    new_id,
-    coupon_valid,
-    message_coupon,
-    total_order,
-    total_order_discount,
-  } = res_order;
+  const { products, order } = orderData;
 
   return (
-    <div className="container d-flex justify-content-center align-items-center container-order-success ">
-      <div
-        className="bg-white border rounded-3 shadow-sm p-4 p-md-5"
-        style={{ maxWidth: "600px", width: "100%" }}
-      >
-        <h1 className="h3 mb-3 text-success text-uppercase fw-semibold">
-          Ordine completato
-        </h1>
-
-        <p className="text-muted mb-4">
-          Grazie per il tuo acquisto. Ecco il riepilogo del tuo ordine.
-        </p>
-
-        {/* ID Ordine */}
-        <div className="mb-3">
-          <h2 className="h6 text-uppercase text-muted mb-1">ID Ordine</h2>
-          <p className="fw-semibold">#{new_id}</p>
+    <div className="container py-5">
+      <div className="row justify-content-center">
+        <div className="top-nav-bar">
+          <Link className="back-link" to="/">
+            ← Torna alla Home
+          </Link>
         </div>
 
-        {/* Coupon */}
-        <div className="mb-3">
-          <h2 className="h6 text-uppercase text-muted mb-1">Stato coupon</h2>
+        <div className="col-12 col-md-10 col-lg-7">
+          <div className="bg-white border rounded-3 shadow-sm p-4 p-md-5">
+            <h1 className="h4 mb-4 text-success text-uppercase fw-semibold text-center">
+              Grazie per il tuo ordine!
+            </h1>
 
-          <p
-            className={`fw-semibold ${
-              coupon_valid ? "text-success" : "text-danger"
-            }`}
-          >
-            {message_coupon}
-          </p>
-        </div>
+            {/* RIEPILOGO PRODOTTI */}
+            <h2 className="h6 fw-semibold mb-3">Riepilogo prodotti</h2>
 
-        {/* Totale ordine */}
-        <div className="mb-3">
-          <h2 className="h6 text-uppercase text-muted mb-1">Totale ordine</h2>
-          <p className="fw-semibold">{total_order} €</p>
-        </div>
+            <div className="list-group mb-4">
+              {products.map((item) => (
+                <div
+                  key={item.product_id}
+                  className="list-group-item border-0 border-bottom py-3 px-0"
+                >
+                  <div className="d-flex align-items-center gap-3 ">
+                    <img
+                      src={item.image_url}
+                      alt={item.name}
+                      className="rounded product-img "
+                    />
 
-        {/* Totale scontato */}
-        {coupon_valid && (
-          <div className="mb-4">
-            <h2 className="h6 text-uppercase text-muted mb-1">
-              Totale dopo sconti
-            </h2>
-            <p className="fw-semibold">{total_order_discount} €</p>
+                    <div className="flex-grow-1">
+                      <div className="fw-semibold">{item.name}</div>
+                      <div className="text-muted small">
+                        Quantità: {item.unit_quantity}
+                      </div>
+                      {item.discount_percentage && (
+                        <div className="text-success small fw-medium">
+                          -{item.discount_percentage}% di sconto
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="text-end">
+                      <div className="fw-semibold">
+                        € {Number(item.unit_price).toFixed(2)}
+                      </div>
+                      {item.discount_percentage && (
+                        <div className="text-muted small text-decoration-line-through">
+                          € {Number(item.price).toFixed(2)}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* DATI CLIENTE */}
+            <h2 className="h6 fw-semibold mb-3">Dati del cliente</h2>
+
+            <div className="bg-light rounded-3 p-3 mb-4">
+              <div className="mb-2">
+                <span className="fw-medium">Nome:</span>
+                <span className="ms-2 text-muted">
+                  {order.customer_first_name} {order.customer_last_name}
+                </span>
+              </div>
+
+              <div className="mb-2">
+                <span className="fw-medium">Email:</span>
+                <span className="ms-2 text-muted">{order.customer_email}</span>
+              </div>
+
+              <div className="mb-2">
+                <span className="fw-medium">Telefono:</span>
+                <span className="ms-2 text-muted">{order.customer_phone}</span>
+              </div>
+
+              <div className="mb-2">
+                <span className="fw-medium">Indirizzo:</span>
+                <span className="ms-2 text-muted">
+                  {order.customer_address}
+                </span>
+              </div>
+
+              <div className="mb-2">
+                <span className="fw-medium">Città:</span>
+                <span className="ms-2 text-muted">
+                  {order.customer_city} ({order.customer_cap})
+                </span>
+              </div>
+
+              <div>
+                <span className="fw-medium">Data ordine:</span>
+                <span className="ms-2 text-muted">
+                  {new Date(order.order_date).toLocaleDateString("it-IT")}
+                </span>
+              </div>
+            </div>
+
+            {/* COUPON */}
+            {order.coupon_percentage && (
+              <div className="p-3 bg-light rounded-3 mb-4">
+                <h2 className="h6 fw-semibold mb-2">Coupon applicato</h2>
+                <div className="d-flex justify-content-between">
+                  <span className="fw-medium">Sconto coupon</span>
+                  <span className="text-success fw-semibold">
+                    -{order.coupon_percentage}%
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* TOTALE */}
+            <div className="border-top pt-3">
+              <div className="d-flex justify-content-between mb-1">
+                <span className="fw-medium">Totale ordine</span>
+                <span className="fw-bold fs-5">
+                  € {Number(order.total).toFixed(2)}
+                </span>
+              </div>
+            </div>
+
+            <p className="text-center text-muted mt-4 mb-0">
+              Riceverai un'email con tutti i dettagli dell’ordine.
+            </p>
           </div>
-        )}
-
-        {/* Messaggio finale */}
-        <div className="alert alert-success mb-4">
-          Il tuo ordine è stato registrato correttamente. Riceverai una email di
-          conferma.
         </div>
-
-        <Link
-          to="/"
-          className="btn btn-primary w-100 text-uppercase fw-semibold"
-        >
-          Torna alla Home
+      </div>
+      <div className="text-center mt-4">
+        <Link to="/">
+          <button className="search-button mb-3">Torna allo shopping</button>
         </Link>
       </div>
     </div>
