@@ -15,20 +15,19 @@ function OrderSuccess() {
   if (!new_id) {
     return (
       <>
-        {" "}
         <div className="top-nav-bar">
           <Link className="back-link" to="/">
             ← Torna alla Home
           </Link>
         </div>
-        <div className="container d-flex justify-content-center align-items-center py-5">
-          <div
-            className="bg-white border rounded-3 shadow-sm p-4 p-md-5"
-            style={{ maxWidth: "600px", width: "100%" }}
-          >
+        <div className="container d-flex justify-content-center align-products-center py-5">
+          <div className="bg-white border rounded-3 shadow-sm p-4 p-md-5 unauthorized">
             <h1 className="h3 mb-3 text-success text-uppercase fw-semibold">
               NON AUTORIZZATO
             </h1>
+            <Link to="/">
+              <button className="search-button mb-3">Vai allo shopping</button>
+            </Link>
           </div>
         </div>
       </>
@@ -77,41 +76,40 @@ function OrderSuccess() {
               Grazie per il tuo ordine!
             </h1>
 
-            {/* RIEPILOGO PRODOTTI */}
             <h2 className="h6 fw-semibold mb-3">Riepilogo prodotti</h2>
 
             <div className="list-group mb-4">
-              {products.map((item) => (
+              {products.map((product) => (
                 <div
-                  key={item.product_id}
-                  className="list-group-item border-0 border-bottom py-3 px-0"
+                  key={product.product_id}
+                  className="list-group-product border-0 border-bottom py-3 px-0"
                 >
-                  <div className="d-flex align-items-center gap-3 ">
+                  <div className="d-flex align-products-center gap-3 ">
                     <img
-                      src={item.image_url}
-                      alt={item.name}
+                      src={product.image_url}
+                      alt={product.name}
                       className="rounded product-img "
                     />
 
                     <div className="flex-grow-1">
-                      <div className="fw-semibold">{item.name}</div>
+                      <div className="fw-semibold">{product.name}</div>
                       <div className="text-muted small">
-                        Quantità: {item.unit_quantity}
+                        Quantità: {product.unit_quantity}
                       </div>
-                      {item.discount_percentage && (
+                      {product.discount_percentage && (
                         <div className="text-success small fw-medium">
-                          -{item.discount_percentage}% di sconto
+                          -{product.discount_percentage}% di sconto
                         </div>
                       )}
                     </div>
 
                     <div className="text-end">
                       <div className="fw-semibold">
-                        € {Number(item.unit_price).toFixed(2)}
+                        € {Number(product.unit_price).toFixed(2)}
                       </div>
-                      {item.discount_percentage && (
+                      {product.discount_percentage && (
                         <div className="text-muted small text-decoration-line-through">
-                          € {Number(item.price).toFixed(2)}
+                          € {Number(product.price).toFixed(2)}
                         </div>
                       )}
                     </div>
@@ -120,7 +118,6 @@ function OrderSuccess() {
               ))}
             </div>
 
-            {/* DATI CLIENTE */}
             <h2 className="h6 fw-semibold mb-3">Dati del cliente</h2>
 
             <div className="bg-light rounded-3 p-3 mb-4">
@@ -158,12 +155,11 @@ function OrderSuccess() {
               <div>
                 <span className="fw-medium">Data ordine:</span>
                 <span className="ms-2 text-muted">
-                  {new Date(order.order_date).toLocaleDateString("it-IT")}
+                  {new Date(order.order_date).toLocaleDateString()}
                 </span>
               </div>
             </div>
 
-            {/* COUPON */}
             {order.coupon_percentage && (
               <div className="p-3 bg-light rounded-3 mb-4">
                 <h2 className="h6 fw-semibold mb-2">Coupon applicato</h2>
@@ -176,7 +172,6 @@ function OrderSuccess() {
               </div>
             )}
 
-            {/* TOTALE */}
             <div className="border-top pt-3">
               <div className="d-flex justify-content-between mb-1">
                 <span className="fw-medium">Totale ordine</span>
