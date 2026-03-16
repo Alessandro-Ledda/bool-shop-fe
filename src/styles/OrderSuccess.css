@@ -1,3 +1,8 @@
+.unauthorized {
+  max-width: "600px";
+  width: "100%";
+}
+
 .product-img {
   width: 70px;
   height: 70px;
