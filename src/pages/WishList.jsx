@@ -20,7 +20,7 @@ function WishList() {
                 <h1 className="title text-center mb-5">Lista Desideri</h1>
 
                 {wishListProducts.length === 0 ? (
-                    <p>La wishlist è vuota</p>
+                    <p className="text-center">La wishlist è vuota</p>
                 ) : (
                     wishListProducts.map(product => (
                         <div className="col-12 col-md-10 mx-auto mb-3" key={product.id}>
