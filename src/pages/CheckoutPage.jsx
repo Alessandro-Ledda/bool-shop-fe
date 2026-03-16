@@ -8,7 +8,7 @@ import CartPreview from "../components/CartPreview";
 import CartPage from "./CartPage";
 import axios from "axios";
 
-const shippingTotal = 4;
+const shippingTotal = Number(import.meta.env.VITE_SHIPPING_COST);
 
 //importo stile
 import "../styles/CheckoutPageStyle.css";
@@ -28,7 +28,7 @@ function CheckoutPage() {
     .reduce((acc, item) => acc + item.price * item.quantity, 0)
 
   const total = totalNum.toFixed(2);
-  const finalPrice = couponValid ? parseFloat(discountedTotal || 0) : totalNum;
+  const finalPrice = couponValid ? parseFloat(discountedTotal) : totalNum;
   const shippingCost = finalPrice > 100 ? 0 : shippingTotal;
 
   const couponValidator = (e) => {
