@@ -177,7 +177,18 @@ main {
   aspect-ratio: 16/9;
   object-fit: cover;
   border-radius: 10px;
+  position: relative;
 }
+
+.wishlist-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.623);
+  z-index: 999;
+}
+
 
 .badge {
   color: black;
@@ -537,7 +548,7 @@ a {
 /* SEARCH PAGE STYLE */
 
 #search-card-list {
-  padding-top: 300px;
+  padding-top: 200px;
 }
 
 .search-grid-card {
@@ -603,6 +614,7 @@ a {
   font-size: 16px !important;
   margin-bottom: 4px !important;
   line-height: 1.2 !important;
+  padding-top: 10px;
 }
 
 .calc-price {

@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCart } from "../contexts/CartContext";
+import RelatedProducts from "./RelatedProducts";
+
+//importo stile
+import "../styles/CardDetailStyle.css";
 
 export default function CardDetail({ product }) {
   const { cart, addToCart, decreseFromCart } = useCart();
@@ -62,7 +66,7 @@ export default function CardDetail({ product }) {
           <div className="row align-items-center g-4">
             {/* TESTO DETTAGLI TECNICI */}
             <div className="col-12 col-md-6">
-              <h3 className="fw-semibold text-warning mb-3 text-uppercase">
+              <h3 className="fw-semibold search-price-homepage mb-3 text-uppercase">
                 Dettagli Tecnici
               </h3>
 
@@ -94,99 +98,90 @@ export default function CardDetail({ product }) {
         </div>
       </section>
       {/* ----------------------------------------------------------------- */}
-      {/* SEZIONE NERA */}
-      <section className="detail-black-section">
-        <div className="container-inner">
-          <div className="image-column">
-            <img
-              className="img-detail-main"
-              src={product.image_url}
-              alt={product.name}
-            />
-          </div>
+      <RelatedProducts
+        category_id={product.category_id}
+        product_id={product.id}
+      />
 
-          <div className="text-column">
-            <h2 className="section-title">{product.name}</h2>
-            <div className="description-text">
-              <p>{product.description}</p>
-              <br />
-              <p>
-                <strong>DETTAGLI:</strong> {product.details}
-              </p>
+      <div className="product-sticky-wrapper my-5 pb-2">
+        <div className="container">
+          <div className="product-sticky bg-dark text-light p-3 rounded shadow-lg d-flex flex-column flex-md-row align-items-center justify-content-between gap-4">
+            {/* BLOCCO SINISTRO: IMMAGINE + INFO */}
+            <div className="d-flex align-items-center gap-3 flex-grow-1">
+              <img
+                src={product.image_url}
+                alt={product.name}
+                className="rounded shadow-sm"
+                style={{ width: "65px", height: "65px", objectFit: "cover" }}
+              />
+
+              <div className="d-flex flex-column">
+                <span className="fw-bold text-uppercase">{product.name}</span>
+
+                {product.discount_percentage ? (
+                  <>
+                    <span className="search-price-homepage fw-semibold text-decoration-line-through">
+                      {product.price}€
+                    </span>
+                    <span className="fw-bold fs-5 search-price-homepage">
+                      {` ${(product.price - (product.price * product.discount_percentage) / 100).toFixed(2)}€`}
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-warning fw-semibold">
+                    {product.price}€
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div className="container-inner technical-details">
-          <div className="text-column ">
-            <div className="technical-details">
-              <h3>Dettagli Tecnici</h3>
-              <ul className="technical-list">
-                <li>
-                  <strong>Modello:</strong> {product.model}
-                </li>
-                <li>
-                  <strong>Peso:</strong> {product.weight}
-                </li>
-                <li>
-                  <strong>Dimensioni:</strong> {product.dimensions}
-                </li>
-                <li>
-                  <strong>Garanzia:</strong> {product.model}
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="image-column">
-            <img
-              className="img-detail-main"
-              src={product.image_details_url}
-              alt={product.name}
-            />
-          </div>
-        </div>
-      </section>
+            {/* BLOCCO DESTRO: QUANTITÀ + PREZZO + CTA */}
+            {quantity > 0 ? (
+              <div className="d-flex align-items-center gap-3">
+                {/* PREZZO TOTALE */}
+                <span className="fw-bold fs-4 search-price-homepage mb-0">
+                  {(
+                    (product.price -
+                      (product.price * product.discount_percentage) / 100) *
+                    quantity
+                  ).toFixed(2)}
+                  €
+                </span>
 
-      {/* BARRA STICKY IN FONDO */}
-      <div className="sticky-purchase-bar">
-        <div className="sticky-container">
-          <div className="sticky-info">
-            <img src={product.image_url} alt="mini" className="mini-thumb" />
-            <span className="sticky-name">{product.name}</span>
-          </div>
-          <div className="sticky-actions ">
-            <div className="col-6 col-md-2 d-flex align-items-center mt-2 mt-md-0 ">
+                {/* QUANTITÀ */}
+                <div className="d-flex align-items-center bg-secondary bg-opacity-25 px-3 py-2 rounded-pill shadow-sm">
+                  <button
+                    className="btn btn-outline-light btn-sm"
+                    onClick={() => {
+                      decreseFromCart(product);
+                      decreseQuantityChange();
+                    }}
+                    disabled={quantity < 1}
+                  >
+                    -
+                  </button>
+
+                  <span className="mx-3 fw-bold fs-5">{quantity}</span>
+
+                  <button
+                    className="btn btn-outline-light btn-sm"
+                    onClick={() => {
+                      addToCart(product);
+                      addQuantityChange();
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            ) : (
               <button
-                className="btn btn-outline-secondary btn-sm me-2"
-                onClick={() => {
-                  decreseFromCart(product);
-                  decreseQuantityChange();
-                }}
+                className="search-button w-auto px-4 py-2 mx-auto ms-md-0"
+                onClick={() => addToCart(product)}
               >
-                -
+                Aggiungi al carrello
               </button>
-              <span>{quantity}</span>
-              <button
-                className="btn btn-outline-secondary btn-sm ms-2"
-                onClick={() => {
-                  addToCart(product);
-                  addQuantityChange();
-                }}
-              >
-                +
-              </button>
-            </div>
-            <span className="sticky-price">
-              {(product.price * quantity).toFixed(2)}€
-            </span>
-            <button
-              className="search-button mb-3"
-              onClick={() => {
-                addToCart(product);
-              }}
-            >
-              Aggiungi al carrello
-            </button>
+            )}
           </div>
         </div>
       </div>

@@ -40,11 +40,6 @@ export default function ProductDetail() {
   return (
     <>
       <CardDetail product={product} />
-
-      <RelatedProducts
-        category_id={product.category_id}
-        product_id={product.id}
-      />
     </>
   );
 }
