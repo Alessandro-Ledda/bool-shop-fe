@@ -20,7 +20,7 @@ function ListProducts() {
           <ProductCard productProp={product} />
         </SwiperSlide>
       ));
-  }
+  };
 
   // funzione per renderizzare i prodotti ultimi arrivi
   function renderLatestArrivals() {
