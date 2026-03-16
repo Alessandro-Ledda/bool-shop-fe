@@ -4,12 +4,11 @@ import { getWishlistFromStorage, saveWishlistToStorage } from "../utils/cartStor
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
-    const [wishlist, setWishlist] = useState([]);
 
-    useEffect(() => {
-        const storeWishlist = getWishlistFromStorage();
-        setWishlist(storeWishlist);
-    }, []);
+    //dichiaro var per inizializzare già la var di stato a prendersi i dati da local storage per problema di rendering
+    const initialValue = getWishlistFromStorage();
+    const [wishlist, setWishlist] = useState(initialValue);
+
 
     // add to wishlist
     const addToWishlist = (productId) => {
