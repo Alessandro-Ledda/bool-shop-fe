@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom"
 import { useApi } from "../contexts/ApiProvider"
-import { useWishlist } from "../contexts/wishlistContext"
+import { useWishlist } from "../contexts/WishlistContext"
 
 function WishList() {
 
