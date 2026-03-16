@@ -27,7 +27,7 @@ export default function SearchPage() {
   const [isFilterOn, setIsFilterOn] = useState(false);
   // verifica se siamo su pagina di search per ricerca da barra header
   const location = useLocation();
-  const onSearchPage = location.pathname === "/search";
+  const onSearchPage = location.pathname === "/products";
   // var per prendere query da url
   // const queryParams = new URLSearchParams(location.search);
   // const searchFromUrl = queryParams.get("cu") || "";
@@ -55,7 +55,7 @@ export default function SearchPage() {
 
     if (normalizedSearch === "") {
       // pulisce l'URL eliminando ?cu=
-      window.history.replaceState({}, "", "/search?cu=");
+      window.history.replaceState({}, "", "/products?cu=");
 
       setIsLoading(true);
       axios

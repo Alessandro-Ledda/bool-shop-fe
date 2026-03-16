@@ -32,12 +32,12 @@ function MainHeader() {
 
     // Se l'utente cancella tutto → resetta l'URL
     if (value === "") {
-      navigate("/search?cu=");
+      navigate("/products?cu=");
       return;
     }
 
     // Altrimenti aggiorna normalmente
-    navigate(`/search?cu=${encodeURIComponent(value)}`);
+    navigate(`/products?cu=${encodeURIComponent(value)}`);
   };
 
   return (
