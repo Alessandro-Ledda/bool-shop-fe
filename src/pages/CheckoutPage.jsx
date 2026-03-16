@@ -1,86 +1,71 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useCart } from "../contexts/CartContext";
-import { useNavigate } from "react-router-dom";
-//importo form
 import FormCheckout from "../components/FormCheckout";
 import CartPreview from "../components/CartPreview";
-import CartPage from "./CartPage";
 import axios from "axios";
-
-const shippingTotal = Number(import.meta.env.VITE_SHIPPING_COST);
-
-//importo stile
 import "../styles/CheckoutPageStyle.css";
+
+const shippingBase = Number(import.meta.env.VITE_SHIPPING_COST);
 
 function CheckoutPage() {
   const { cart, clearCart } = useCart();
   const navigate = useNavigate();
 
-  // var di stato per gestire coupon
+  // Coupon state
   const [couponCheckBox, setCouponCheckBox] = useState(false);
   const [couponInput, setCouponInput] = useState("");
   const [couponCode, setCouponCode] = useState("");
-  const [discountedTotal, setDiscountedTotal] = useState();
-  const [verifyCouponPositive, setVerifyCouponPositive] = useState(false);
-  const [verifyCouponNegative, setVerifyCouponNegative] = useState(false);
-  const [verifyCouponMessage, setVerifyCouponMessage] = useState("");
+  const [couponStatus, setCouponStatus] = useState("none");
+  const [discountPercentage, setDiscountPercentage] = useState(0);
+  const [couponMessage, setCouponMessage] = useState("");
 
-  const [couponValid, setCouponValid] = useState(false);
-
-  const totalNum = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+  const subtotal = cart.reduce(
+    (acc, item) =>
+      acc +
+      (item.price - (item.price * item.discount_percentage) / 100) *
+        item.quantity,
     0,
   );
 
-  const total = totalNum.toFixed(2);
-  const finalPrice = couponValid ? parseFloat(discountedTotal) : totalNum;
-  const shippingCost = finalPrice > 100 ? 0 : shippingTotal;
+  const discountedTotal =
+    couponStatus === "valid"
+      ? subtotal * (1 - discountPercentage / 100)
+      : subtotal;
+
+  const shippingCost = discountedTotal > 100 ? 0 : shippingBase;
+
+  const finalTotal = (discountedTotal + shippingCost).toFixed(2);
 
   const couponValidator = (e) => {
-    const endpoint = `http://localhost:3000/api/coupons/${couponInput}`;
-    // console.log(`${couponInput} - couponInput`);
     e.preventDefault();
+
+    const endpoint = `http://localhost:3000/api/coupons/${couponInput}`;
+
     axios
       .get(endpoint)
       .then((res) => {
         if (res.data.valid) {
-          setCouponValid(true);
-          setVerifyCouponPositive(true);
-          setVerifyCouponMessage(res.data.message);
-          const discountPercentage = res.data.coupon_percentage;
-          const newTotal = (
-            (totalNum * (100 - discountPercentage)) /
-            100
-          ).toFixed(2);
-          setDiscountedTotal(newTotal);
-
+          setCouponStatus("valid");
+          setDiscountPercentage(res.data.coupon_percentage);
+          setCouponMessage(res.data.message);
           setCouponCode(couponInput);
-          // svuota campi form (e var di stato)
-          setCouponInput("");
-          // deve sparire ora l'input e il checkbox
         } else {
-          setDiscountedTotal(null);
-          setVerifyCouponNegative(true);
-          setVerifyCouponMessage(res.data.message);
-
-          setCouponCode(couponInput);
-
-          setCouponInput("");
+          setCouponStatus("invalid");
+          setCouponMessage(res.data.message);
         }
-        //
+
+        setCouponInput("");
       })
-      .catch((err) => {
-        //console.log(err);
-        // if (err.status === 400) window.alert(err.response.data.error);
-        // if (err.status === 500) redirect("/500_error_internal_server");
+      .catch(() => {
+        setCouponStatus("invalid");
+        setCouponMessage("Errore durante la verifica del coupon.");
       });
-    // .finally(() => setIsLoading(false));
   };
 
   if (cart.length === 0) {
     return (
-      <div className="container d-flex justify-content-center align-items-center container-order-success ">
+      <div className="container d-flex justify-content-center align-items-center container-order-success">
         <div
           className="bg-white border rounded-3 shadow-sm p-4 p-md-5"
           style={{ maxWidth: "900px", width: "100%" }}
@@ -96,69 +81,48 @@ function CheckoutPage() {
     );
   }
 
-  function visualCoupon() {
-    if (couponCheckBox && !verifyCouponPositive && !verifyCouponNegative) {
+  const renderCouponUI = () => {
+    if (!couponCheckBox) return null;
+
+    if (couponStatus === "none") {
       return (
-        <div className="col-12 mb-5 ">
+        <div className="col-12 mb-5">
           <form onSubmit={couponValidator}>
-            <label
-              htmlFor="coupon_code"
-              className="form-label text-uppercase small fw-semibold"
-            ></label>
             <input
               type="text"
               className="form-control form-control-lg"
-              id="coupon_code"
               value={couponInput}
               onChange={(e) => setCouponInput(e.target.value)}
               placeholder="INSERISCI COUPON"
             />
-            <button className="search-button" type="submit">
+            <button className="search-button mt-2" type="submit">
               Verifica
             </button>
           </form>
         </div>
       );
-    } else if (couponCheckBox && verifyCouponPositive) {
-      return (
-        <div className="col-12 mb-3">
-          <div className="p-3 bg-success bg-gradient text-white rounded-3">
-            <h2 className="h5 text-center mb-3 fw-semibold">
-              {verifyCouponMessage}
-            </h2>
-
-            <div className="text-center">
-              <button
-                className="search-button w-auto fw-semibold px-4 py-2"
-                onClick={() => setVerifyCouponPositive(false)}
-              >
-                Cambia Coupon
-              </button>
-            </div>
-          </div>
-        </div>
-      );
-    } else if (couponCheckBox && verifyCouponNegative) {
-      return (
-        <div className="col-12 mb-3">
-          <div className="p-3 bg-danger bg-gradient text-white rounded-3">
-            <h2 className="h5 text-center mb-3 fw-semibold">
-              {verifyCouponMessage}
-            </h2>
-
-            <div className="text-center">
-              <button
-                className="search-button w-auto fw-semibold px-4 py-2"
-                onClick={() => setVerifyCouponNegative(false)}
-              >
-                Cambia Coupon
-              </button>
-            </div>
-          </div>
-        </div>
-      );
     }
-  }
+
+    const isValid = couponStatus === "valid";
+    const bg = isValid ? "bg-success" : "bg-danger";
+
+    return (
+      <div className="col-12 mb-3">
+        <div className={`p-3 ${bg} bg-gradient text-white rounded-3`}>
+          <h2 className="h5 text-center mb-3 fw-semibold">{couponMessage}</h2>
+
+          <div className="text-center">
+            <button
+              className="search-button w-auto fw-semibold px-4 py-2"
+              onClick={() => setCouponStatus("none")}
+            >
+              Cambia Coupon
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="container">
@@ -174,54 +138,57 @@ function CheckoutPage() {
             <CartPreview />
 
             <div className="cart-footer">
-              {/* chekbox coupon*/}
               <div className="form-check mt-2 ms-3">
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  id="couponCode"
                   checked={couponCheckBox}
-                  onChange={() => setCouponCheckBox(!couponCheckBox)}
+                  onChange={() => {
+                    setCouponCheckBox(!couponCheckBox);
+                    setCouponStatus("none");
+                  }}
                 />
-                <label className="form-check-label" htmlFor="couponCode">
+                <label className="form-check-label">
                   Inserisci un codice sconto
                 </label>
               </div>
-              {/* qui metto l'input txt dell coupon con bottone submit per verificarne esistenza e validità */}
 
-              {visualCoupon()}
+              {renderCouponUI()}
 
-              <div className="shipping-cost">
-                <p className="fw-medium">
-                  il costo di spedizione è :
-                  <span className="search-price"> {shippingCost} &euro;</span>
-                </p>
-              </div>
+              <p className="fw-medium">
+                Costo spedizione:
+                <span className="search-price"> {shippingCost} €</span>
+              </p>
 
-              {/* se valido deve comparirmi sotto totale il prezzo aggiornato */}
-              {verifyCouponPositive ? (
-                <div className="d-flex align-items-center">
-                  <span className="fs-3 fw-bold">Totale:</span>
-                  <span className="fw-semibold fs-4 ms-2 search-price text-decoration-line-through text-align-center">
-                    {total}
-                  </span>
+              <div className="totals-wrapper mt-3">
+                {/* Totale originale sbarrato (solo se coupon valido) */}
+                {couponStatus === "valid" && (
+                  <div className="d-flex align-items-center">
+                    <span className="fw-semibold">Totale originale:</span>
+                    <span className="ms-2 fs-5 text-decoration-line-through search-price">
+                      {subtotal.toFixed(2)} €
+                    </span>
+                  </div>
+                )}
+
+                {couponStatus === "valid" && (
+                  <div className="d-flex align-items-center">
+                    <span className="fw-semibold">
+                      Totale scontato (senza spedizione):
+                    </span>
+                    <span className="ms-2 fs-5 search-price">
+                      {discountedTotal.toFixed(2)} €
+                    </span>
+                  </div>
+                )}
+
+                <div className="d-flex align-items-center mt-2">
+                  <span className="fs-3 fw-bold">Totale finale:</span>
                   <span className="ms-2 fw-bold fs-4 search-price">
-                    {discountedTotal < 100
-                      ? (parseFloat(discountedTotal) + shippingTotal).toFixed(2)
-                      : discountedTotal}{" "}
-                    &euro;
+                    {finalTotal} €
                   </span>
                 </div>
-              ) : (
-                <div className="d-flex align-items-center">
-                  <span className="fs-3 fw-bold">Totale:</span>
-                  <span className="fw-semibold fs-4 ms-2 search-price text-align-center">
-                    {total < 100
-                      ? (parseFloat(total) + shippingTotal).toFixed(2)
-                      : total}
-                  </span>
-                </div>
-              )}
+              </div>
 
               <button
                 className="search-button mt-3"
