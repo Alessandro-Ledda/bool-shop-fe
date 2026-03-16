@@ -1,10 +1,42 @@
 import { Link } from "react-router-dom"
+import { useApi } from "../contexts/ApiProvider"
+import { useWishlist } from "../contexts/wishlistContext"
 
 function WishList() {
+
+    // var per consumare il contesto
+    const { products } = useApi();
+    const { wishlist, removeFromWishlist } = useWishlist();
+
+    if (!products) return <p>Caricamento prodotti...</p>
+
+    const wishListProducts = products?.filter(product =>
+        (wishlist || []).includes(product.id)
+    );
+
+    if (!wishListProducts.length) {
+        return <p>La wishlist è vuota</p>;
+    }
+
     return (
         <>
-            <h1 className="title-page">sono la wishlist </h1>
-            <Link className="btn btn-primary" to="/">Ritorna alla Home</Link>
+            <div className="container-wishlist">
+                <div className="content-wishlist">
+                    <h1 className="title">Lista Desideri</h1>
+                    {wishListProducts.map(product => (
+                        <div key={product.id}>
+                            <h3>{product.name}</h3>
+                            <p>{product.price}€</p>
+
+                            <button
+                                onClick={() => removeFromWishlist(product.id)}
+                            >Rimuovi</button>
+
+                        </div>
+                    ))}
+                </div>
+            </div>
+
         </>
     )
 }
