@@ -8,11 +8,15 @@ import { useCart } from "../contexts/CartContext";
 import FilterSelect from "../components/FilterSelect";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGripVertical, faList } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
 
 export default function SearchPage() {
     const { setIsLoading } = useApi();
     const { addToCart } = useCart();
 
+    // var di stato per funzione cuore wishlist
+    const [inWishlist, setInWishlist] = useState({});
     // var di stato per array di prodotti
     const [filteredProducts, setFilteredProducts] = useState([]);
     // var di stato per layout tasti griglia e lista
@@ -30,6 +34,16 @@ export default function SearchPage() {
     // var per verifica se filtro è attivo e modifico url con valore preso da parametro cu che corrisponde al search dell'utente
     const myUrl = isFilterOn ? `${endpoint}api/products?order=${order}&searched=${searchFromUrl}&discount=${isFilterOn}` :
         `${endpoint}api/products?order=${order}&searched=${searchFromUrl}`
+
+
+
+    // funzione per settare il prodotto a wishlist 
+    function setWishlist(productId) {
+        setInWishlist(prev => ({
+            ...prev,
+            [productId]: !prev[productId]
+        }));
+    }
 
     function fetchProduct() {
         if (!searchFromUrl || searchFromUrl.length < 2 && !onSearchPage) {
@@ -74,6 +88,7 @@ export default function SearchPage() {
                 {layout === "grid" ? (
                     filteredProducts.map((product) => (
                         <div key={product.id} className="search-grid-card col-3 me-2">
+                            <button className="wishlist-icon" onClick={() => setWishlist(product.id)}><span ><FontAwesomeIcon color="#F09226" icon={inWishlist[product.id] ? fasHeart : farHeart} /></span></button>
                             <Link to={`/products/${product.slug}`}>
                                 {product.discount_percentage ? (
                                     <div className="d-flex justify-content-center mb-2">

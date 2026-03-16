@@ -1,12 +1,20 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
+// import FA
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
+import { useState } from "react";
 
 export default function ProductCard({ productProp }) {
   const { addToCart } = useCart();
 
+  const [isInWishlist, setIsInWishlist] = useState(false);
+
   return (
 
     <>
+      <button className="wishlist-icon" onClick={() => setIsInWishlist(!isInWishlist)}><span ><FontAwesomeIcon color="#F09226" icon={isInWishlist ? fasHeart : farHeart} /></span></button>
       <Link to={`/products/${productProp.slug}`} className="card-link">
         <img
           src={productProp.image_url}
