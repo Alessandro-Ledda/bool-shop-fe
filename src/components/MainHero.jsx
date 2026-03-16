@@ -5,7 +5,7 @@ function HeroCarousel() {
     <Carousel className="hero-carousel">
       <Carousel.Item>
         <img
-          className="d-block w-100"
+          className="d-block w-100 hero1"
           src="hero1.jpg"
           alt="Prima slide"
         />
@@ -20,7 +20,7 @@ function HeroCarousel() {
 
       <Carousel.Item>
         <img
-          className="d-block w-100"
+          className="d-block w-100 hero2"
           src="hero2.webp"
           alt="Seconda slide"
         />
@@ -35,7 +35,7 @@ function HeroCarousel() {
 
       <Carousel.Item>
         <img
-          className="d-block w-100"
+          className="d-block w-100 hero3"
           src="hero3.jpg"
           alt="Terza slide"
         />
@@ -49,11 +49,7 @@ function HeroCarousel() {
       </Carousel.Item>
 
       <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="hero4.webp"
-          alt="Prima slide"
-        />
+        <img className="d-block w-100" src="hero4.webp" alt="Prima slide" />
         <Carousel.Caption>
           <h3>Bilanciere Professionale per Squat</h3>
           <p>

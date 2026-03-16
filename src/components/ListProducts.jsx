@@ -59,7 +59,8 @@ function ListProducts() {
           breakpoints={{
             320: { slidesPerView: 1 }, // mobile
             768: { slidesPerView: 2 }, // tablet
-            1024: { slidesPerView: 4 }, // desktop
+            989: { slidesPerView: 3 }, // desktop
+            1200: { slidesPerView: 4 }, // desktop lg
           }}
         >
           {renderDiscountProducts()}
@@ -78,7 +79,8 @@ function ListProducts() {
           breakpoints={{
             320: { slidesPerView: 1 }, // mobile
             768: { slidesPerView: 2 }, // tablet
-            1024: { slidesPerView: 4 }, // desktop
+            989: { slidesPerView: 3 }, // desktop
+            1200: { slidesPerView: 4 }, // desktop lg
           }}
         >
           {renderLatestArrivals()}
