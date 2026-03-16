@@ -29,7 +29,10 @@ function CheckoutPage() {
   const [couponValid, setCouponValid] = useState(false);
 
   const totalNum = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, item) =>
+      acc +
+      (item.price - (item.price * item.discount_percentage) / 100) *
+        item.quantity,
     0,
   );
 

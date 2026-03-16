@@ -5,12 +5,19 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 function CartPage() {
-  const { cart, removeFromCart, addToCart, decreseFromCart, clearCart } = useCart();
+  const { cart, removeFromCart, addToCart, decreseFromCart, clearCart } =
+    useCart();
   const { products } = useApi();
   const emptyCart = cart.length === 0;
 
   const total = cart
-    .reduce((acc, item) => acc + item.price * item.quantity, 0)
+    .reduce(
+      (acc, item) =>
+        acc +
+        (item.price - (item.price * item.discount_percentage) / 100) *
+          item.quantity,
+      0,
+    )
     .toFixed(2);
 
   return (
@@ -20,31 +27,37 @@ function CartPage() {
       {cart.map((item) => {
         // trova il prodotto completo dal backend
         const product = products.find((p) => p.id === item.id);
+        console.log(item);
 
         return (
           <div className="col-12 col-md-10 mx-auto mb-3" key={item.id}>
             <div className="card shadow-sm rounded-3">
               <div className="row g-0 align-items-center p-3">
                 {/* imgs */}
+
                 <div className="col-4 col-md-2 text-center">
                   {product?.image_url && (
-                    <img
-                      src={product.image_url}
-                      alt={item.name}
-                      className="img-fluid rounded"
-                      style={{ maxHeight: "100px", objectFit: "contain" }}
-                    />
+                    <Link to={`/products/${item.slug}`}>
+                      <img
+                        src={product.image_url}
+                        alt={item.name}
+                        className="img-fluid rounded"
+                        style={{ maxHeight: "100px", objectFit: "contain" }}
+                      />
+                    </Link>
                   )}
                 </div>
 
                 {/* info product */}
-                <div className="col-8 col-md-4">
-                  <h5 className="mb-1">{item.name}</h5>
-                  {product?.description && (
-                    <p className="mb-0 text-muted small">
-                      {product.description}
-                    </p>
-                  )}
+                <div className="col-8 col-md-4 ">
+                  <Link to={`/products/${item.slug}`}>
+                    <h5 className="mb-1 text-black">{item.name}</h5>
+                    {product?.description && (
+                      <p className="mb-0 text-muted small">
+                        {product.description}
+                      </p>
+                    )}
+                  </Link>
                 </div>
 
                 {/* quantity */}
@@ -67,7 +80,12 @@ function CartPage() {
                 {/* price */}
                 <div className="col-6 col-md-2 text-md-end mt-2 mt-md-0">
                   <span className="d-block fw-bold">
-                    {(item.price * item.quantity).toFixed(2)}€
+                    {(
+                      (item.price -
+                        (item.price * item.discount_percentage) / 100) *
+                      item.quantity
+                    ).toFixed(2)}
+                    €
                   </span>
                   <small className="text-muted">({item.price}€/pz)</small>
                 </div>
@@ -95,25 +113,29 @@ function CartPage() {
           </div>
 
           <Link>
-            <button className="search-button mb-4"
+            <button
+              className="search-button mb-4"
               onClick={() => {
-                if (window.confirm("Sei sicuro di voler svuotare il tuo carrello?")) {
+                if (
+                  window.confirm(
+                    "Sei sicuro di voler svuotare il tuo carrello?",
+                  )
+                ) {
                   clearCart();
                 }
               }}
             >
-              Svuota Carrello</button>
+              Svuota Carrello
+            </button>
           </Link>
 
           <Link to={"/checkout"}>
             <button className="search-button mb-4">Vai al checkout</button>
           </Link>
-
         </>
       )}
     </div>
   );
-
 }
 
 export default CartPage;
