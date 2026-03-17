@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const endpoint = import.meta.env.VITE_APP_URL;
 import { useLocation } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
+import { useWishlist } from "../contexts/WishlistContext";
 import FilterSelect from "../components/FilterSelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGripVertical, faList } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +15,7 @@ import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 export default function SearchPage() {
   const { setIsLoading } = useApi();
   const { addToCart } = useCart();
+  const { toggleWishlist, isInWishlist } = useWishlist();
 
   // var di stato per funzione cuore wishlist
   const [inWishlist, setInWishlist] = useState({});
@@ -39,13 +41,7 @@ export default function SearchPage() {
     ? `${endpoint}api/products?order=${order}&searched=${normalizedSearch}&discount=${isFilterOn}`
     : `${endpoint}api/products?order=${order}&searched=${normalizedSearch}`;
 
-  // funzione per settare il prodotto a wishlist
-  function setWishlist(productId) {
-    setInWishlist((prev) => ({
-      ...prev,
-      [productId]: !prev[productId],
-    }));
-  }
+
 
   function fetchProduct() {
     // if (!searchFromUrl || searchFromUrl.length < 2 && !onSearchPage) {
@@ -119,108 +115,108 @@ export default function SearchPage() {
       <div className="row justify-content-center gy-4">
         {layout === "grid"
           ? filteredProducts.map((product) => (
-              <div key={product.id} className="search-grid-card col-3 me-2">
-                <button
-                  className="wishlist-icon"
-                  onClick={() => setWishlist(product.id)}
-                >
-                  <span>
-                    <FontAwesomeIcon
-                      color="#F09226"
-                      icon={inWishlist[product.id] ? fasHeart : farHeart}
-                    />
+            <div key={product.id} className="search-grid-card col-3 me-2">
+              <button
+                className="wishlist-icon"
+                onClick={() => toggleWishlist(product.id)}
+              >
+                <span>
+                  <FontAwesomeIcon
+                    color="#F09226"
+                    icon={isInWishlist(product.id) ? fasHeart : farHeart}
+                  />
+                </span>
+              </button>
+              <Link to={`/products/${product.slug}`}>
+                {product.discount_percentage ? (
+                  <div className="d-flex justify-content-center mb-2">
+                    <span className="sale-badge">SALE</span>
+                  </div>
+                ) : null}
+                <img
+                  className="img-detail-grid"
+                  src={product.image_url}
+                  alt={product.name}
+                />
+                <h1 className="text-dark">{product.name}</h1>
+              </Link>
+              <p>{product.description}</p>
+              {product.discount_percentage ? (
+                <>
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bold d-inline search-price text-decoration-line-through">
+                      {product.price}€
+                    </p>
+                    <span className="discounted-badge">
+                      {`${product.discount_percentage} %`}
+                    </span>
+                  </div>
+                  <span className="fw-bold fs-5 search-price">
+                    {` ${(product.price - (product.price * product.discount_percentage) / 100).toFixed(2)}€`}
                   </span>
+                </>
+              ) : (
+                <p className="fw-bold search-price">{`${product.price}€`}</p>
+              )}
+              <div className="add-cart">
+                <button
+                  onClick={() => addToCart(product)}
+                  className="search-button mb-3"
+                >
+                  Aggiungi al carrello
                 </button>
-                <Link to={`/products/${product.slug}`}>
-                  {product.discount_percentage ? (
-                    <div className="d-flex justify-content-center mb-2">
-                      <span className="sale-badge">SALE</span>
-                    </div>
-                  ) : null}
+              </div>
+            </div>
+          ))
+          : filteredProducts.map((product) => (
+            <div key={product.id} className="col-12">
+              <Link to={`/products/${product.slug}`}>
+                <div className="card search-list-card d-flex flex-row justify-content-between">
                   <img
-                    className="img-detail-grid"
                     src={product.image_url}
                     alt={product.name}
+                    className="w-25"
                   />
-                  <h1 className="text-dark">{product.name}</h1>
-                </Link>
-                <p>{product.description}</p>
-                {product.discount_percentage ? (
-                  <>
-                    <div className="d-flex justify-content-between">
-                      <p className="fw-bold d-inline search-price text-decoration-line-through">
-                        {product.price}€
-                      </p>
-                      <span className="discounted-badge">
-                        {`${product.discount_percentage} %`}
-                      </span>
-                    </div>
-                    <span className="fw-bold fs-5 search-price">
-                      {` ${(product.price - (product.price * product.discount_percentage) / 100).toFixed(2)}€`}
-                    </span>
-                  </>
-                ) : (
-                  <p className="fw-bold search-price">{`${product.price}€`}</p>
-                )}
-                <div className="add-cart">
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="search-button mb-3"
-                  >
-                    Aggiungi al carrello
-                  </button>
-                </div>
-              </div>
-            ))
-          : filteredProducts.map((product) => (
-              <div key={product.id} className="col-12">
-                <Link to={`/products/${product.slug}`}>
-                  <div className="card search-list-card d-flex flex-row justify-content-between">
-                    <img
-                      src={product.image_url}
-                      alt={product.name}
-                      className="w-25"
-                    />
-                    <div className="search-list-description ms-3 mt-2 flex-grow-1">
-                      {product.discount_percentage ? (
-                        <div className="d-flex flex-start me-4 mb-2">
-                          <span className="sale-badge">SALE</span>
+                  <div className="search-list-description ms-3 mt-2 flex-grow-1">
+                    {product.discount_percentage ? (
+                      <div className="d-flex flex-start me-4 mb-2">
+                        <span className="sale-badge">SALE</span>
+                      </div>
+                    ) : null}
+                    <h3 className="search-list-title fw-bold w-100">
+                      {product.name}
+                    </h3>
+                    <p className="fs-5">{product.description}</p>
+                    {product.discount_percentage ? (
+                      <>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <p className="fw-bold d-inline search-price mb-0 text-decoration-line-through">
+                            {product.price}€
+                          </p>
+                          <span className="calc-price fw-bold fs-5 search-price">
+                            {` ${(product.price - (product.price * product.discount_percentage) / 100).toFixed(2)}€`}
+                          </span>
+                          <span className="discounted-badge me-5">
+                            {`${product.discount_percentage} %`}
+                          </span>
                         </div>
-                      ) : null}
-                      <h3 className="search-list-title fw-bold w-100">
-                        {product.name}
-                      </h3>
-                      <p className="fs-5">{product.description}</p>
-                      {product.discount_percentage ? (
-                        <>
-                          <div className="d-flex justify-content-between align-items-center">
-                            <p className="fw-bold d-inline search-price mb-0 text-decoration-line-through">
-                              {product.price}€
-                            </p>
-                            <span className="calc-price fw-bold fs-5 search-price">
-                              {` ${(product.price - (product.price * product.discount_percentage) / 100).toFixed(2)}€`}
-                            </span>
-                            <span className="discounted-badge me-5">
-                              {`${product.discount_percentage} %`}
-                            </span>
-                          </div>
-                        </>
-                      ) : (
-                        <p className="fw-bold search-price">{`${product.price}€`}</p>
-                      )}
-                    </div>
-                    <div className="add-cart me-5 align-self-center">
-                      <button
-                        onClick={() => addToCart(product)}
-                        className="search-button"
-                      >
-                        Aggiungi al carrello
-                      </button>
-                    </div>
+                      </>
+                    ) : (
+                      <p className="fw-bold search-price">{`${product.price}€`}</p>
+                    )}
                   </div>
-                </Link>
-              </div>
-            ))}
+                  <div className="add-cart me-5 align-self-center">
+                    <button
+                      onClick={() => addToCart(product)}
+                      className="search-button"
+                    >
+                      Aggiungi al carrello
+                    </button>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          ))}
       </div>
     </div>
   );
