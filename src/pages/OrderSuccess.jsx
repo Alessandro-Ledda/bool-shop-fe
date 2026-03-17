@@ -50,6 +50,13 @@ function OrderSuccess() {
 
   useEffect(fetchOrder, []);
 
+  //scroll to top quando i dati dell'ordine arrivano
+  useEffect(() => {
+    if (orderData) {
+      window.scrollTo(0, 0);
+    }
+  }, [orderData]);
+
   // Loader
   if (isLoading || !orderData) {
     return (

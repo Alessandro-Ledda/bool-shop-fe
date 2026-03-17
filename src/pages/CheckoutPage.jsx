@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "../contexts/CartContext";
 import FormCheckout from "../components/FormCheckout";
 import CartPreview from "../components/CartPreview";
@@ -63,6 +63,13 @@ function CheckoutPage() {
         setCouponMessage("Errore durante la verifica del coupon.");
       });
   };
+
+  // scroll to top quando il prodotto viene caricato
+  useEffect(() => {
+    if (cart.length > 0) {
+      window.scrollTo(0, 0);
+    }
+  }, [cart]);
 
   if (cart.length === 0) {
     return (

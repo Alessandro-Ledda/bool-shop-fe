@@ -37,6 +37,13 @@ export default function ProductDetail() {
   //richiamo effect per il controllo su effetti collaterali
   useEffect(fetchProduct, [slug]);
 
+  // scroll to top quando il prodotto viene caricato
+  useEffect(() => {
+    if (product.id) {
+      window.scrollTo(0, 0);
+    }
+  }, [product]);
+
   return (
     <>
       <CardDetail product={product} />

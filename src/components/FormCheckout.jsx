@@ -92,6 +92,7 @@ function FormCheckout({ coupon_code }) {
       })
       .finally(() => {
         setIsLoading(false);
+        //togliere commento per invio email
         // axios
         //   .get(`${endpointBase}/api/email/${new_id}`)
 

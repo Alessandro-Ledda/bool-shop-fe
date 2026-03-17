@@ -4,6 +4,7 @@ import { useApi } from "../contexts/ApiProvider";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
 
 // import swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -45,6 +46,13 @@ function ListProducts() {
 
     return latest;
   }
+
+  // scroll to top quando il prodotto viene caricato
+  useEffect(() => {
+    if (products.length > 0) {
+      window.scrollTo(0, 0);
+    }
+  }, [products]);
 
   if (!products.length) return <div>Nessun prodotto</div>;
 
