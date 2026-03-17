@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/boolshop-logo-2nd.svg";
+import logoSm from "../assets/logo-just-barbell.svg";
+
 // import context
 import { useApi } from "../contexts/ApiProvider";
 import { useCart } from "../contexts/CartContext";
@@ -36,8 +38,11 @@ function MainHeader() {
         </div>
         {/* Navbar */}
         <div className="main-header d-flex justify-content-between align-items-center">
-          <Link to={"/"}>
+          <Link to={"/"} className="d-none d-md-block logo">
             <img src={logo} alt="" />
+          </Link>
+          <Link to={"/"} className="d-md-none logo">
+            <img src={logoSm} alt="" />
           </Link>
           <form onSubmit={(e) => e.preventDefault()}>
             <input
