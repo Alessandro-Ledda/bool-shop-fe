@@ -9,7 +9,13 @@ function CartPreview() {
   const { products } = useApi();
 
   const total = cart
-    .reduce((acc, item) => acc + item.price * item.quantity, 0)
+    .reduce(
+      (acc, item) =>
+        acc +
+        (item.price - (item.price * item.discount_percentage) / 100) *
+          item.quantity,
+      0,
+    )
     .toFixed(2);
 
   return (
@@ -26,22 +32,30 @@ function CartPreview() {
                 <div className="row g-0 align-items-center p-3">
                   <div className="col-4 col-md-2 text-center">
                     {product?.image_url && (
-                      <img
-                        src={product.image_url}
-                        alt={item.name}
-                        className="img-fluid rounded"
-                        style={{ maxHeight: "100px", objectFit: "contain" }}
-                      />
+                      <Link to={`/products/${item.slug}`}>
+                        <img
+                          src={product.image_url}
+                          alt={item.name}
+                          className="img-fluid rounded"
+                          style={{ maxHeight: "100px", objectFit: "contain" }}
+                        />
+                      </Link>
                     )}
                   </div>
-
-                  <div className="col-8 col-md-4">
-                    <h5 className="mb-1">{item.name}</h5>
-                    {product?.description && (
-                      <p className="mb-0 text-muted small">
-                        {product.description}
-                      </p>
-                    )}
+                  <div className="col-8 col-md-4 ">
+                    <Link to={`/products/${item.slug}`}>
+                      <h5 className="mb-1 text-black">{item.name}</h5>
+                      {product?.description && (
+                        <p className="mb-0 text-muted small">
+                          {product.description}
+                        </p>
+                      )}
+                      {item.discount_percentage && (
+                        <span className="discounted-badge">
+                          {`${item.discount_percentage} %`}
+                        </span>
+                      )}
+                    </Link>
                   </div>
 
                   <div className="col-12 col-md-6 mt-3 mt-md-0">
@@ -68,11 +82,36 @@ function CartPreview() {
                         {/* price */}
                         <div>
                           <span className="d-block fw-bold">
-                            {(item.price * item.quantity).toFixed(2)}€
+                            {(
+                              (item.price -
+                                (item.price * item.discount_percentage) / 100) *
+                              item.quantity
+                            ).toFixed(2)}
+                            €
                           </span>
-                          <small className="text-muted">
-                            ({item.price}€/pz)
-                          </small>
+                          {item.discount_percentage ? (
+                            <>
+                              <div>
+                                <small className="text-muted text-decoration-line-through">
+                                  ({item.price}€/pz)
+                                </small>
+                              </div>
+                              <small className="text-muted ">
+                                (
+                                {(
+                                  item.price -
+                                  (item.price * item.discount_percentage) / 100
+                                ).toFixed(2)}
+                                €/pz)
+                              </small>
+                            </>
+                          ) : (
+                            <div>
+                              <small className="text-muted ">
+                                ({item.price}€/pz)
+                              </small>
+                            </div>
+                          )}
                         </div>
 
                         {/* trash */}
