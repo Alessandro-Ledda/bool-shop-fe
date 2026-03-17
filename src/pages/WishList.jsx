@@ -3,6 +3,7 @@ import { useApi } from "../contexts/ApiProvider";
 import { useWishlist } from "../contexts/WishlistContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function WishList() {
     const { products } = useApi();
@@ -17,6 +18,10 @@ function WishList() {
     return (
         <div className="container-wishlist">
             <div className="content-wishlist">
+                <Link className="back-link p-5" to="/">
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                    Torna alla Home
+                </Link>
                 <h1 className="title text-center mb-5">Lista Desideri</h1>
 
                 {wishListProducts.length === 0 ? (
