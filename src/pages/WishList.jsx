@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
 import { useApi } from "../contexts/ApiProvider";
 import { useWishlist } from "../contexts/WishlistContext";
-<<<<<<< HEAD
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
-=======
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
->>>>>>> f95bd84c21f7ee746f8b4a231a0cab4982b57757
 
 function WishList() {
   const { products } = useApi();
@@ -21,14 +18,12 @@ function WishList() {
     wishlist.includes(product.id),
   );
 
-<<<<<<< HEAD
   // scroll to top quando il prodotto viene caricato
   useEffect(() => {
     if (wishListProducts.length > 0) {
       window.scrollTo(0, 0);
     }
   }, [wishListProducts]);
-=======
     return (
         <div className="container-wishlist">
             <div className="content-wishlist">
@@ -37,7 +32,6 @@ function WishList() {
                     Torna alla Home
                 </Link>
                 <h1 className="title text-center mb-5">Lista Desideri</h1>
->>>>>>> f95bd84c21f7ee746f8b4a231a0cab4982b57757
 
   return (
     <div className="container-wishlist">
