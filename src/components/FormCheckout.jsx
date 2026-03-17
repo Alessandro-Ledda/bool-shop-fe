@@ -8,6 +8,8 @@ import { useCart } from "../contexts/CartContext";
 //importo navigate per poi passare nella pagina di messaggio
 import { useNavigate } from "react-router-dom";
 
+const endpointBase = import.meta.env.VITE_APP_URL;
+
 function FormCheckout({ coupon_code }) {
   // attivo l'utilizzo del loader dal context principale
   const { setIsLoading } = useApi();
@@ -31,6 +33,7 @@ function FormCheckout({ coupon_code }) {
     customer_address: "",
     customer_city: "",
     customer_cap: "",
+    customer_address_shipping: "",
   };
   const [formDataCustomer, setFormDataCustomer] = useState(
     initialFormDataCustomer,
@@ -41,15 +44,13 @@ function FormCheckout({ coupon_code }) {
   //var di stato globale per gestire indirizzo di fatturazione/spedizione
   const [sameAddress, setSameAddress] = useState(true);
 
-  useEffect(
-    () =>
-      setObjPost({
-        ...formDataCustomer,
-        coupon_code: coupon_code,
-        products: products,
-      }),
-    [formDataCustomer],
-  );
+  useEffect(() => {
+    setObjPost({
+      ...formDataCustomer,
+      coupon_code: coupon_code,
+      products: products,
+    });
+  }, [formDataCustomer]);
 
   const handleChange = (e) => {
     setFormDataCustomer({
@@ -58,8 +59,15 @@ function FormCheckout({ coupon_code }) {
     });
   };
 
-  const endpoint = "http://localhost:3000/api/orders/";
+  const endpoint = `${endpointBase}api/orders/`;
   const handleSubmit = (e) => {
+    sameAddress &&
+      setObjPost({
+        ...objPost,
+        customer_address: objPost.customer_address_shipping,
+      });
+    console.log(objPost);
+
     e.preventDefault();
 
     //attivo loader
@@ -85,7 +93,7 @@ function FormCheckout({ coupon_code }) {
       .finally(() => {
         setIsLoading(false);
         // axios
-        //   .get(`http://localhost:3000/api/email/${new_id}`)
+        //   .get(`${endpointBase}/api/email/${new_id}`)
 
         //   .catch((err) => {
         //     //console.log(err);
@@ -173,7 +181,7 @@ function FormCheckout({ coupon_code }) {
         </div>
         <div className="col-12">
           <label
-            htmlFor="customer_address"
+            htmlFor="customer_address_shipping"
             className="form-label text-uppercase small fw-semibold"
           >
             Indirizzo di spedizione *
@@ -181,8 +189,8 @@ function FormCheckout({ coupon_code }) {
           <input
             type="text"
             className="form-control form-control-lg"
-            id="customer_address"
-            value={formDataCustomer.customer_address}
+            id="customer_address_shipping"
+            value={formDataCustomer.customer_address_shipping}
             onChange={handleChange}
             required
           />
@@ -206,7 +214,7 @@ function FormCheckout({ coupon_code }) {
         {!sameAddress && (
           <div className="col-12">
             <label
-              htmlFor="customer_address_shipping"
+              htmlFor="customer_address"
               className="form-label text-uppercase small fw-semibold"
             >
               Indirizzo di fatturazione *
@@ -214,8 +222,8 @@ function FormCheckout({ coupon_code }) {
             <input
               type="text"
               className="form-control form-control-lg"
-              id="customer_address_shipping"
-              value={formDataCustomer.customer_address_shipping}
+              id="customer_address"
+              value={formDataCustomer.customer_address}
               onChange={handleChange}
               required
             />
@@ -276,6 +284,9 @@ function FormCheckout({ coupon_code }) {
       <button type="submit" className="search-button mb-3">
         Conferma Ordine
       </button>
+      <p className="form-label text-uppercase small fw-semibold pt-2">
+        (*) campi obbligatori
+      </p>
     </form>
   );
 }

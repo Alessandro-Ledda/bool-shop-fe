@@ -1,6 +1,9 @@
 // import card del singolo prodotto
 import ProductCard from "./ProductCard";
 import { useApi } from "../contexts/ApiProvider";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 // import swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,7 +23,7 @@ function ListProducts() {
           <ProductCard productProp={product} />
         </SwiperSlide>
       ));
-  };
+  }
 
   // funzione per renderizzare i prodotti ultimi arrivi
   function renderLatestArrivals() {
@@ -48,8 +51,12 @@ function ListProducts() {
   return (
     <>
       <div className="container mt-5">
+        <div className="d-flex  justify-content-end px-5">
+          <Link className="back-link" to="/products">
+            Tutti i prodotti <FontAwesomeIcon icon={faArrowRight} />
+          </Link>
+        </div>
         <h2 className="pt-5">Discount products</h2>
-
         <Swiper
           className="p-5"
           modules={[Navigation]}

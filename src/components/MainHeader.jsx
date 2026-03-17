@@ -17,15 +17,29 @@ function MainHeader() {
 
   const [search, setSearch] = useState("");
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const value = e.target.value.trim();
-    setSearch(value);
-    const searchQuery = value;
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   const value = e.target.value.trim();
+  //   setSearch(value);
+  //   const searchQuery = value;
 
-    if (searchQuery) {
-      navigate(`/search?cu=${encodeURIComponent(searchQuery)}`);
+  //   if (searchQuery) {
+  //     navigate(`/search?cu=${encodeURIComponent(searchQuery)}`);
+  //   }
+  // };
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+
+    // Se l'utente cancella tutto → resetta l'URL
+    if (value === "") {
+      navigate("/products?cu=");
+      return;
     }
+
+    // Altrimenti aggiorna normalmente
+    navigate(`/products?cu=${encodeURIComponent(value)}`);
   };
 
   return (

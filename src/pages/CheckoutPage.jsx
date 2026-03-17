@@ -7,6 +7,7 @@ import axios from "axios";
 import "../styles/CheckoutPageStyle.css";
 
 const shippingBase = Number(import.meta.env.VITE_SHIPPING_COST);
+const endpointBase = import.meta.env.VITE_APP_URL;
 
 function CheckoutPage() {
   const { cart, clearCart } = useCart();
@@ -40,7 +41,7 @@ function CheckoutPage() {
   const couponValidator = (e) => {
     e.preventDefault();
 
-    const endpoint = `http://localhost:3000/api/coupons/${couponInput}`;
+    const endpoint = `${endpointBase}/api/coupons/${couponInput}`;
 
     axios
       .get(endpoint)
