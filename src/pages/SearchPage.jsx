@@ -169,9 +169,24 @@ export default function SearchPage() {
             </div>
           ))
           : filteredProducts.map((product) => (
-            <div key={product.id} className="col-12">
+            <div key={product.id} className="card-relative-list col-12">
               <Link to={`/products/${product.slug}`}>
                 <div className="card search-list-card d-flex flex-row justify-content-between">
+                  <button
+                    className="wishlist-icon-list"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toggleWishlist(product.id);
+                    }}
+                  >
+                    <span>
+                      <FontAwesomeIcon
+                        color="#F09226"
+                        icon={isInWishlist(product.id) ? fasHeart : farHeart}
+                      />
+                    </span>
+                  </button>
                   <img
                     src={product.image_url}
                     alt={product.name}
