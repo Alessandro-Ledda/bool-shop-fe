@@ -4,9 +4,7 @@ import { useWishlist } from "../contexts/WishlistContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+// import { faArrowLeft } from "@fortawesome/free-solidnpm-svg-icons";
 
 function WishList() {
   const { products } = useApi();
@@ -24,14 +22,6 @@ function WishList() {
       window.scrollTo(0, 0);
     }
   }, [wishListProducts]);
-    return (
-        <div className="container-wishlist">
-            <div className="content-wishlist">
-                <Link className="back-link p-5" to="/">
-                    <FontAwesomeIcon icon={faArrowLeft} />
-                    Torna alla Home
-                </Link>
-                <h1 className="title text-center mb-5">Lista Desideri</h1>
 
   return (
     <div className="container-wishlist">
