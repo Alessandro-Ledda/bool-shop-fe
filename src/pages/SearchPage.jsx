@@ -112,10 +112,10 @@ export default function SearchPage() {
         isFilterOn={isFilterOn}
         setIsFilterOn={setIsFilterOn}
       />
-      <div className="row justify-content-center gy-4">
+      <div className="row justify-content-center gy-3 gx-3">
         {layout === "grid"
           ? filteredProducts.map((product) => (
-            <div key={product.id} className="search-grid-card col-3 me-2">
+            <div key={product.id} className="search-grid-card col-lg-3 col-md-4 col-sm-8 col-8 me-2 p-2">
               <button
                 className="wishlist-icon"
                 onClick={() => toggleWishlist(product.id)}
