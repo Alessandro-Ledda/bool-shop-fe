@@ -1,6 +1,7 @@
 import { useCart } from "../contexts/CartContext";
 import { useApi } from "../contexts/ApiProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
@@ -22,7 +23,33 @@ function CartPage() {
 
   return (
     <div className="container">
-      <h1 className="title">Riepilogo Carrello</h1>
+      <div className="d-flex p-5">
+        <Link className="back-link" to="/">
+          <FontAwesomeIcon icon={faArrowLeft} />
+          Torna alla Home
+        </Link>
+      </div>
+      <div className="d-flex justify-content-between">
+        <h1>Riepilogo Carrello</h1>
+        {cart.length != 0 && (
+          <Link>
+            <button
+              className="search-button w-auto mb-4"
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "Sei sicuro di voler svuotare il tuo carrello?",
+                  )
+                ) {
+                  clearCart();
+                }
+              }}
+            >
+              Svuota Carrello
+            </button>
+          </Link>
+        )}
+      </div>
       {cart.length === 0 && <p>Il carrello è vuoto</p>}
       {cart.map((item) => {
         // trova il prodotto completo dal backend
@@ -131,28 +158,10 @@ function CartPage() {
       })}
       {!emptyCart && (
         <>
-          <div className="wrap-total">
-            <p className="totale">
-              <strong>Totale :</strong> {total}€
-            </p>
+          <div className="d-flex align-items-center justify-content-end mt-2">
+            <span className="fs-3 fw-bold">Totale:</span>
+            <span className="ms-2 fw-bold fs-4 search-price">{total} €</span>
           </div>
-
-          <Link>
-            <button
-              className="search-button mb-4"
-              onClick={() => {
-                if (
-                  window.confirm(
-                    "Sei sicuro di voler svuotare il tuo carrello?",
-                  )
-                ) {
-                  clearCart();
-                }
-              }}
-            >
-              Svuota Carrello
-            </button>
-          </Link>
 
           <Link to={"/checkout"}>
             <button className="search-button mb-4">Vai al checkout</button>
