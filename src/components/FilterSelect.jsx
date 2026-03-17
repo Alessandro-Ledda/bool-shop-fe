@@ -16,7 +16,7 @@ export default function FilterSelect({
               setOrder(e.target.value);
             }}
           >
-            <option selected>Ordina per...</option>
+            <option defaultValue="">Ordina per...</option>
             <option value="less_price">Meno costoso</option>
             <option value="more_price">Più costoso</option>
             <option value="latest_arrivals">Ultimi arrivi</option>
