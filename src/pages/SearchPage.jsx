@@ -87,23 +87,29 @@ export default function SearchPage() {
       id="search-card-list"
       className="row container justify-content-center m-auto gy-5 pb-5"
     >
-      <div className="layout-buttons">
-        <button
-          onClick={() => setLayout("grid")}
-          className={
-            layout === "grid" ? "btn-active me-3" : "btn-not-active me-3"
-          }
-        >
-          <FontAwesomeIcon icon={faGripVertical} />
-        </button>
-        <button
-          onClick={() => setLayout("list")}
-          className={layout === "list" ? "btn-active" : "btn-not-active"}
-        >
-          <FontAwesomeIcon icon={faList} />
-        </button>
+      <div className="d-flex justify-content-between">
+        <div>
+          <Link className="back-link" to="/">
+            ← Torna alla Home
+          </Link>
+        </div>
+        <div className="layout-buttons">
+          <button
+            onClick={() => setLayout("grid")}
+            className={
+              layout === "grid" ? "btn-active me-3" : "btn-not-active me-3"
+            }
+          >
+            <FontAwesomeIcon icon={faGripVertical} />
+          </button>
+          <button
+            onClick={() => setLayout("list")}
+            className={layout === "list" ? "btn-active" : "btn-not-active"}
+          >
+            <FontAwesomeIcon icon={faList} />
+          </button>
+        </div>
       </div>
-
       <FilterSelect
         order={order}
         setOrder={setOrder}
