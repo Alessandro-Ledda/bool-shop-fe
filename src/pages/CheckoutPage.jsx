@@ -8,6 +8,7 @@ import "../styles/CheckoutPageStyle.css";
 
 const shippingBase = Number(import.meta.env.VITE_SHIPPING_COST);
 const endpointBase = import.meta.env.VITE_APP_URL;
+const shippingthreshold = Number(import.meta.env.VITE_SHIPPING_THRESHOLD);
 
 function CheckoutPage() {
   const { cart, clearCart } = useCart();
@@ -34,14 +35,14 @@ function CheckoutPage() {
       ? subtotal * (1 - discountPercentage / 100)
       : subtotal;
 
-  const shippingCost = discountedTotal > 100 ? 0 : shippingBase;
+  const shippingCost = discountedTotal > shippingthreshold ? 0 : shippingBase;
 
   const finalTotal = (discountedTotal + shippingCost).toFixed(2);
 
   const couponValidator = (e) => {
     e.preventDefault();
 
-    const endpoint = `${endpointBase}/api/coupons/${couponInput}`;
+    const endpoint = `${endpointBase}api/coupons/${couponInput}`;
 
     axios
       .get(endpoint)
