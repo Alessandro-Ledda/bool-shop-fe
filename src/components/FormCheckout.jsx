@@ -278,6 +278,9 @@ function FormCheckout({ coupon_code }) {
       <button type="submit" className="search-button mb-3">
         Conferma Ordine
       </button>
+      <p className="form-label text-uppercase small fw-semibold pt-2">
+        (*) campi obbligatori
+      </p>
     </form>
   );
 }
