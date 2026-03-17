@@ -146,7 +146,7 @@ function OrderSuccess() {
               </div>
 
               <div className="mb-2">
-                <span className="fw-medium">Indirizzo:</span>
+                <span className="fw-medium">Indirizzo di fatturazione:</span>
                 <span className="ms-2 text-muted">
                   {order.customer_address}
                 </span>

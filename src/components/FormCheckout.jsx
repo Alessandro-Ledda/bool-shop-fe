@@ -38,19 +38,24 @@ function FormCheckout({ coupon_code }) {
   const [formDataCustomer, setFormDataCustomer] = useState(
     initialFormDataCustomer,
   );
-  //creo oggetto in cui salvare l'oggetto finale da mandare in post al BE
-  const [objPost, setObjPost] = useState({});
 
   //var di stato globale per gestire indirizzo di fatturazione/spedizione
   const [sameAddress, setSameAddress] = useState(true);
-
   useEffect(() => {
-    setObjPost({
-      ...formDataCustomer,
-      coupon_code: coupon_code,
-      products: products,
-    });
-  }, [formDataCustomer]);
+    if (sameAddress) {
+      // copia automaticamente l’indirizzo di spedizione
+      setFormDataCustomer((formdata) => ({
+        ...formdata,
+        customer_address: formdata.customer_address_shipping,
+      }));
+    } else {
+      // resetta il campo fatturazione quando diventa visibile
+      setFormDataCustomer((formdata) => ({
+        ...formdata,
+        customer_address: "",
+      }));
+    }
+  }, [sameAddress]);
 
   const handleChange = (e) => {
     setFormDataCustomer({
@@ -61,21 +66,24 @@ function FormCheckout({ coupon_code }) {
 
   const endpoint = `${endpointBase}api/orders/`;
   const handleSubmit = (e) => {
-    sameAddress &&
-      setObjPost({
-        ...objPost,
-        customer_address: objPost.customer_address_shipping,
-      });
-    console.log(objPost);
-
     e.preventDefault();
 
     //attivo loader
     setIsLoading(true);
 
+    //creo oggetto finale da mandare come post
+    const finalObj = {
+      ...formDataCustomer,
+      customer_address: sameAddress
+        ? formDataCustomer.customer_address_shipping
+        : formDataCustomer.customer_address,
+      coupon_code: coupon_code,
+      products: products,
+    };
+
     let new_id;
     axios
-      .post(endpoint, objPost, {
+      .post(endpoint, finalObj, {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
@@ -94,7 +102,7 @@ function FormCheckout({ coupon_code }) {
         setIsLoading(false);
         //togliere commento per invio email
         // axios
-        //   .get(`${endpointBase}/api/email/${new_id}`)
+        //   .get(`${endpointBase}api/email/${new_id}`)
 
         //   .catch((err) => {
         //     //console.log(err);
