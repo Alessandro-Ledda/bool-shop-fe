@@ -10,12 +10,14 @@ import logoSm from "../assets/logo-just-barbell.svg";
 // import context
 import { useApi } from "../contexts/ApiProvider";
 import { useCart } from "../contexts/CartContext";
+import { useWishlist } from "../contexts/WishlistContext";
 
 const shippingthreshold = Number(import.meta.env.VITE_SHIPPING_THRESHOLD);
 
 function MainHeader() {
   const navigate = useNavigate();
   const { cart } = useCart();
+  const { wishlist } = useWishlist();
 
   const [search, setSearch] = useState("");
 
@@ -75,6 +77,13 @@ function MainHeader() {
             <ul>
               <Link to={"/wishlist"}>
                 <FontAwesomeIcon icon={faHeart} color="grey" />
+                {wishlist.length > 1 && (
+                  <div className="container-badge">
+                    <p>
+                      <span className="badge-cart-wishlist ms-5">{wishlist.length - 1}</span>
+                    </p>
+                  </div>
+                )}
               </Link>
               <Link to={"/cart"}>
                 <FontAwesomeIcon
