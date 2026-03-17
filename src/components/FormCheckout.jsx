@@ -93,7 +93,7 @@ function FormCheckout({ coupon_code }) {
       .finally(() => {
         setIsLoading(false);
         // axios
-        //   .get(`${endpointBase}/api/email/${new_id}`)
+        //   .get(`${endpointBase}api/email/${new_id}`)
 
         //   .catch((err) => {
         //     //console.log(err);
