@@ -11,6 +11,8 @@ import logoSm from "../assets/logo-just-barbell.svg";
 import { useApi } from "../contexts/ApiProvider";
 import { useCart } from "../contexts/CartContext";
 
+const shippingthreshold = Number(import.meta.env.VITE_SHIPPING_THRESHOLD);
+
 function MainHeader() {
   const navigate = useNavigate();
   const { cart } = useCart();
@@ -48,7 +50,9 @@ function MainHeader() {
         {/* Banner  */}
         <div className="py-2 text-center banner">
           <span className="fw-bold text-dark">SPEDIZIONI GRATUITE</span>
-          <span className="text-dark ms-1">SU ORDINI SOPRA I 100&euro;</span>
+          <span className="text-dark ms-1">
+            SU ORDINI SOPRA I {shippingthreshold}&euro;
+          </span>
         </div>
         {/* Navbar */}
         <div className="main-header d-flex justify-content-between align-items-center">
