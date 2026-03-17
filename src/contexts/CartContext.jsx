@@ -1,3 +1,4 @@
+
 // permette di usar il carrello in qualsiasi componente
 import { createContext, useContext, useState, useEffect } from "react";
 import { getCartFromStorage, saveCartToStorage } from "../utils/cartStorage";
@@ -11,49 +12,59 @@ export const CartProvider = ({ children }) => {
     setCart(getCartFromStorage());
   }, []);
 
-  useEffect(() => {
-    saveCartToStorage(cart);
-  }, [cart]);
-
   // aggiungi al carrello
   const addToCart = (product) => {
     setCart((prevCart) => {
       const exist = prevCart.find((item) => item.id === product.id);
 
+      let updated;
+
       if (exist) {
-        return prevCart.map((item) =>
+        updated = prevCart.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
-            : item,
+            : item
         );
+      } else {
+        updated = [...prevCart, { ...product, quantity: 1 }];
       }
 
-      return [...prevCart, { ...product, quantity: 1 }];
+      saveCartToStorage(updated);
+      return updated;
     });
   };
 
   // rimuovi dal carrello
   const removeFromCart = (id) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+    setCart((prev) => {
+      const updated = prev.filter((item) => item.id !== id);
+      saveCartToStorage(updated);
+      return updated;
+    });
   };
 
   const decreseFromCart = (product) => {
     setCart((prevCart) => {
-      return prevCart
+      const updated = prevCart
         .map((item) => {
           if (item.id === product.id && item.quantity > 0) {
-            //decremento se  la quantità di 1
             return { ...item, quantity: item.quantity - 1 };
           } else {
             return item;
           }
         })
         .filter((item) => item.quantity > 0);
+
+      saveCartToStorage(updated);
+      return updated;
     });
   };
 
   // pulizia carrello
-  const clearCart = () => setCart([]);
+  const clearCart = () => {
+    setCart([]);
+    saveCartToStorage([]);
+  };
 
   return (
     <CartContext.Provider
