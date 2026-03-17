@@ -8,7 +8,7 @@ export default function FilterSelect({
     <>
       <div className="filter-container mt-5 row justify-content-between">
         <div className="my-select d-flex align-items-center col-3">
-          <span className="me-2 col-6">Ordina per...</span>
+          {/* <span className="me-2 col-6">Ordina per...</span> */}
           <select
             value={order}
             className="search-select"
@@ -16,7 +16,7 @@ export default function FilterSelect({
               setOrder(e.target.value);
             }}
           >
-            <option selected></option>
+            <option selected>Ordina per...</option>
             <option value="less_price">Meno costoso</option>
             <option value="more_price">Più costoso</option>
             <option value="latest_arrivals">Ultimi arrivi</option>
