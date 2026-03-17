@@ -199,6 +199,7 @@ main {
 .wishlist-icon-list {
   position: absolute;
   z-index: 999;
+  top: 10px;
   border: none;
   background: rgba(255, 255, 255, 0.623);
 }
@@ -592,6 +593,7 @@ a {
 }
 
 .search-list-card {
+  overflow: hidden;
   border: 2px solid transparent #f09226;
   outline: 2px solid rgb(240, 146, 38);
   border-radius: 20px;
@@ -714,9 +716,13 @@ a {
 }
 
 .sale-badge {
+  white-space: nowrap;
+  z-index: 10;
+  overflow: hidden;
   position: absolute;
   top: 2px;
-  width: 200px;
+  right: 40px;
+  width: 20%;
   height: 32px;
   background: #e63946;
   color: white;
@@ -728,6 +734,13 @@ a {
   border-radius: 3px 0 0 3px;
   box-shadow: 0 2px 8px rgba(230, 57, 70, 0.4);
 }
+
+/* @media (max-width: 1392px) {
+  .badge-sale-hide {
+    display: none !important;
+  }
+} */
+
 
 /* search page style per order e filter */
 

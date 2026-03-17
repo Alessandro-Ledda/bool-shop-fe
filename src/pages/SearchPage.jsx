@@ -106,25 +106,21 @@ export default function SearchPage() {
           </button>
         </div>
       </div>
+
       <FilterSelect
         order={order}
         setOrder={setOrder}
         isFilterOn={isFilterOn}
         setIsFilterOn={setIsFilterOn}
       />
+
       <div className="row justify-content-center gy-3 gx-3">
         {layout === "grid"
           ? filteredProducts.map((product) => (
             <div key={product.id} className="search-grid-card col-lg-3 col-md-4 col-sm-8 col-8 me-2 p-2">
-              <button
-                className="wishlist-icon"
-                onClick={() => toggleWishlist(product.id)}
-              >
+              <button className="wishlist-icon" onClick={() => toggleWishlist(product.id)}>
                 <span>
-                  <FontAwesomeIcon
-                    color="#F09226"
-                    icon={isInWishlist(product.id) ? fasHeart : farHeart}
-                  />
+                  <FontAwesomeIcon color="#F09226" icon={isInWishlist(product.id) ? fasHeart : farHeart} />
                 </span>
               </button>
               <Link to={`/products/${product.slug}`}>
@@ -133,105 +129,92 @@ export default function SearchPage() {
                     <span className="sale-badge">SALE</span>
                   </div>
                 ) : null}
-                <img
-                  className="img-detail-grid"
-                  src={product.image_url}
-                  alt={product.name}
-                />
+                <img className="img-detail-grid" src={product.image_url} alt={product.name} />
                 <h1 className="text-dark">{product.name}</h1>
               </Link>
               <p>{product.description}</p>
               {product.discount_percentage ? (
                 <>
                   <div className="d-flex justify-content-between">
-                    <p className="fw-bold d-inline search-price text-decoration-line-through">
-                      {product.price}€
-                    </p>
-                    <span className="discounted-badge">
-                      {`${product.discount_percentage} %`}
-                    </span>
+                    <p className="fw-bold d-inline search-price text-decoration-line-through">{product.price}€</p>
+                    <span className="discounted-badge badge-sale-hide">{`${product.discount_percentage} %`}</span>
                   </div>
                   <span className="fw-bold fs-5 search-price">
-                    {` ${(product.price - (product.price * product.discount_percentage) / 100).toFixed(2)}€`}
+                    {(product.price * (1 - product.discount_percentage / 100)).toFixed(2)}€
                   </span>
                 </>
               ) : (
                 <p className="fw-bold search-price">{`${product.price}€`}</p>
               )}
               <div className="add-cart">
-                <button
-                  onClick={() => addToCart(product)}
-                  className="search-button mb-3"
-                >
+                <button onClick={() => addToCart(product)} className="search-button mb-3">
                   Aggiungi al carrello
                 </button>
               </div>
             </div>
           ))
           : filteredProducts.map((product) => (
-            <div key={product.id} className="card-relative-list col-12">
-              <Link to={`/products/${product.slug}`}>
-                <div className="card search-list-card d-flex flex-row justify-content-between">
-                  <button
-                    className="wishlist-icon-list"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      toggleWishlist(product.id);
-                    }}
-                  >
-                    <span>
-                      <FontAwesomeIcon
-                        color="#F09226"
-                        icon={isInWishlist(product.id) ? fasHeart : farHeart}
-                      />
-                    </span>
-                  </button>
-                  <img
-                    src={product.image_url}
-                    alt={product.name}
-                    className="w-25"
+            <div key={product.id} className="col-12 mb-3 px-0">
+              <div className="card search-list-card p-3 p-md-4 position-relative w-100 overflow-visible">
+
+                {product.discount_percentage && (
+                  <span className=" sale-badge">
+                    SALE
+                  </span>
+                )}
+
+                <button
+                  className="position-absolute top-0 end-0  wishlist-icon-list"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleWishlist(product.id);
+                  }}
+                >
+                  <FontAwesomeIcon
+                    color="#F09226"
+                    icon={isInWishlist(product.id) ? fasHeart : farHeart}
+                    size="lg"
                   />
-                  <div className="search-list-description ms-3 mt-2 flex-grow-1">
-                    {product.discount_percentage ? (
-                      <div className="d-flex flex-start me-4 mb-2">
-                        <span className="sale-badge">SALE</span>
-                      </div>
-                    ) : null}
-                    <h3 className="search-list-title fw-bold w-100">
-                      {product.name}
-                    </h3>
-                    <p className="fs-5">{product.description}</p>
-                    {product.discount_percentage ? (
-                      <>
-                        <div className="d-flex justify-content-between align-items-center">
-                          <p className="fw-bold d-inline search-price mb-0 text-decoration-line-through">
-                            {product.price}€
-                          </p>
-                          <span className="calc-price fw-bold fs-5 search-price">
-                            {` ${(product.price - (product.price * product.discount_percentage) / 100).toFixed(2)}€`}
+                </button>
+
+                <Link to={`/products/${product.slug}`} className="w-100 text-decoration-none">
+                  <div className="row g-3 gx-md-3 align-items-center">
+                    <div className="col-12 col-md-4 col-lg-3 px-0 px-md-2">
+                      <img src={product.image_url} alt={product.name} className="img-fluid rounded w-100" />
+                    </div>
+                    <div className="col-12 col-md-5 col-lg-6 px-0 px-md-2">
+                      <h3 className="search-list-title fw-bold fs-5 mb-2 text-dark">{product.name}</h3>
+                      <p className="fs-6  mb-2 mb-md-3 text-dark">{product.description}</p>
+                      {product.discount_percentage ? (
+                        <div className="d-flex flex-wrap gap-2 align-items-center">
+                          <span className="text-decoration-line-through search-price small">{product.price}€</span>
+                          <span className="fw-bold fs-5 search-price">
+                            {(product.price * (1 - product.discount_percentage / 100)).toFixed(2)}€
                           </span>
-                          <span className="discounted-badge me-5">
-                            {`${product.discount_percentage} %`}
-                          </span>
+                          <span className="discounted-badge badge-sale-hide ms-3">{`${product.discount_percentage} %`}</span>
                         </div>
-                      </>
-                    ) : (
-                      <p className="fw-bold search-price">{`${product.price}€`}</p>
-                    )}
+                      ) : (
+                        <p className="fw-bold fs-5 mb-0 search-price">{product.price}€</p>
+                      )}
+                    </div>
+                    <div className="col-12 col-md-3 px-0 px-md-2 text-md-end mt-2 mt-md-0">
+                      <button
+                        className="search-button w-100 w-md-auto px-4"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          addToCart(product);
+                        }}
+                      >
+                        Aggiungi al carrello
+                      </button>
+                    </div>
                   </div>
-                  <div className="add-cart me-5 align-self-center">
-                    <button
-                      onClick={() => addToCart(product)}
-                      className="search-button"
-                    >
-                      Aggiungi al carrello
-                    </button>
-                  </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
             </div>
-          ))}
+          ))
+        }
       </div>
     </div>
   );
