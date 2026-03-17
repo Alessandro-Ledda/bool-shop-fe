@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function CartPage() {
   const { cart, removeFromCart, addToCart, decreseFromCart, clearCart } =
@@ -20,6 +21,13 @@ function CartPage() {
       0,
     )
     .toFixed(2);
+
+  // scroll to top quando il prodotto viene caricato
+  useEffect(() => {
+    if (cart.length > 0) {
+      window.scrollTo(0, 0);
+    }
+  }, [cart]);
 
   return (
     <div className="container">

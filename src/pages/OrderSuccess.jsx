@@ -50,6 +50,13 @@ function OrderSuccess() {
 
   useEffect(fetchOrder, []);
 
+  //scroll to top quando i dati dell'ordine arrivano
+  useEffect(() => {
+    if (orderData) {
+      window.scrollTo(0, 0);
+    }
+  }, [orderData]);
+
   // Loader
   if (isLoading || !orderData) {
     return (
@@ -139,7 +146,7 @@ function OrderSuccess() {
               </div>
 
               <div className="mb-2">
-                <span className="fw-medium">Indirizzo:</span>
+                <span className="fw-medium">Indirizzo di fatturazione:</span>
                 <span className="ms-2 text-muted">
                   {order.customer_address}
                 </span>
