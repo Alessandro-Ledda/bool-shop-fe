@@ -77,10 +77,10 @@ function MainHeader() {
             <ul>
               <Link to={"/wishlist"}>
                 <FontAwesomeIcon icon={faHeart} color="grey" />
-                {wishlist.length > 1 && (
+                {wishlist.length > 0 && (
                   <div className="container-badge">
                     <p>
-                      <span className="badge-cart-wishlist ms-5">{wishlist.length - 1}</span>
+                      <span className="badge-cart-wishlist ms-5">{wishlist.length}</span>
                     </p>
                   </div>
                 )}
