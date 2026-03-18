@@ -64,7 +64,7 @@ function MainHeader() {
           <Link to={"/"} className="d-md-none logo">
             <img src={logoSm} alt="" />
           </Link>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form className="search-bar" onSubmit={(e) => e.preventDefault()}>
             <input
               type="text"
               className="my-search-bar form-control-plaintext "
