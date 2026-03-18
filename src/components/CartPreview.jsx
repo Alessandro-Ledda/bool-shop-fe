@@ -30,7 +30,7 @@ function CartPreview() {
             <div className="col-12 col-md-10 mx-auto mb-3" key={item.id}>
               <div className="card shadow-sm rounded-3">
                 <div className="row g-0 align-items-center p-3">
-                  <div className="col-4 col-md-2 text-center">
+                  <div className="col-4 col-md-2 text-center d-none d-md-block">
                     {product?.image_url && (
                       <Link to={`/products/${item.slug}`}>
                         <img
@@ -42,22 +42,31 @@ function CartPreview() {
                       </Link>
                     )}
                   </div>
-                  <div className="col-8 col-md-4 ">
+
+                  <div className="col-12 col-md-4 mt-2 mt-md-0">
                     <Link to={`/products/${item.slug}`}>
                       <h5 className="mb-1 text-black">{item.name}</h5>
 
                       {item.discount_percentage && (
                         <span className="text-danger fw-bolder">
-                          {`- ${item.discount_percentage} %`}
+                          - {item.discount_percentage} %
                         </span>
                       )}
                     </Link>
                   </div>
 
                   <div className="col-12 col-md-6 mt-3 mt-md-0">
-                    <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center w-100 gap-2">
-                      {/* quantity */}
-                      <div className="d-flex align-items-center ">
+                    <div
+                      className="
+                      d-flex 
+                      flex-row flex-md-row 
+                      justify-content-between 
+                      align-items-center 
+                      w-100 
+                      gap-3
+                    "
+                    >
+                      <div className="d-flex align-items-center flex-row">
                         <button
                           className="btn btn-outline-secondary btn-sm me-2"
                           onClick={() => decreseFromCart(item)}
@@ -73,45 +82,48 @@ function CartPreview() {
                         </button>
                       </div>
 
-                      {/* price + trash */}
-                      <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center text-start text-md-end gap-2">
-                        {/* price */}
-                        <div>
-                          <span className="d-block fw-bold">
+                      <div
+                        className="
+                        d-flex 
+                        flex-column 
+                        text-start text-md-end
+                        lh-sm
+                      "
+                      >
+                        <span className="fw-bold">
+                          {(
+                            (item.price -
+                              (item.price * item.discount_percentage) / 100) *
+                            item.quantity
+                          ).toFixed(2)}
+                          €
+                        </span>
+
+                        {item.discount_percentage ? (
+                          <small className="text-muted fs-6">
+                            (
                             {(
-                              (item.price -
-                                (item.price * item.discount_percentage) / 100) *
-                              item.quantity
+                              item.price -
+                              (item.price * item.discount_percentage) / 100
                             ).toFixed(2)}
-                            €
-                          </span>
-
-                          {item.discount_percentage ? (
-                            <small className="text-muted fs-6">
-                              (
-                              {(
-                                item.price -
-                                (item.price * item.discount_percentage) / 100
-                              ).toFixed(2)}
-                              €/pz)
-                            </small>
-                          ) : (
-                            <div>
-                              <small className="text-muted fs-6">
-                                ({item.price}€/pz)
-                              </small>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* trash */}
-                        <button
-                          className="btn btn-danger btn-sm align-self-start align-self-md-end"
-                          onClick={() => removeFromCart(item.id)}
-                        >
-                          <FontAwesomeIcon icon={faTrash} color="white" />
-                        </button>
+                            €/pz)
+                          </small>
+                        ) : (
+                          <small className="text-muted fs-6">
+                            ({item.price}€/pz)
+                          </small>
+                        )}
                       </div>
+
+                      <button
+                        className="
+                          btn btn-danger btn-sm 
+                          align-self-center align-self-md-end
+                        "
+                        onClick={() => removeFromCart(item.id)}
+                      >
+                        <FontAwesomeIcon icon={faTrash} color="white" />
+                      </button>
                     </div>
                   </div>
                 </div>

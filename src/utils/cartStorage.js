@@ -18,9 +18,20 @@ export const saveCartToStorage = (cart) => {
 // wishlist
 // lettura wishlist
 export const getWishlistFromStorage = () => {
-    const wishlist = localStorage.getItem(WISHLIST_KEY);
-    return wishlist ? JSON.parse(wishlist) : [];
+    const raw = localStorage.getItem(WISHLIST_KEY);
+    if (!raw) return [];
+
+    try {
+        const parsed = JSON.parse(raw);
+        if (!parsed || !Array.isArray(parsed)) return [];
+
+        return parsed.filter((id) => id != null);
+    } catch (e) {
+        console.warn("Errore parsing wishlist:", e);
+        return [];
+    }
 };
+
 
 // srcittura wishlist
 export const saveWishlistToStorage = (wishlist) => {
