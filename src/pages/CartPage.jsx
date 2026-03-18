@@ -27,7 +27,7 @@ function CartPage() {
     if (cart.length > 0) {
       window.scrollTo(0, 0);
     }
-  }, [cart]);
+  }, []);
 
   return (
     <div className="container">

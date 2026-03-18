@@ -70,7 +70,7 @@ function CheckoutPage() {
     if (cart.length > 0) {
       window.scrollTo(0, 0);
     }
-  }, [cart]);
+  }, []);
 
   if (cart.length === 0) {
     return (
@@ -218,7 +218,7 @@ function CheckoutPage() {
           </div>
         </div>
 
-        <div className="col-12 col-xxl-6">
+        <div className="col-12 col-xxl-6 mb-5">
           <div className="shadow-sm p-3 rounded bg-white">
             <FormCheckout coupon_code={couponCode} />
           </div>
