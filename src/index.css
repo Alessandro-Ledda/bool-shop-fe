@@ -788,36 +788,35 @@ a {
   font-weight: 500;
 }
 
-.filter-container {
-  background: #f8f9fa;
-  border-radius: 10px;
-  padding: 15px 2000px;
-  margin: 20px 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.filter-search-active,
+.filter-search-not-active {
+  width: 200px !important;
+  padding: 10px 10px !important;
+  border: none !important;
+  border-radius: 25px !important;
+  background: linear-gradient(145deg, #f09226, #ff6b35) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: black !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  margin-left: 20px;
 }
 
+
 .filter-search-active {
-  padding: 10px 20px;
-  border: none;
-  font-weight: bold !important;
-  background-color: #f09226;
-  border-radius: 25px;
-  font-weight: 500;
-  font-size: 14px;
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(145deg, #f09226, #ff6b35) !important;
 }
 
 .filter-search-not-active {
-  padding: 10px 20px;
-  border: none;
-  font-weight: bold !important;
-  background-color: #ffe2c1;
-  border-radius: 25px;
-  font-weight: 500;
-  font-size: 14px;
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(145deg, #ffe2c1, #ffd8ab) !important;
+  color: black !important;
+}
+
+
+.filter-container {
+  padding: 15px 20px !important;
 }
 
 /* style riepilogo carrello */
