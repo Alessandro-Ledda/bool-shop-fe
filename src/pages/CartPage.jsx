@@ -101,7 +101,7 @@ function CartPage() {
                 </div>
 
                 {/* quantity */}
-                <div className="col-6 col-md-2 d-flex align-items-center mt-2 mt-md-0">
+                <div className="col-4 col-md-1 d-flex align-items-center mt-2 mt-md-0">
                   <button
                     className="btn btn-outline-secondary btn-sm me-2"
                     onClick={() => decreseFromCart(item)}
@@ -118,15 +118,7 @@ function CartPage() {
                 </div>
 
                 {/* price */}
-                <div className="col-6 col-md-2 text-md-end mt-2 mt-md-0">
-                  <span className="d-block fw-bold">
-                    {(
-                      (item.price -
-                        (item.price * item.discount_percentage) / 100) *
-                      item.quantity
-                    ).toFixed(2)}
-                    €
-                  </span>
+                <div className="col-4 col-md-2 text-md-end mt-2 mt-md-0">
                   {item.discount_percentage ? (
                     <>
                       <div>
@@ -149,9 +141,17 @@ function CartPage() {
                     </div>
                   )}
                 </div>
+                <div className="col-4 col-md-2 text-end mt-2 mt-md-0 fw-bold">
+                  {(
+                    (item.price -
+                      (item.price * item.discount_percentage) / 100) *
+                    item.quantity
+                  ).toFixed(2)}
+                  €
+                </div>
 
                 {/* trash */}
-                <div className="col-12 col-md-2 text-end mt-2 mt-md-0">
+                <div className="col-12 col-md-1 text-end mt-2 mt-md-0">
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={() => removeFromCart(item.id)}
