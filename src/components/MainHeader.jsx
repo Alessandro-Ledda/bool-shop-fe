@@ -1,6 +1,6 @@
 // import link
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +20,27 @@ function MainHeader() {
   const { wishlist } = useWishlist();
 
   const [search, setSearch] = useState("");
+  const [placeholder, setPlaceholder] = useState("Cerca il tuo prodotto");
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 768px)");
+
+    const updatePlaceholder = () => {
+      if (media.matches) {
+        setPlaceholder("Cerca...");
+      } else {
+        setPlaceholder("Cerca il tuo prodotto");
+      }
+    };
+
+    updatePlaceholder();
+
+    media.addEventListener("change", updatePlaceholder);
+
+    return () => {
+      media.removeEventListener("change", updatePlaceholder);
+    };
+  }, []);
 
   // const handleSearch = (e) => {
   //   e.preventDefault();
@@ -68,7 +89,7 @@ function MainHeader() {
             <input
               type="text"
               className="my-search-bar form-control-plaintext "
-              placeholder="Cerca il tuo prodotto"
+              placeholder={placeholder}
               value={search}
               onChange={handleSearch}
             />
@@ -80,7 +101,9 @@ function MainHeader() {
                 {wishlist.length > 0 && (
                   <div className="container-badge">
                     <p>
-                      <span className="badge-cart-wishlist ms-5">{wishlist.length}</span>
+                      <span className="badge-cart-wishlist ms-5">
+                        {wishlist.length}
+                      </span>
                       {console.log(wishlist)}
                       {console.log(typeof wishlist)}
                     </p>
