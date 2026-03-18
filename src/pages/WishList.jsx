@@ -54,7 +54,7 @@ function WishList() {
                   </div>
 
                   <div className="col-2 text-end">
-                    <p>{product.price}€</p>
+                    <p className="price-align">{product.price}€</p>
                   </div>
 
                   <div className="col-12 col-md-2 text-end mt-2 mt-md-0">
