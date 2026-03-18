@@ -33,14 +33,14 @@ function WishList() {
         ) : (
           wishListProducts.map((product) => (
             <div className="col-12 col-md-10 mx-auto mb-3" key={product.id}>
-              <div className="card shadow-sm rounded-3">
+              <div className="card shadow-sm wishlist-card rounded-3 d-flex justify-content-center">
                 <div className="row g-0 align-items-center p-3">
                   <div className="col-4 col-md-2 text-center">
                     {product?.image_url && (
                       <img
                         src={product.image_url}
                         alt={product.name}
-                        className="img-fluid rounded"
+                        className="img-fluid wishlist-img rounded"
                         style={{ maxHeight: "100px", objectFit: "contain" }}
                       />
                     )}
@@ -54,7 +54,23 @@ function WishList() {
                   </div>
 
                   <div className="col-2 text-end">
-                    <p>{product.price}€</p>
+                    {product.discount_percentage && (
+                      <span className="discounted-badge">
+                        {`${product.discount_percentage} %`}
+                      </span>
+                    )}
+                    <div className="price-align pe-2 d-flex flex-column">
+                      {product.discount_percentage ? (
+                        <>
+                          <span className="text-decoration-line-through ps-5 ">{product.price}€</span>
+                          <span className="search-price fw-bold">{(product.price - (product.price * product.discount_percentage) / 100).toFixed(2)} €</span>
+
+
+                        </>
+                      ) : (
+                        <span className="search-price fw-bold">{product.price} €</span>
+                      )}
+                    </div>
                   </div>
 
                   <div className="col-12 col-md-2 text-end mt-2 mt-md-0">
