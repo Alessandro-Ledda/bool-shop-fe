@@ -64,7 +64,7 @@ function ListProducts() {
             Tutti i prodotti <FontAwesomeIcon icon={faArrowRight} />
           </Link>
         </div>
-        <h2 className="pt-5">Discount products</h2>
+        <h2 className="pt-5">Prodotti in sconto</h2>
         <Swiper
           className="p-5"
           modules={[Navigation]}
@@ -83,7 +83,7 @@ function ListProducts() {
       </div>
 
       <div className="container mt-5">
-        <h2 className="pt-5">Latest arrivals</h2>
+        <h2 className="pt-5">Ultimi arrivi</h2>
 
         <Swiper
           className="p-5"
