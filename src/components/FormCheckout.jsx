@@ -8,6 +8,8 @@ import { useCart } from "../contexts/CartContext";
 //importo navigate per poi passare nella pagina di messaggio
 import { useNavigate } from "react-router-dom";
 
+import Swal from "sweetalert2";
+
 const endpointBase = import.meta.env.VITE_APP_URL;
 
 function FormCheckout({ coupon_code }) {
@@ -95,7 +97,16 @@ function FormCheckout({ coupon_code }) {
       })
       .catch((err) => {
         //console.log(err);
-        if (err.status === 400) window.alert(err.response.data.error);
+        if (err.status === 400)
+          Swal.fire({
+            title: "Errore",
+            text: err.response?.data?.error,
+            icon: "error",
+            confirmButtonText: "OK",
+            confirmButtonColor: "#F09226",
+          });
+
+        // window.alert(err.response.data.error);
         if (err.status === 500) navigate("/500_error_internal_server");
       })
       .finally(() => {
@@ -107,22 +118,11 @@ function FormCheckout({ coupon_code }) {
           .catch((err) => {
             //console.log(err);
             if (err.status === 500) {
-              window.alert(err.response.data.error);
-              navigate("/500_error_internal_server");
+              // window.alert(err.response.data.error);
+              // navigate("/500_error_internal_server");
             }
           })
           .finally(console.log(new_id));
-        //       axios
-        //         .get(`${endpointBase}api/email/${new_id}`)
-
-        //         .catch((err) => {
-        //           console.log(err);
-        //           if (err.status === 500) {
-        //             window.alert(err.response.data.error);
-        //             navigate("/500_error_internal_server");
-        //           }
-        //         })
-        //         .finally(console.log(new_id));
       });
   };
 

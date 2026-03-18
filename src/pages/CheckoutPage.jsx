@@ -15,7 +15,7 @@ function CheckoutPage() {
   const navigate = useNavigate();
 
   // Coupon state
-  const [couponCheckBox, setCouponCheckBox] = useState(false);
+  const [couponCheckBox, setCouponCheckBox] = useState(true);
   const [couponInput, setCouponInput] = useState("");
   const [couponCode, setCouponCode] = useState("");
   const [couponStatus, setCouponStatus] = useState("none");
@@ -119,8 +119,10 @@ function CheckoutPage() {
       <div className="col-12 mb-3">
         <div className={`p-3 ${bg} bg-gradient text-white rounded-3`}>
           <h2 className="h5 text-center mb-3 fw-semibold">
-            {couponMessage}{" "}
-            <span className=" fw-bolder px-3">- {discountPercentage} %</span>
+            {couponMessage}
+            {isValid && (
+              <span className=" fw-bolder px-3">- {discountPercentage} %</span>
+            )}
           </h2>
 
           <div className="text-center">
