@@ -53,8 +53,8 @@ function CartPage() {
                     showCancelButton: true,
                     confirmButtonText: "Conferma",
                     cancelButtonText: "Annulla",
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
+                    confirmButtonColor: "#F09226",
+                    cancelButtonColor: "rgb(251, 3, 3)",
                   }).then((result) => {
                     if (result.isConfirmed) {
                       clearCart();
