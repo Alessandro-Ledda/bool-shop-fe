@@ -5,6 +5,7 @@ import FormCheckout from "../components/FormCheckout";
 import CartPreview from "../components/CartPreview";
 import axios from "axios";
 import "../styles/CheckoutPageStyle.css";
+import Swal from "sweetalert2";
 
 const shippingBase = Number(import.meta.env.VITE_SHIPPING_COST);
 const endpointBase = import.meta.env.VITE_APP_URL;
@@ -210,14 +211,22 @@ function CheckoutPage() {
               <button
                 className="search-button mt-3"
                 onClick={() => {
-                  if (
-                    window.confirm(
-                      "Sei sicuro di voler svuotare il tuo carrello?",
-                    )
-                  ) {
-                    clearCart();
-                    navigate("/");
-                  }
+                  Swal.fire({
+                    title: "ATTENZIONE",
+                    text: "Sei sicuro di voler svuotare il tuo carrello?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Conferma",
+                    cancelButtonText: "Annulla",
+                    confirmButtonColor: "#F09226",
+                    cancelButtonColor: "rgb(251, 3, 3)",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      clearCart();
+                      // QUI fai l'azione di conferma
+                      console.log("Confermato!");
+                    }
+                  });
                 }}
               >
                 Svuota Carrello

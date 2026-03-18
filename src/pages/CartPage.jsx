@@ -5,6 +5,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 function CartPage() {
   const { cart, removeFromCart, addToCart, decreseFromCart, clearCart } =
@@ -43,15 +44,36 @@ function CartPage() {
           <Link>
             <button
               className="search-button w-auto mb-4"
-              onClick={() => {
-                if (
-                  window.confirm(
-                    "Sei sicuro di voler svuotare il tuo carrello?",
-                  )
-                ) {
-                  clearCart();
+              onClick={
+                () => {
+                  Swal.fire({
+                    title: "ATTENZIONE",
+                    text: "Sei sicuro di voler svuotare il tuo carrello?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Conferma",
+                    cancelButtonText: "Annulla",
+                    confirmButtonColor: "#F09226",
+                    cancelButtonColor: "rgb(251, 3, 3)",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      clearCart();
+                      // QUI fai l'azione di conferma
+                      console.log("Confermato!");
+                    }
+                  });
                 }
-              }}
+
+                //   () => {
+                //   if (
+                //     window.confirm(
+                //       "Sei sicuro di voler svuotare il tuo carrello?",
+                //     )
+                //   ) {
+                //     clearCart();
+                //   }
+                // }
+              }
             >
               Svuota Carrello
             </button>
