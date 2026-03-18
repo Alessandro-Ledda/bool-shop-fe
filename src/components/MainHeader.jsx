@@ -82,6 +82,7 @@ function MainHeader() {
                     <p>
                       <span className="badge-cart-wishlist ms-5">{wishlist.length}</span>
                       {console.log(wishlist)}
+                      {console.log(typeof wishlist)}
                     </p>
                   </div>
                 )}
