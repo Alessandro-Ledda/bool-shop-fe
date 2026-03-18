@@ -118,7 +118,10 @@ function CheckoutPage() {
     return (
       <div className="col-12 mb-3">
         <div className={`p-3 ${bg} bg-gradient text-white rounded-3`}>
-          <h2 className="h5 text-center mb-3 fw-semibold">{couponMessage}</h2>
+          <h2 className="h5 text-center mb-3 fw-semibold">
+            {couponMessage}{" "}
+            <span className=" fw-bolder px-3">- {discountPercentage} %</span>
+          </h2>
 
           <div className="text-center">
             <button
@@ -176,6 +179,9 @@ function CheckoutPage() {
                     <span className="fw-semibold">Totale originale:</span>
                     <span className="ms-2 fs-5 text-decoration-line-through search-price">
                       {subtotal.toFixed(2)} €
+                    </span>
+                    <span className="text-danger fw-bolder px-3">
+                      -{discountPercentage} %
                     </span>
                   </div>
                 )}
