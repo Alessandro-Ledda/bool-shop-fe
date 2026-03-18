@@ -874,3 +874,11 @@ a {
 .price-align {
   margin-bottom: 0 !important;
 }
+
+.wishlist-card {
+  height: 100px;
+}
+
+.wishlist-img {
+  max-height: 80px !important;
+}
