@@ -101,17 +101,17 @@ function FormCheckout({ coupon_code }) {
       .finally(() => {
         setIsLoading(false);
         //togliere commento per invio email
-        // axios
-        //   .get(`${endpointBase}api/email/${new_id}`)
+        //       axios
+        //         .get(`${endpointBase}api/email/${new_id}`)
 
-        //   .catch((err) => {
-        //     //console.log(err);
-        //     if (err.status === 500) {
-        //       window.alert(err.response.data.error);
-        //       navigate("/500_error_internal_server");
-        //     }
-        //   })
-        //   .finally(console.log(new_id));
+        //         .catch((err) => {
+        //           console.log(err);
+        //           if (err.status === 500) {
+        //             window.alert(err.response.data.error);
+        //             navigate("/500_error_internal_server");
+        //           }
+        //         })
+        //         .finally(console.log(new_id));
       });
   };
 
