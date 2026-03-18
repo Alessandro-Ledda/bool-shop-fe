@@ -165,16 +165,15 @@ function CartPage() {
         );
       })}
       {!emptyCart && (
-        <>
-          <div className="d-flex align-items-center justify-content-end mt-2">
+        <div className="col-12 col-md-10 mx-auto mb-3">
+          <div className="d-flex align-items-center justify-content-end mt-2 ">
             <span className="fs-3 fw-bold">Totale:</span>
             <span className="ms-2 fw-bold fs-4 search-price">{total} €</span>
           </div>
-
           <Link to={"/checkout"}>
             <button className="search-button mb-4">Vai al checkout</button>
           </Link>
-        </>
+        </div>
       )}
     </div>
   );
