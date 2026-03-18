@@ -37,7 +37,7 @@ function CartPreview() {
                           src={product.image_url}
                           alt={item.name}
                           className="img-fluid rounded"
-                          style={{ maxHeight: "100px", objectFit: "contain" }}
+                          style={{ maxHeight: "50px", objectFit: "contain" }}
                         />
                       </Link>
                     )}
@@ -45,14 +45,10 @@ function CartPreview() {
                   <div className="col-8 col-md-4 ">
                     <Link to={`/products/${item.slug}`}>
                       <h5 className="mb-1 text-black">{item.name}</h5>
-                      {product?.description && (
-                        <p className="mb-0 text-muted small">
-                          {product.description}
-                        </p>
-                      )}
+
                       {item.discount_percentage && (
-                        <span className="discounted-badge">
-                          {`${item.discount_percentage} %`}
+                        <span className="text-danger fw-bolder">
+                          {`- ${item.discount_percentage} %`}
                         </span>
                       )}
                     </Link>
@@ -89,25 +85,19 @@ function CartPreview() {
                             ).toFixed(2)}
                             €
                           </span>
+
                           {item.discount_percentage ? (
-                            <>
-                              <div>
-                                <small className="text-muted text-decoration-line-through">
-                                  ({item.price}€/pz)
-                                </small>
-                              </div>
-                              <small className="text-muted ">
-                                (
-                                {(
-                                  item.price -
-                                  (item.price * item.discount_percentage) / 100
-                                ).toFixed(2)}
-                                €/pz)
-                              </small>
-                            </>
+                            <small className="text-muted fs-6">
+                              (
+                              {(
+                                item.price -
+                                (item.price * item.discount_percentage) / 100
+                              ).toFixed(2)}
+                              €/pz)
+                            </small>
                           ) : (
                             <div>
-                              <small className="text-muted ">
+                              <small className="text-muted fs-6">
                                 ({item.price}€/pz)
                               </small>
                             </div>

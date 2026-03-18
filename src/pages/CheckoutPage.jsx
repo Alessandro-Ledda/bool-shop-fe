@@ -70,7 +70,7 @@ function CheckoutPage() {
     if (cart.length > 0) {
       window.scrollTo(0, 0);
     }
-  }, [cart]);
+  }, []);
 
   if (cart.length === 0) {
     return (
@@ -118,7 +118,10 @@ function CheckoutPage() {
     return (
       <div className="col-12 mb-3">
         <div className={`p-3 ${bg} bg-gradient text-white rounded-3`}>
-          <h2 className="h5 text-center mb-3 fw-semibold">{couponMessage}</h2>
+          <h2 className="h5 text-center mb-3 fw-semibold">
+            {couponMessage}{" "}
+            <span className=" fw-bolder px-3">- {discountPercentage} %</span>
+          </h2>
 
           <div className="text-center">
             <button
@@ -177,6 +180,9 @@ function CheckoutPage() {
                     <span className="ms-2 fs-5 text-decoration-line-through search-price">
                       {subtotal.toFixed(2)} €
                     </span>
+                    <span className="text-danger fw-bolder px-3">
+                      -{discountPercentage} %
+                    </span>
                   </div>
                 )}
 
@@ -218,7 +224,7 @@ function CheckoutPage() {
           </div>
         </div>
 
-        <div className="col-12 col-xxl-6">
+        <div className="col-12 col-xxl-6 mb-5">
           <div className="shadow-sm p-3 rounded bg-white">
             <FormCheckout coupon_code={couponCode} />
           </div>
